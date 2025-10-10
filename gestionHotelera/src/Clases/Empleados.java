@@ -1,5 +1,7 @@
 package Clases;
 
+import Enums.TipoRol;
+
 import java.util.Scanner;
 
 public abstract class Empleados extends Usuarios{
@@ -8,22 +10,23 @@ public abstract class Empleados extends Usuarios{
     private String contrasenia;
 
     //constructores
-    public Empleados(int idUsuario, String nombre, String apellido, int dni, String nombreUsuario, String email, String contrasenia) {
-        super(idUsuario, nombre, apellido, dni);
+
+    public Empleados(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email) {
+        super(idUsuario, nombre, apellido, dni, tipoRol);
         this.nombreUsuario = nombreUsuario;
         this.email = email;
-        this.contrasenia = contrasenia;
+
     }
 
-    public Empleados(String nombre, String apellido, String nombreUsuario, String email, String contrasenia) {
-        super(nombre, apellido);
+    public Empleados(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario, String email) {
+        super(nombre, apellido, tipoRol);
         this.nombreUsuario = nombreUsuario;
         this.email = email;
-        this.contrasenia = contrasenia;
+
     }
+
 
     //getters y Setters
-
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -49,10 +52,11 @@ public abstract class Empleados extends Usuarios{
         this.contrasenia = contrasenia;
     }
 
+    //Metodos
     public void imprimirDatos(){
         System.out.println("--------------------------------------------------");
         System.out.println("----------       DATOS GENERALES     -------------");
-       System.out.println("ID: "+ super.getIdUsuario());
+       System.out.println("ID: "+ super.getIdUsuario()+ " Rol: "+ getTipoRol());
         System.out.println(" Nombre y Apellido = "+ super.getNombre()+ super.getApellido() + " // DNI= "+ super.getDni());
         System.out.println("nombreUsuario = " + nombreUsuario);
         System.out.println("email = " + email);
