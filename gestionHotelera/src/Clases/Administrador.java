@@ -45,7 +45,11 @@ private String claveAdministracion;
       boolean gestionExitosa = sistemaHotel.gestionarPermisoAcceso(empleado, tieneAcceso);
       if (tieneAcceso) estado = "OTORGADO : REVOCADO";
       System.out.println("estado = " + estado);
-return estado;
+      return gestionExitosa;
+  }
+
+  public boolean quitarPermisos(SistemaHotel sistemaHotel, Empleados e, boolean tieneAcceso){
+        
   }
 
 
