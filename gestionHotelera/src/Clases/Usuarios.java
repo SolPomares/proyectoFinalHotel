@@ -54,5 +54,5 @@ public abstract class Usuarios {
     }
 
     //metodos
-    public abstract String imprimirDatos();
+    public abstract void imprimirDatos();
 }

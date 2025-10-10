@@ -59,7 +59,7 @@ public abstract class Empleados extends Usuarios{
         System.out.println("--------------------------------------------------");
         System.out.println("--------------------------------------------------");
     }
-    
+
     public void imprimirUsuario(){
         System.out.println("--------------------------------------------------");
         System.out.println("----------          USUARIO          -------------");
