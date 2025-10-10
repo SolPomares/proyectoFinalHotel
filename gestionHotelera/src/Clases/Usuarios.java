@@ -1,5 +1,7 @@
 package Clases;
 
+import Enums.TipoRol;
+
 public abstract class Usuarios {
     // datos generales
     private static int contador = 0;
@@ -7,21 +9,26 @@ public abstract class Usuarios {
     private String nombre;
     private String apellido;
     private int dni;
+    private TipoRol tipoRol;
+
 
     //constructor
-    public Usuarios(int idUsuario, String nombre, String apellido, int dni) {
+    public Usuarios(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol) {
         this.idUsuario = contador ++;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
+        this.tipoRol = tipoRol;
+
     }
 
     //constructor minimo
 
 
-    public Usuarios(String nombre, String apellido) {
+    public Usuarios(String nombre, String apellido,TipoRol tipoRol) {
         this.nombre = nombre;
         this.apellido = apellido;
+        this.tipoRol = tipoRol;
     }
 
     //Getters y setters
@@ -51,6 +58,14 @@ public abstract class Usuarios {
 
     public void setDni(int dni) {
         this.dni = dni;
+    }
+
+    public TipoRol getTipoRol() {
+        return tipoRol;
+    }
+
+    public void setTipoRol(TipoRol tipoRol) {
+        this.tipoRol = tipoRol;
     }
 
     //metodos
