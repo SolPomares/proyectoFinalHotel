@@ -49,7 +49,7 @@ private String claveAdministracion;
   }
 
   public boolean quitarPermisos(SistemaHotel sistemaHotel, Empleados e, boolean tieneAcceso){
-        
+
   }
 
 
