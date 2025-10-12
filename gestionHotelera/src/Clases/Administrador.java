@@ -64,7 +64,7 @@ public class Administrador extends Empleados {
             System.out.println("[ADMIN] Usuario " + empleado.getNombreUsuario() + " YA TIENE EL ACCESO REVOCADO.");
             return true;
         }
-        // Delegamos la acción a false (revocar)
+        // Delegamos la acción y revocar a false (revocar)
         boolean gestionExitosa = sistemaHotel.gestionarPermisoAcceso(empleado);
 
         if (gestionExitosa) {
