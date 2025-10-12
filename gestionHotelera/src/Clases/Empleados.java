@@ -1,6 +1,6 @@
-package Clases;
 
 import Enums.TipoRol;
+import Clases.Usuarios;
 
 import java.util.Scanner;
 
