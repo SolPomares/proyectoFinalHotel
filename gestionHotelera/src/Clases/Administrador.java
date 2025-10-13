@@ -1,4 +1,4 @@
-package Clases;
+
 
 import Enums.TipoRol;
 
@@ -17,8 +17,6 @@ public class Administrador extends Empleados {
         super(nombre, apellido, TipoRol.ADMINISTRADOR, nombreUsuario, email, true);
         this.claveAdministracion = claveAdministracion;
     }
-
-//constructor
 
     //Getters y Setters
 

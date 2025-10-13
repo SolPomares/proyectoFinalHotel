@@ -23,8 +23,6 @@ public abstract class Usuarios {
     }
 
     //constructor minimo
-
-
     public Usuarios(String nombre, String apellido,TipoRol tipoRol) {
         this.nombre = nombre;
         this.apellido = apellido;
