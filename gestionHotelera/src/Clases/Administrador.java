@@ -13,8 +13,8 @@ public class Administrador extends Empleados {
         this.claveAdministracion = claveAdministracion;
     }
 
-    public Administrador(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, String claveAdministracion) {
-        super(nombre, apellido, TipoRol.ADMINISTRADOR, nombreUsuario, email, true);
+    public Administrador(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario) {
+        super(nombre, apellido, tipoRol, nombreUsuario);
         this.claveAdministracion = claveAdministracion;
     }
 
