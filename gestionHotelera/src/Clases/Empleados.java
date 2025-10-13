@@ -1,14 +1,13 @@
 
 import Enums.TipoRol;
 
-public abstract class Empleados extends Clases.Usuario {
+public abstract class Empleados extends Usuario {
     private String nombreUsuario;
     private String email;
     private String contrasenia;
     private boolean acceso;
 
     //constructores
-
     public Empleados(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso) {
         super(idUsuario, nombre, apellido, dni, tipoRol);
         this.nombreUsuario = nombreUsuario;
@@ -17,7 +16,7 @@ public abstract class Empleados extends Clases.Usuario {
         this.acceso = acceso;
     }
 
-    public Empleados(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso) {
+    public Empleados(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario) {
         super(nombre, apellido, tipoRol);
         this.nombreUsuario = nombreUsuario;
         this.email = email;
@@ -27,7 +26,6 @@ public abstract class Empleados extends Clases.Usuario {
 
 
     //getters y Setters
-
 
     public String getNombreUsuario() {
         return nombreUsuario;
@@ -81,7 +79,7 @@ public abstract class Empleados extends Clases.Usuario {
         System.out.println("--------------------------------------------------");
         System.out.println("--------------------------------------------------");
     }
-
+/// SOl Usar en sistema hotel
     public boolean validarContrasenia(String contrasenia){
         if(this.getContrasenia().equals(contrasenia)) {
             System.out.println("Acceso Permitido");
