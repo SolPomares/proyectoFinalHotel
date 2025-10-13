@@ -1,51 +1,100 @@
+import java.util.Date;
+import java.util.UUID;
+
 public class Habitacion {
     //Atributos
-    private int numero;
-    private double precioNoche;
-    private TipoHabitacion tipo;
-    private boolean disponible;
+    private static int contador = 0;
+    private int numeroHabitacion;
+    private double valorDiario;
+    private TipoHabitacion tipoHabitacion;
+    private TipoDisponibilidad disponibilidad;
+    private int capacidad;
+    private Date dateIn;
+    private Date dateOut;
 
-    //Constructor
-    public Habitacion(int numero, double precioNoche, TipoHabitacion tipo, boolean disponible) {
-        this.numero = numero;
-        this.precioNoche = precioNoche;
-        this.tipo = tipo;
-        this.disponible = disponible;
+    public Habitacion(int numeroHabitacion, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad) {
+        this.numeroHabitacion = numeroHabitacion;
+        this.tipoHabitacion = tipoHabitacion;
+        this.disponibilidad = disponibilidad;
+    }
+
+    public Habitacion(int numero, double valorDiario, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad, int capacidad, Date dateIn, Date dateOut) {
+        this.numeroHabitacion = contador++;
+        this.valorDiario = valorDiario;
+        this.tipoHabitacion = tipoHabitacion;
+        this.disponibilidad = disponibilidad;
+        this.capacidad = capacidad;
+        this.dateIn = dateIn;
+        this.dateOut = dateOut;
     }
 
     //Gets y sets
-    public int getNumero() {
-        return numero;
+
+    public static int getContador() {
+        return contador;
     }
 
-    public void setNumero(int numero) {
-        this.numero = numero;
+    public static void setContador(int contador) {
+        Habitacion.contador = contador;
     }
 
-    public double getPrecioNoche() {
-        return precioNoche;
+    public int getNumeroHabitacion() {
+        return numeroHabitacion;
     }
 
-    public void setPrecioNoche(double precioNoche) {
-        this.precioNoche = precioNoche;
+    public void setNumeroHabitacion(int numeroHabitacion) {
+        this.numeroHabitacion = numeroHabitacion;
     }
 
-    public TipoHabitacion getTipo() {
-        return tipo;
+    public double getValorDiario() {
+        return valorDiario;
     }
 
-    public void setTipo(TipoHabitacion tipo) {
-        this.tipo = tipo;
+    public void setValorDiario(double valorDiario) {
+        this.valorDiario = valorDiario;
     }
 
-    public boolean isDisponible() {
-        return disponible;
+    public TipoHabitacion getTipoHabitacion() {
+        return tipoHabitacion;
     }
 
-    public void setDisponible(boolean disponible) {
-        this.disponible = disponible;
+    public void setTipoHabitacion(TipoHabitacion tipoHabitacion) {
+        this.tipoHabitacion = tipoHabitacion;
     }
 
+    public TipoDisponibilidad getDisponibilidad() {
+        return disponibilidad;
+    }
 
+    public void setDisponibilidad(TipoDisponibilidad disponibilidad) {
+        this.disponibilidad = disponibilidad;
+    }
 
+    public int getCapacidad() {
+        return capacidad;
+    }
+
+    public void setCapacidad(int capacidad) {
+        this.capacidad = capacidad;
+    }
+
+    public Date getDateIn() {
+        return dateIn;
+    }
+
+    public void setDateIn(Date dateIn) {
+        this.dateIn = dateIn;
+    }
+
+    public Date getDateOut() {
+        return dateOut;
+    }
+
+    public void setDateOut(Date dateOut) {
+        this.dateOut = dateOut;
+    }
+
+    //METODOS
+
+    /// FALTAN METODOS
 }
