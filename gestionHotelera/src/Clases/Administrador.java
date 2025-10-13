@@ -18,8 +18,6 @@ public class Administrador extends Empleados {
         this.claveAdministracion = claveAdministracion;
     }
 
-//constructor
-
     //Getters y Setters
 
     public TipoRol getRol() {

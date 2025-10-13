@@ -42,7 +42,7 @@ public class Pasajero extends Usuarios {
     }
 
     public void imprimirDatos(){
-        
+
     };
 
 }
