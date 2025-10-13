@@ -3,7 +3,7 @@ import Enums.TipoRol;
 
 public abstract class Usuario {
     // datos generales
-    private static int contador = 0;
+    private static int contadorUsuario = 0;
     private int idUsuario;
     private String nombre;
     private String apellido;
@@ -13,7 +13,7 @@ public abstract class Usuario {
 
     //constructor
     public Usuario(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol) {
-        this.idUsuario = contador ++;
+        this.idUsuario = contadorUsuario++;
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
