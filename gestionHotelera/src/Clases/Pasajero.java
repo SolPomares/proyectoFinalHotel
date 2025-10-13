@@ -1,8 +1,8 @@
 import java.util.List;
-import Clases.Usuarios;
+
 import Enums.TipoRol;
 
-public class Pasajero extends Usuarios {
+public class Pasajero extends Clases.Usuario {
     //Atributos propios
     private String Origen;
     private String DomicilioOrigen;

@@ -1,10 +1,7 @@
 
 import Enums.TipoRol;
-import Clases.Usuarios;
 
-import java.util.Scanner;
-
-public abstract class Empleados extends Usuarios{
+public abstract class Empleados extends Clases.Usuario {
     private String nombreUsuario;
     private String email;
     private String contrasenia;

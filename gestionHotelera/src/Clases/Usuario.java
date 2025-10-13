@@ -1,8 +1,7 @@
-package Clases;
 
 import Enums.TipoRol;
 
-public abstract class Usuarios {
+public abstract class Usuario {
     // datos generales
     private static int contador = 0;
     private int idUsuario;
@@ -13,7 +12,7 @@ public abstract class Usuarios {
 
 
     //constructor
-    public Usuarios(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol) {
+    public Usuario(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol) {
         this.idUsuario = contador ++;
         this.nombre = nombre;
         this.apellido = apellido;
@@ -23,7 +22,7 @@ public abstract class Usuarios {
     }
 
     //constructor minimo
-    public Usuarios(String nombre, String apellido,TipoRol tipoRol) {
+    public Usuario(String nombre, String apellido, TipoRol tipoRol) {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoRol = tipoRol;

@@ -19,7 +19,6 @@ public class Administrador extends Empleados {
     }
 
     //Getters y Setters
-
     public TipoRol getRol() {
         return rol;
     }
@@ -33,7 +32,6 @@ public class Administrador extends Empleados {
     }
 
     //metodos
-
     public void realizarBackUp() {
         System.out.println("-----------   Back Up -----------");
         System.out.println("---------------------------------");
