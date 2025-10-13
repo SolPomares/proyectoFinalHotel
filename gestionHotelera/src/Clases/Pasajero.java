@@ -43,7 +43,7 @@ public class Pasajero extends Usuario {
 
     public void imprimirDatos(){
         System.out.println("getNombre() = " + getNombre() + " Apellido " + getApellido());
-         /// poner que mas queremos se vea del pasajero
+         ///poner que mas queremos se vea del pasajero
 
     }
 
