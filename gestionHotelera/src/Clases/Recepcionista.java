@@ -1,5 +1,3 @@
-package Clases;
-
 import Enums.TipoRol;
 import Enums.Turno;
 import java.util.Date;
@@ -13,8 +11,8 @@ public class Recepcionista extends Empleados {
         this.turno = turno;
     }
 
-    public Recepcionista(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, Turno turno) {
-        super(nombre, apellido, tipoRol, nombreUsuario, email, acceso);
+    public Recepcionista(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario, Turno turno) {
+        super(nombre, apellido, tipoRol, nombreUsuario);
         this.turno = turno;
     }
 
@@ -44,10 +42,10 @@ public class Recepcionista extends Empleados {
     //Me parece que va en el gestor de Hotel
     public boolean crearReserva(Habitacion habitacion, Date fecha, String apellido) {
         //Vincular
-        // VINCULAR gestorHotel.getInstance().creserva(pasajero, habitacion)
-        boolean exito = gestorHotel.crearReserva(habitacion, fecha, apellido);
+        // VINCULAR Sistema.getInstance().creserva(pasajero, habitacion)
+        boolean exito = SistemaHotel.crearReserva(habitacion, fecha, apellido);
         if (exito) {
-            sout("Reserva realizada con exito");
+            System.out.println("Reserva realizada con exito");
         } else {
             System.out.println("No fue posible crear la reserva");
         }
@@ -56,6 +54,3 @@ public class Recepcionista extends Empleados {
 
 }
 
-
-
-}
