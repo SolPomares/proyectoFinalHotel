@@ -1,6 +1,7 @@
 
 import Enums.TipoRol;
 
+
 public abstract class Empleados extends Usuario {
     private String nombreUsuario;
     private String email;

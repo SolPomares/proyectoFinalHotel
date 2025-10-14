@@ -1,9 +1,11 @@
 
 import Enums.TipoRol;
+import org.json.JSONObject;
+import org.json.JSONException;
 
 public abstract class Usuario {
     // datos generales
-    private static int contadorUsuario = 0;
+    private static int contadorUsuario = 1;
     private int idUsuario;
     private String nombre;
     private String apellido;
@@ -18,7 +20,6 @@ public abstract class Usuario {
         this.apellido = apellido;
         this.dni = dni;
         this.tipoRol = tipoRol;
-
     }
 
     //constructor minimo
@@ -26,6 +27,11 @@ public abstract class Usuario {
         this.nombre = nombre;
         this.apellido = apellido;
         this.tipoRol = tipoRol;
+    }
+
+    //Constructor infimo para JSON Deserializacion
+    public Usuario(int idUsuario) {
+        this.idUsuario = ++contadorUsuario;
     }
 
     //Getters y setters
@@ -67,4 +73,25 @@ public abstract class Usuario {
 
     //metodos
     public abstract void imprimirDatos();
+
+    /// Mer guiate por aca
+//PERSISTENCIA - PARA USAR JSON LA CLASE PADRE DEBE TENERLO Y TODAS LAS DEMAS
+    //DEBE SER LLAMADO POR LAS DEMAS
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        //Manejo de excepciones
+        try {
+            //CENTRO DELPOLIMORFISMO EN NUESTRO TP
+            json.put("UsuarioTipo", this.getClass().getSimpleName()); //Usa el nombre de las clases hijas
+            json.put("nombre", this.nombre);
+            json.put("Apellido", this.apellido);
+            json.put("DNI", this.dni);
+            json.put("TipoRol: ", this.tipoRol.name());
+        } catch (JSONException ex) {
+            System.err.println("ERROR AL CONVERTIR EL USUARIO A JSON");
+            throw new PersitenciaException("Error de conversion - problema en la estructura de datos");
+        }
+        return json;
+    }
+
 }
