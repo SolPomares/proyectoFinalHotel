@@ -6,7 +6,7 @@ public abstract class Empleados extends Usuario {
     private String nombreUsuario;
     private String email;
     private String contrasenia;
-    private boolean acceso;
+    private boolean accesoo;
 
     //constructores
     public Empleados(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso) {
