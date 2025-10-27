@@ -81,6 +81,16 @@ public class SistemaHotel <T extends Usuario>{
             }
         }
 
+    //Listar y mostrar solo empleados
+    public void mostrarEmpleados(){
+        Iterator it = this.gestorHotel.iterator();
+        Empleados e = new Empleados  
+        while(it.hasNext()){
+            if(it.next() instanceof Empleados){
+                ;
+            }
+        }
+    }
 
 
 
