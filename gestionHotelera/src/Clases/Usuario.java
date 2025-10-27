@@ -29,6 +29,9 @@ public abstract class Usuario {
         this.tipoRol = tipoRol;
     }
 
+    //Constructor vacio
+
+
     //Constructor infimo para JSON Deserializacion
     public Usuario(int idUsuario) {
         this.idUsuario = ++contadorUsuario;

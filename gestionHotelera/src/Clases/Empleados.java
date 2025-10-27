@@ -25,7 +25,8 @@ public abstract class Empleados extends Usuario {
         this.acceso = acceso;
     }
 
-    //
+    //Constructor vacio
+
 
 
     //getters y Setters
