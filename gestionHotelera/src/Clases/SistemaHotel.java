@@ -1,14 +1,32 @@
 
 //import Clases.Empleados;
-import java.io.File;
 import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.io.*;
-import java.util.InputMismatchException;
 
 public class SistemaHotel <T extends Usuario>{
-    
+    ArrayList<T> gestorHotel;
+
+    public SistemaHotel(ArrayList<T> gestorHotel) {
+        this.gestorHotel = new ArrayList<>();
+    }
+
+    public ArrayList<T> getGestorHotel() {
+        return gestorHotel;
+    }
+
+    public void setGestorHotel(ArrayList<T> gestorHotel) {
+        this.gestorHotel = gestorHotel;
+    }
+
+    //Administrador
+    //Anadir empleado
+
+    public void agregarEmpleado(T empleado){
+        if(empleado == null){
+
+        }
+
+        this.gestorHotel.add(empleado);
+    }
 
 
 
@@ -20,7 +38,9 @@ public class SistemaHotel <T extends Usuario>{
 
 
 
-    /*private List<Empleados> listaEmpleados;
+
+
+/*private List<Empleados> listaEmpleados;
 
     //CONSTRUCTOR
     public SistemaHotel(List<Empleados> listaEmpleados) {
