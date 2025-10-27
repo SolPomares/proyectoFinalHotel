@@ -1,5 +1,5 @@
 
-import Clases.Empleados;
+//import Clases.Empleados;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -7,8 +7,20 @@ import java.util.Scanner;
 import java.io.*;
 import java.util.InputMismatchException;
 
-public class SistemaHotel {
-    private List<Empleados> listaEmpleados;
+public class SistemaHotel <T extends Usuario>{
+    
+
+
+
+
+
+
+
+
+
+
+
+    /*private List<Empleados> listaEmpleados;
 
     //CONSTRUCTOR
     public SistemaHotel(List<Empleados> listaEmpleados) {
@@ -55,7 +67,7 @@ public class SistemaHotel {
         empleado.setAcceso(tieneAcceso);
         System.out.println(" El ACCESO A CAMBIADO");
         /// OJO A GUARDAR LO DE JSON PERSISTENCIA DE DATOS - BASE DE DATOS EMPLEADOS
-    }*/
+    }
 
     public static void crearArchivo(String nombreArchivo)throws IOException {
         try{
@@ -67,7 +79,7 @@ public class SistemaHotel {
             System.out.println("No se puede Escribir el archivo");
             throw new IOException(ex);
         }
-    }
+    }*/
 
 
 }
