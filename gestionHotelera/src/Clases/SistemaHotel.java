@@ -56,26 +56,29 @@ public class SistemaHotel <T extends Usuario>{
     }
 
     //Eliminar pasajero
-    public void eliminarPasajero (int dni) throws datoInvalidoException{
+    public void eliminarPasajero (int dni) throws datoInvalidoException {
         String dniComoTexto = String.valueOf(dni);
         int longitud = dniComoTexto.length();
-        if(longitud != 8)
-        {
+        if (longitud != 8) {
             throw new datoInvalidoException("Error!! DNI invalido");
         }
         Iterator it = this.gestorHotel.iterator();
-        while(it.hasNext()){
-            int DNI = (int)it.next();
-            if(DNI == dni){
+        while (it.hasNext()) {
+            int DNI = (int) it.next();
+            if (DNI == dni) {
                 it.remove();
             }
             ///Hacer verificador para asegurar que sea pasajero
-            System.out.println("Pasajero con DNI " +DNI+ " eliminado ");
+            System.out.println("Pasajero con DNI " + DNI + " eliminado ");
         }
+    }
 
     //Mostrar usuarios
         public void imprimirTodosUsuarios(){
-            
+            Iterator it = this.gestorHotel.iterator();
+            while(it.hasNext()){
+                System.out.println(it.next());
+            }
         }
 
 
