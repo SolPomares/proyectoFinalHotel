@@ -21,7 +21,6 @@ public class SistemaHotel <T extends Usuario>{
 
     //Administrador
     //Anadir empleado
-
     public void agregarEmpleado(T empleado) throws datoInvalidoException{
         if(empleado == null){
             throw new datoInvalidoException("Error!! campos vacios");
@@ -47,6 +46,31 @@ public class SistemaHotel <T extends Usuario>{
         }
 
     }
+
+    //Anadir pasajero
+    public void agregarPasajero (T pasajero) throws datoInvalidoException{
+        if(pasajero == null){
+            throw new datoInvalidoException("Error!! campos vacios");
+        }
+        this.gestorHotel.add(pasajero);
+    }
+
+    //Eliminar empleado
+    public void eliminarPasajero (int dni) throws datoInvalidoException{
+        String dniComoTexto = String.valueOf(dni);
+        int longitud = dniComoTexto.length();
+        if(longitud != 8)
+        {
+            throw new datoInvalidoException("Error!! DNI invalido");
+        }
+        Iterator it = this.gestorHotel.iterator();
+        while(it.hasNext()){
+            int DNI = (int)it.next();
+            if(DNI == dni){
+                it.remove();
+            }
+            System.out.println("Empleado con DNI " +DNI+ " eliminado ");
+        }
 
 
 
