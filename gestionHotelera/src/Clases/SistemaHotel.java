@@ -1,6 +1,8 @@
 
 //import Clases.Empleados;
+import Excepciones.datoInvalidoException;
 import java.util.ArrayList;
+import java.util.Iterator;
 
 public class SistemaHotel <T extends Usuario>{
     ArrayList<T> gestorHotel;
@@ -20,12 +22,30 @@ public class SistemaHotel <T extends Usuario>{
     //Administrador
     //Anadir empleado
 
-    public void agregarEmpleado(T empleado){
+    public void agregarEmpleado(T empleado) throws datoInvalidoException{
         if(empleado == null){
+            throw new datoInvalidoException("Error!! campos vacios");
+        }
+        this.gestorHotel.add(empleado);
+    }
 
+    //Eliminar empleado
+    public void eliminarEmpleado (int dni) throws datoInvalidoException{
+        String dniComoTexto = String.valueOf(dni);
+        int longitud = dniComoTexto.length();
+        if(longitud != 8)
+        {
+            throw new datoInvalidoException("Error!! DNI invalido");
+        }
+        Iterator it = this.gestorHotel.iterator();
+        while(it.hasNext()){
+            int DNI = (int)it.next();
+            if(DNI == dni){
+                it.remove();
+            }
+            System.out.println("Empleado con DNI " +DNI+ " eliminado ");
         }
 
-        this.gestorHotel.add(empleado);
     }
 
 
