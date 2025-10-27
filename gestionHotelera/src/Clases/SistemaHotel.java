@@ -55,7 +55,7 @@ public class SistemaHotel <T extends Usuario>{
         this.gestorHotel.add(pasajero);
     }
 
-    //Eliminar empleado
+    //Eliminar pasajero
     public void eliminarPasajero (int dni) throws datoInvalidoException{
         String dniComoTexto = String.valueOf(dni);
         int longitud = dniComoTexto.length();
@@ -69,8 +69,17 @@ public class SistemaHotel <T extends Usuario>{
             if(DNI == dni){
                 it.remove();
             }
-            System.out.println("Empleado con DNI " +DNI+ " eliminado ");
+            ///Hacer verificador para asegurar que sea pasajero
+            System.out.println("Pasajero con DNI " +DNI+ " eliminado ");
         }
+
+    //Mostrar usuarios
+        public void imprimirTodosUsuarios(){
+            
+        }
+
+
+
 
 
 
