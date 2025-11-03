@@ -19,6 +19,20 @@ public class SistemaHotel <T extends Usuario>{
         this.gestorHotel = gestorHotel;
     }
 
+    //Metodo para buscar un usuario por dni
+    public Usuario buscarUsuario (int dni){
+        for(T usuario : this.gestorHotel){
+            if(usuario.getDni() == dni ){
+                return usuario;
+            }
+        }
+
+        return null; 
+    }
+
+
+
+
     //Administrador
     //Anadir empleado
     public void agregarEmpleado(T empleado) throws datoInvalidoException{
