@@ -27,10 +27,21 @@ public class SistemaHotel <T extends Usuario>{
             }
         }
 
-        return null; 
+        return null;
     }
 
+    //Metodo para buscar especificamente empleados
+    public Empleados buscarEmpleado(String nombreDeUsuario){
+        for(T empleado : this.gestorHotel){
+            if(empleado instanceof Empleados){
+                if(((Empleados) empleado).getNombreUsuario().equals(nombreDeUsuario)){
+                    return empleado;
+                }
+            }
+        }
 
+        return null; 
+    }
 
 
     //Administrador
