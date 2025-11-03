@@ -75,9 +75,36 @@ public class SistemaHotel <T extends Usuario>{
             System.out.println("Empleado" + empleadoNuevo.getNombre()+ "agregado exitosamente");
         }
         else{
-            System.out.println("ERROR! Solo un administrador puede gestionar a los empleados");
+            System.out.println("ERROR! No tiene permiso sistema");
         }
 
+    }
+
+    //Metodo para dar de baja a un empleado SOLO PUEDE EJECUTAR UN ADMINISTRADOR
+    public void bajaEmpleado (Empleados quienEjecuta, int dni) throws datoInvalidoException{
+        if(quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR){
+            String dniComoTexto = String.valueOf(dni);
+            if (dniComoTexto.length() != 8) {
+                throw new datoInvalidoException("Error!! DNI invalido (debe tener 8 dígitos).");
+            }
+            Iterator<T> it = this.gestorHotel.iterator();
+            boolean encontrado = false;
+            while (it.hasNext()) {
+                T usuario = it.next();
+                if (usuario instanceof Empleados && usuario.getDni() == dni) {
+                    it.remove();
+                    encontrado = true;
+                    System.out.println("Empleado con DNI " + dni + " eliminado.");
+                    break;
+                }
+            }
+            if (!encontrado) {
+                System.out.println("No se encontró un Empleado con DNI " + dni + ".");
+            }
+        }
+        else{
+            System.out.println("ERROR! No tiene permiso sistema");
+        }
     }
 
 
