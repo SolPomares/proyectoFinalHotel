@@ -107,6 +107,21 @@ public class SistemaHotel <T extends Usuario>{
         }
     }
 
+    //Metodo para dar de alta a un empleado SOLO PUEDE HACERLO EL RECEPCIONISTA
+    public void altaPasajero (Empleados quienEjecuta, Pasajero pasajeroNuevo) throws datoInvalidoException{
+        if(quienEjecuta.getTipoRol() == TipoRol.RECEPCIONISTA){
+            if(pasajeroNuevo == null){
+                throw new datoInvalidoException("ERROR! el empleado no existe");
+            }
+            gestorHotel.add((T)pasajeroNuevo);
+            System.out.println("Pasajero agregado exitosamente");
+        }
+        else{
+            System.out.println("ERROR! No tiene permiso sistema");
+        }
+    }
+
+
 
 
 
