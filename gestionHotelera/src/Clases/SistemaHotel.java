@@ -121,6 +121,35 @@ public class SistemaHotel <T extends Usuario>{
         }
     }
 
+    //Metodo para dar de baja un pasajero SOLO EJECUTA RECEPCIONISTA
+    public void bajaPasajero (Empleados quienEjecuta, int dni) throws datoInvalidoException{
+        if(quienEjecuta.getTipoRol() == TipoRol.RECEPCIONISTA){
+            String dniComoTexto = String.valueOf(dni);
+            if (dniComoTexto.length() != 8) {
+                throw new datoInvalidoException("Error!! DNI invalido (debe tener 8 dígitos).");
+            }
+            Iterator<T> it = this.gestorHotel.iterator();
+            boolean encontrado = false;
+            while (it.hasNext()) {
+                T usuario = it.next();
+                if (usuario instanceof Pasajero && usuario.getDni() == dni) {
+                    it.remove();
+                    encontrado = true;
+                    System.out.println("Pasajero con DNI " + dni + " eliminado/check-out realizado.");
+                    break;
+                }
+            }
+            if (!encontrado) {
+                System.out.println("No se encontró un Pasajero con DNI " + dni + ".");
+            }
+        } else {
+            System.out.println("ACCESO DENEGADO: Solo un ADMINISTRADOR o RECEPCIONISTA puede realizar el check-out/baja de pasajeros.");
+        }
+    }
+
+}
+
+
 
 
 
