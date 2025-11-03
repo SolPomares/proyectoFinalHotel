@@ -31,7 +31,7 @@ public class SistemaHotel <T extends Usuario>{
     }
 
     //Metodo para buscar especificamente empleados
-    public Empleados buscarEmpleado(String nombreDeUsuario){
+    public Usuario buscarEmpleado(String nombreDeUsuario){
         for(T empleado : this.gestorHotel){
             if(empleado instanceof Empleados){
                 if(((Empleados) empleado).getNombreUsuario().equals(nombreDeUsuario)){
@@ -40,8 +40,29 @@ public class SistemaHotel <T extends Usuario>{
             }
         }
 
-        return null; 
+        return null;
     }
+
+    //Metodo para login, validar ingreso y retonar el usuario
+    public Empleados gestionarAcceso(String nombreUsuario, String contrasenia){
+        Usuario empleado = buscarEmpleado(nombreUsuario);
+        if(empleado == null){
+            throw new datoInvalidoException("ERROR! empleado no encontrado, acceso invalido");
+        }
+        if(empleado instanceof Empleados){
+            if(((Empleados) empleado).validarContrasenia(contrasenia)){
+                if(((Empleados) empleado).tienePermisoSistema()){
+                    System.out.println("Acceso exitoso como: " + empleado.getTipoRol());
+                }
+                else{
+                    throw new datoInvalidoException("ERROR! No tiene permiso sistema");
+                }
+            }
+        }
+
+        return null;
+    }
+
 
 
     //Administrador
