@@ -3,6 +3,7 @@
 import Excepciones.datoInvalidoException;
 import java.util.ArrayList;
 import java.util.Iterator;
+import Enums.TipoRol;
 
 public class SistemaHotel <T extends Usuario>{
     ArrayList<T> gestorHotel;
@@ -47,7 +48,7 @@ public class SistemaHotel <T extends Usuario>{
     public Empleados gestionarAcceso(String nombreUsuario, String contrasenia){
         Usuario empleado = buscarEmpleado(nombreUsuario);
         if(empleado == null){
-            throw new datoInvalidoException("ERROR! empleado no encontrado, acceso invalido");
+            System.out.println("ERROR! empleado no encontrado, acceso invalido");
         }
         if(empleado instanceof Empleados){
             if(((Empleados) empleado).validarContrasenia(contrasenia)){
@@ -55,7 +56,7 @@ public class SistemaHotel <T extends Usuario>{
                     System.out.println("Acceso exitoso como: " + empleado.getTipoRol());
                 }
                 else{
-                    throw new datoInvalidoException("ERROR! No tiene permiso sistema");
+                    System.out.println("ERROR! No tiene permiso sistema");
                 }
             }
         }
@@ -63,8 +64,26 @@ public class SistemaHotel <T extends Usuario>{
         return null;
     }
 
+    //Metodo QUE COMIENZAN A IMPLEMENTAR EL LOGIN
+    //Metodo para alta y baja de empleados SOLO PUEDE HACERLO UN ADMINISTRADOR
+    public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException{
+        if(quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR){
+            if(empleadoNuevo == null){
+                throw new datoInvalidoException("ERROR! el empleado no existe");
+            }
+            gestorHotel.add((T)empleadoNuevo);
+            System.out.println("Empleado" + empleadoNuevo.getNombre()+ "agregado exitosamente");
+        }
+        else{
+            System.out.println("ERROR! Solo un administrador puede gestionar a los empleados");
+        }
+
+    }
 
 
+
+
+    /*
     //Administrador
     //Anadir empleado
     public void agregarEmpleado(T empleado) throws datoInvalidoException{
@@ -92,6 +111,8 @@ public class SistemaHotel <T extends Usuario>{
         }
 
     }
+
+
 
     //Anadir pasajero
     public void agregarPasajero (T pasajero) throws datoInvalidoException{
@@ -173,7 +194,7 @@ public class SistemaHotel <T extends Usuario>{
         }
 
         return empleadosLista;
-    }
+    }*/
 
 
 

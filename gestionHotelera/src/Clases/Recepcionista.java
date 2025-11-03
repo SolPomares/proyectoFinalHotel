@@ -39,6 +39,8 @@ public class Recepcionista extends Empleados {
         return false; // ACA AL Gestor ver linea
     }
 
+    /*
+
     //Me parece que va en el gestor de Hotel
     public boolean crearReserva(Habitacion habitacion, Date fecha, String apellido) {
         //Vincular
@@ -50,7 +52,7 @@ public class Recepcionista extends Empleados {
             System.out.println("No fue posible crear la reserva");
         }
         return exito; //VER CON GESTOR HOTEL EN FECHA DEBERIA SER FECHA INICIO Y FIN
-    }
+    }*/
 
 }
 
