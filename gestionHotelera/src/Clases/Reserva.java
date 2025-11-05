@@ -22,7 +22,7 @@ public class Reserva {
     public UUID getIdReserva() {
         return idReserva;
     }
-    
+
     public Pasajero getPasajero() {
         return pasajero;
     }
@@ -54,4 +54,9 @@ public class Reserva {
     public void setCheckOut(Date checkOut) {
         this.checkOut = checkOut;
     }
+
+
+
+
+
 }
