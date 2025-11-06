@@ -1,3 +1,5 @@
+import Excepciones.habitacionOcupadaException;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
@@ -26,12 +28,14 @@ public class SistemaHabitaciones {
     }
 
     //Metodo para crear una reserva
-    public Reserva crearReserva (Pasajero pasajero, Habitacion habitacion, Date inicio, Date fin){
+    public void crearReserva (Pasajero pasajero, Habitacion habitacion, Date inicio, Date fin) throws habitacionOcupadaException {
         if(habitacion.getDisponibilidad() == TipoDisponibilidad.DISPONIBLE){
-
+            Reserva r = new Reserva(pasajero, habitacion, inicio, fin);
+            listaReservas.add(r);
+            System.out.println("Reserva" + r + "realizada con exito");
         }
         else{
-
+            throw new habitacionOcupadaException ("ERROR! La habitacion seleccionada no esta disponible");
         }
     }
 
