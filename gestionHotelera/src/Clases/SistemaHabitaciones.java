@@ -33,11 +33,15 @@ public class SistemaHabitaciones {
             Reserva r = new Reserva(pasajero, habitacion, inicio, fin);
             listaReservas.add(r);
             System.out.println("Reserva" + r + "realizada con exito");
+            habitacion.setDisponibilidad(TipoDisponibilidad.OCUPADO);
         }
         else{
             throw new habitacionOcupadaException ("ERROR! La habitacion seleccionada no esta disponible");
         }
     }
+
+    //METODOS PARA CHECK-IN Y CHECK-OUT
+    
 
 
 
