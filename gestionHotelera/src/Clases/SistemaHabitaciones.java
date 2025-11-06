@@ -53,14 +53,32 @@ public class SistemaHabitaciones {
             h.setDisponibilidad(TipoDisponibilidad.OCUPADO);
             h.setDateIn(new Date());
             h.setDateOut(new Date());
-            
+
             System.out.println("Check-In realizado. Habitación: " + h.getNumeroHabitacion() +
                     " | Pasajero: " + r.getPasajero().getApellido());
 
             return true;
         }
-
     }
+
+    public boolean checkout(UUID id){
+        Reserva r = buscarReservaPorId(id);
+        if(r != null){
+            System.out.println("ERROR! La reserva ingresada no existe");
+            return false;
+        }
+        else{
+            Habitacion h = r.getHabitacion();
+            h.setDisponibilidad(TipoDisponibilidad.DISPONIBLE);
+            h.setDateIn(null);
+            h.setDateOut(new Date());
+
+            return true;
+        }
+    }
+
+
+    
 
 
 
