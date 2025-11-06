@@ -15,7 +15,7 @@ public class Habitacion {
     public Habitacion(int numeroHabitacion, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad) {
         this.numeroHabitacion = numeroHabitacion;
         this.tipoHabitacion = tipoHabitacion;
-        this.disponibilidad = disponibilidad;
+        this.disponibilidad = TipoDisponibilidad.DISPONIBLE;
     }
 
     public Habitacion(int numero, double valorDiario, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad, int capacidad, Date dateIn, Date dateOut) {
@@ -94,7 +94,5 @@ public class Habitacion {
         this.dateOut = dateOut;
     }
 
-    //METODOS
 
-    /// FALTAN METODOS
 }

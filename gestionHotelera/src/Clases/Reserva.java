@@ -55,7 +55,13 @@ public class Reserva {
         this.checkOut = checkOut;
     }
 
-
+    //Metodo para mostrar datos
+    public void imprimir() {
+        System.out.println("Reserva ID: " + idReserva);
+        System.out.println("Pasajero: " + pasajero.getNombre() + " " + pasajero.getApellido());
+        System.out.println("Habitación Nro: " + habitacion.getNumeroHabitacion());
+        System.out.println("Período: " + checkIn + " a " + checkOut);
+    }
 
 
 
