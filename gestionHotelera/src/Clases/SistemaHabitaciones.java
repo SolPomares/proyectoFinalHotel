@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.UUID;
 
 public class SistemaHabitaciones {
@@ -23,6 +24,18 @@ public class SistemaHabitaciones {
 
         return r;
     }
+
+    //Metodo para crear una reserva
+    public Reserva crearReserva (Pasajero pasajero, Habitacion habitacion, Date inicio, Date fin){
+        if(habitacion.getDisponibilidad() == TipoDisponibilidad.DISPONIBLE){
+
+        }
+        else{
+
+        }
+    }
+
+
 
 
 
