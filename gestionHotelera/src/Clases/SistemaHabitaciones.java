@@ -41,7 +41,26 @@ public class SistemaHabitaciones {
     }
 
     //METODOS PARA CHECK-IN Y CHECK-OUT
-    
+    //Check-in
+    public boolean checkin (UUID id){
+        Reserva r = buscarReservaPorId(id);
+        if(r != null){
+            System.out.println("ERROR! La reserva ingresada no existe");
+            return false;
+        }
+        else{
+            Habitacion h = r.getHabitacion();
+            h.setDisponibilidad(TipoDisponibilidad.OCUPADO);
+            h.setDateIn(new Date());
+            h.setDateOut(new Date());
+            
+            System.out.println("Check-In realizado. Habitación: " + h.getNumeroHabitacion() +
+                    " | Pasajero: " + r.getPasajero().getApellido());
+
+            return true;
+        }
+
+    }
 
 
 
