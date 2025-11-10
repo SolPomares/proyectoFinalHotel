@@ -18,15 +18,9 @@ public class Reserva {
         this.checkOut = checkOut;
     }
 
-    public Reserva( ) {
-        this.idReserva = UUID.randomUUID();
-        this.pasajero = pasajero;
-        this.habitacion = habitacion;
-        this.checkIn = checkIn;
-        this.checkOut = checkOut;
+    //Constructor vacio
+    public Reserva() {
     }
-
-
 
     //Gets y sets
     public UUID getIdReserva() {

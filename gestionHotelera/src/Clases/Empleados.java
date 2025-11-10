@@ -17,20 +17,7 @@ public abstract class Empleados extends Usuario {
         this.acceso = acceso;
     }
 
-    public Empleados(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario) {
-        super(nombre, apellido, tipoRol);
-        this.nombreUsuario = nombreUsuario;
-        this.email = email;
-        this.contrasenia = contrasenia;
-        this.acceso = acceso;
-    }
-
-    //Constructor vacio
-
-
-
     //getters y Setters
-
     public String getNombreUsuario() {
         return nombreUsuario;
     }
@@ -83,26 +70,4 @@ public abstract class Empleados extends Usuario {
         System.out.println("--------------------------------------------------");
         System.out.println("--------------------------------------------------");
     }
-/// SOl Usar en sistema hotel
-    public boolean validarContrasenia(String contrasenia){
-        if(this.getContrasenia().equals(contrasenia)) {
-            System.out.println("Acceso Permitido");
-            return true;
-        }else{
-            System.out.println("Error En contraseña ingresada");
-            return false;
-        }
-    }
-
-    public boolean tienePermisoSistema(){
-        if(this.acceso){
-            return true;
-        }else{
-            System.out.println("Solicitar permiso al administrador");
-            return false;
-        }
-
-    }
-
-
 }

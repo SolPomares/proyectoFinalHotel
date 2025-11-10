@@ -12,17 +12,11 @@ public class Habitacion {
     private Date dateIn;
     private Date dateOut;
 
-    public Habitacion(int numeroHabitacion, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad) {
-        this.numeroHabitacion = numeroHabitacion;
-        this.tipoHabitacion = tipoHabitacion;
-        this.disponibilidad = TipoDisponibilidad.DISPONIBLE;
-    }
-
     public Habitacion(int numero, double valorDiario, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad, int capacidad, Date dateIn, Date dateOut) {
         this.numeroHabitacion = contador++;
         this.valorDiario = valorDiario;
         this.tipoHabitacion = tipoHabitacion;
-        this.disponibilidad = disponibilidad;
+        this.disponibilidad = TipoDisponibilidad.DISPONIBLE;
         this.capacidad = capacidad;
         this.dateIn = dateIn;
         this.dateOut = dateOut;

@@ -4,17 +4,11 @@ import Enums.TipoRol;
 
 public class Administrador extends Empleados {
     private final TipoRol rol = TipoRol.ADMINISTRADOR;
-
     private String claveAdministracion;
 
    //constructor
     public Administrador(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, String claveAdministracion) {
         super(idUsuario, nombre, apellido, dni, TipoRol.ADMINISTRADOR, nombreUsuario, email, true);
-        this.claveAdministracion = claveAdministracion;
-    }
-
-    public Administrador(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario) {
-        super(nombre, apellido, tipoRol, nombreUsuario);
         this.claveAdministracion = claveAdministracion;
     }
 
@@ -31,7 +25,7 @@ public class Administrador extends Empleados {
         this.claveAdministracion = claveAdministracion;
     }
 
-    //metodos
+   /* //metodos
     public void realizarBackUp() {
         System.out.println("-----------   Back Up -----------");
         System.out.println("---------------------------------");
@@ -54,7 +48,7 @@ public class Administrador extends Empleados {
         }
         return gestionExitosa;
     }
-
+/*
     public boolean quitarPermisos(SistemaHotel sistemaHotel, Empleados empleado) {
         if (!empleado.tienePermisoSistema()) {
             System.out.println("[ADMIN] Usuario " + empleado.getNombreUsuario() + " YA TIENE EL ACCESO REVOCADO.");
@@ -70,5 +64,7 @@ public class Administrador extends Empleados {
         }
         return gestionExitosa;
     }
+    */
+
 }
 
