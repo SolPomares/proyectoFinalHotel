@@ -1,14 +1,19 @@
 import Enums.TipoRol;
 import Enums.Turno;
 import java.util.Date;
+import java.util.UUID;
 
 public class Recepcionista extends Empleados {
     private Turno turno;
+    private SistemaHabitaciones gestorHabitaciones;
 
     //constructor
-    public Recepcionista(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, Turno turno) {
+
+
+    public Recepcionista(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, Turno turno, SistemaHabitaciones gestorHabitaciones) {
         super(idUsuario, nombre, apellido, dni, tipoRol, nombreUsuario, email, acceso);
         this.turno = turno;
+        this.gestorHabitaciones = gestorHabitaciones;
     }
 
     public Recepcionista(String nombre, String apellido, TipoRol tipoRol, String nombreUsuario, Turno turno) {
@@ -26,17 +31,14 @@ public class Recepcionista extends Empleados {
     }
 
     //TODOS ESTOS VAN CON EL GESTORHOTEL
-    public boolean realizarCheckIn(Pasajero pasajero, Habitacion habitacion) {
-        // OJO :
-        // FALTA VINCULAR el return gestorHotel.getInstance().checkIn(pasajero, habitacion);
+    public boolean realizarCheckIn(Pasajero pasajero, Habitacion habitacion, UUID idReserva) {
         System.out.println(this.getNombre() + " realiza el check-in para " + pasajero.getNombre());
-        return true; // ACA AL Gestor ver linea de arriba
+        return gestorHabitaciones.checkin(idReserva);
     }
 
-    public boolean realizarCheckOut(Pasajero pasajero, Habitacion habitacion) {
-        // VINCULAR gestorHotel.getInstance().checkOut(pasajero, habitacion);
+    public boolean realizarCheckOut(Pasajero pasajero, Habitacion habitacion,  UUID idReserva) {
         System.out.println(this.getNombre() + " realiza el check-Out para " + pasajero.getNombre());
-        return false; // ACA AL Gestor ver linea
+        return gestorHabitaciones.checkout(idReserva);
     }
 
     /*

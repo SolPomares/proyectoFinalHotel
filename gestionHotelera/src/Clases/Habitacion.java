@@ -29,7 +29,6 @@ public class Habitacion {
     }
 
     //Gets y sets
-
     public static int getContador() {
         return contador;
     }
