@@ -1,4 +1,4 @@
-
+package Clases;
 import Enums.TipoRol;
 
 
@@ -24,6 +24,9 @@ public abstract class Empleados extends Usuario {
         this.contrasenia = contrasenia;
         this.acceso = acceso;
     }
+
+    //Constructor vacio
+
 
 
     //getters y Setters

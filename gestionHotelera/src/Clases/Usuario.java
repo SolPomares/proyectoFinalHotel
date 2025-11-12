@@ -1,11 +1,11 @@
-
+package Clases;
 import Enums.TipoRol;
 import org.json.JSONObject;
 import org.json.JSONException;
 
 public abstract class Usuario {
     // datos generales
-    private static int contadorUsuario = 1;
+    private static int contadorUsuario = 1; //prueba git bash
     private int idUsuario;
     private String nombre;
     private String apellido;
@@ -28,6 +28,9 @@ public abstract class Usuario {
         this.apellido = apellido;
         this.tipoRol = tipoRol;
     }
+
+    //Constructor vacio
+
 
     //Constructor infimo para JSON Deserializacion
     public Usuario(int idUsuario) {
