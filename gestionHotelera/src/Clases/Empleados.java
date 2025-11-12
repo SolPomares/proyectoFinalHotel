@@ -64,7 +64,7 @@ public abstract class Empleados extends Usuario {
     public void imprimirDatos(){
         System.out.println("--------------------------------------------------");
         System.out.println("----------       DATOS GENERALES     -------------");
-       System.out.println("ID: "+ super.getIdUsuario()+ " Rol: "+ getTipoRol());
+        System.out.println("ID: "+ super.getIdUsuario()+ " Rol: "+ getTipoRol());
         System.out.println(" Nombre y Apellido = "+ super.getNombre()+ super.getApellido() + " // DNI= "+ super.getDni());
         System.out.println("nombreUsuario = " + nombreUsuario);
         System.out.println("email = " + email);
