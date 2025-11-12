@@ -1,4 +1,4 @@
-
+package Clases;
 //import Clases.Empleados;
 import Excepciones.datoInvalidoException;
 import java.util.ArrayList;
