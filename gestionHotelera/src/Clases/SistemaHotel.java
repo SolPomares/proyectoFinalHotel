@@ -30,19 +30,24 @@ public class SistemaHotel <T extends Usuario>{
 
     //Eliminar empleado
     public void eliminarEmpleado (int dni) throws datoInvalidoException{
-        String dniComoTexto = String.valueOf(dni);
-        int longitud = dniComoTexto.length();
-        if(longitud != 8)
-        {
-            throw new datoInvalidoException("Error!! DNI invalido");
+        if (String.valueOf(dni).length() != 8) {
+            throw new datoInvalidoException("Error!! DNI inválido");
         }
-        Iterator it = this.gestorHotel.iterator();
-        while(it.hasNext()){
-            int DNI = (int)it.next();
-            if(DNI == dni){
+        Iterator<T> it = this.gestorHotel.iterator();
+        boolean encontrado = false;
+
+        while (it.hasNext()) {
+            T usuario = it.next();
+            if (usuario instanceof Empleados && usuario.getDni() == dni) {
                 it.remove();
+                System.out.println("Empleado con DNI " + dni + " eliminado ");
+                encontrado = true;
+                break;
             }
-            System.out.println("Empleado con DNI " +DNI+ " eliminado ");
+        }
+
+        if (!encontrado) {
+            System.out.println("No se encontró empleado con DNI: " + dni);
         }
 
     }
@@ -56,22 +61,29 @@ public class SistemaHotel <T extends Usuario>{
     }
 
     //Eliminar pasajero
-    public void eliminarPasajero (int dni) throws datoInvalidoException {
-        String dniComoTexto = String.valueOf(dni);
-        int longitud = dniComoTexto.length();
-        if (longitud != 8) {
-            throw new datoInvalidoException("Error!! DNI invalido");
+    public void eliminarPasajero(int dni) throws datoInvalidoException {
+        if (String.valueOf(dni).length() != 8) {
+            throw new datoInvalidoException("Error!! DNI inválido");
         }
-        Iterator it = this.gestorHotel.iterator();
+
+        Iterator<T> it = this.gestorHotel.iterator();
+        boolean encontrado = false;
+
         while (it.hasNext()) {
-            int DNI = (int) it.next();
-            if (DNI == dni) {
+            T usuario = it.next();
+            if (usuario instanceof Pasajero && usuario.getDni() == dni) {
                 it.remove();
+                System.out.println("Pasajero con DNI " + dni + " eliminado ");
+                encontrado = true;
+                break;
             }
-            ///Hacer verificador para asegurar que sea pasajero
-            System.out.println("Pasajero con DNI " + DNI + " eliminado ");
+        }
+
+        if (!encontrado) {
+            System.out.println("No se encontró pasajero con DNI: " + dni);
         }
     }
+
 
     //Mostrar usuarios
         public void imprimirTodosUsuarios(){
@@ -82,13 +94,19 @@ public class SistemaHotel <T extends Usuario>{
         }
 
     //Mostrar solo empleados
-    public void mostrarEmpleados(){
-        Iterator it = this.gestorHotel.iterator();
-        while(it.hasNext()){
-            if(it.next() instanceof Empleados){
-                Empleados empleados = (Empleados)it.next();
-                empleados.imprimirDatos();
+    public void mostrarEmpleados() {
+        System.out.println("=== EMPLEADOS REGISTRADOS ===");
+        boolean hayEmpleados = false;
+
+        for (T usuario : gestorHotel) {
+            if (usuario instanceof Empleados) {
+                ((Empleados) usuario).imprimirDatos();
+                hayEmpleados = true;
             }
+        }
+
+        if (!hayEmpleados) {
+            System.out.println("No hay empleados registrados.");
         }
     }
 
@@ -106,13 +124,19 @@ public class SistemaHotel <T extends Usuario>{
     }
 
     //Mostrar solo pasajeros
-    public void mostrarPasajeros(){
-        Iterator it = this.gestorHotel.iterator();
-        while(it.hasNext()){
-            if(it.next() instanceof Pasajero){
-                Pasajero pasajero = (Pasajero) it.next();
-                pasajero.imprimirDatos();
+    public void mostrarPasajeros() {
+        System.out.println("=== PASAJEROS REGISTRADOS ===");
+        boolean hayPasajeros = false;
+
+        for (T usuario : gestorHotel) {
+            if (usuario instanceof Pasajero) {
+                ((Pasajero) usuario).imprimirDatos();
+                hayPasajeros = true;
             }
+        }
+
+        if (!hayPasajeros) {
+            System.out.println("No hay pasajeros registrados.");
         }
     }
 
