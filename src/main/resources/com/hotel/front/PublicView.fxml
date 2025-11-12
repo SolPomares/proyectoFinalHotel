@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.image.*?>
+<?import java.net.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hotel.front.PublicController">
+    <stylesheets>
+        <URL value="@styles.css" />
+    </stylesheets>
+
+    <top>
+        <Label text="Hotel Las Olas"
+               style="-fx-padding: 10; -fx-font-size: 20; -fx-font-weight: bold;"/>
+    </top>
+
+
+    <center>
+        <StackPane fx:id="heroPane"
+                   styleClass="hero"
+                   prefWidth="900" prefHeight="550"
+                   maxWidth="900" maxHeight="550"
+                   BorderPane.alignment="CENTER">
+
+            <ImageView fx:id="carouselImage"
+                       preserveRatio="true"
+                       smooth="true"
+                       pickOnBounds="true"
+                       fitWidth="900"
+                       fitHeight="550" />
+
+            <VBox alignment="CENTER" spacing="8">
+                <Label text="Vistas al mar &amp; confort" styleClass="hero-title"/>
+                <Label text="Una experiencia inolvidable en cada estadía."
+                       styleClass="hero-sub"/>
+            </VBox>
+        </StackPane>
+    </center>
+
+
+
+</BorderPane>
