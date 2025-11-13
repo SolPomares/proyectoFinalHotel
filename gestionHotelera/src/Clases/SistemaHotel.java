@@ -113,12 +113,11 @@ public class SistemaHotel <T extends Usuario>{
     //Listar Empleados
     public ArrayList<Empleados> ListarEmpleados(){
         ArrayList<Empleados> empleadosLista = new ArrayList<>();
-        Iterator it = this.gestorHotel.iterator();
-        while(it.hasNext()){
-            if(it.next() instanceof Empleados){
-                empleadosLista.add((Empleados)it.next());
-            }
-        }
+       for(T usuario : this.gestorHotel){
+           if(usuario instanceof Empleados){
+               empleadosLista.add((empleadosLista))
+           }
+       }
 
         return empleadosLista;
     }
