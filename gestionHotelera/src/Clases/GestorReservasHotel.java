@@ -1,5 +1,6 @@
 package Clases;
 import Enums.TipoDisponibilidad;
+import Excepciones.NoDisponibleException;
 import Excepciones.datoInvalidoException;
 import java.util.ArrayList;
 import java.util.Date;
@@ -28,7 +29,7 @@ public class GestorReservasHotel {
         System.out.println("✅ Habitación Nro. " + habitacion.getNumeroHabitacion() + " dada de alta.");
     }
 
-    public List<Habitacion> buscarHabitacionesDisponibles(int capacidadRequerida, Date fechaIn, Date fechaOut) {
+    public List<Habitacion> buscarHabitacionesDisponibles(int capacidadRequerida, Date fechaIn, Date fechaOut) throws NoDisponibleException {
         List<Habitacion> disponibles = new ArrayList<>();
         System.out.println("Buscando habitaciones disponibles para " + capacidadRequerida + " persona(s)");
 
@@ -39,6 +40,11 @@ public class GestorReservasHotel {
                 disponibles.add(h);
             }
         }
+
+        if (disponibles.isEmpty()) {
+            throw new NoDisponibleException("No se encontraron habitaciones disponibles para la capacidad y fechas especificadas.");
+        }
+
         return disponibles;
     }
 
@@ -47,11 +53,12 @@ public class GestorReservasHotel {
             habitacion.setDisponibilidad(TipoDisponibilidad.RESERVADO);
             habitacion.setDateIn(fechaIn);
             habitacion.setDateOut(fechaOut);
-            System.out.println("Reserva creada para Hab. " + habitacion.getNumeroHabitacion());
+            System.out.println("Reserva creada para Habitacion: " + habitacion.getNumeroHabitacion());
             return true;
+        } else {
+            throw new NoDisponibleException("No sepudo reservar la habitacion: " + habitacion.getNumeroHabitacion() + "porque el estado actual de la habitacion es: " + habitacion.getDisponibilidad().name());
         }
-        System.out.println(" Error: Habitación " + habitacion.getNumeroHabitacion() + " no está libre.");
-        return false;
+
     }
 
     public boolean realizarCheckIn(Habitacion habitacion) {
