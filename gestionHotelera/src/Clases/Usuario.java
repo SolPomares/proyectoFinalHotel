@@ -1,4 +1,5 @@
 package Clases;
+import Excepciones.*;
 import Enums.TipoRol;
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -92,7 +93,7 @@ public abstract class Usuario {
             json.put("TipoRol: ", this.tipoRol.name());
         } catch (JSONException ex) {
             System.err.println("ERROR AL CONVERTIR EL USUARIO A JSON");
-            throw new PersitenciaException("Error de conversion - problema en la estructura de datos");
+            throw new PersistenciaException("Error de conversion - problema en la estructura de datos");
         }
         return json;
     }
