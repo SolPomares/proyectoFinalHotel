@@ -70,4 +70,30 @@ public abstract class Empleados extends Usuario {
         System.out.println("--------------------------------------------------");
         System.out.println("--------------------------------------------------");
     }
+
+    //metodo para validar contrasenia
+    public boolean validarContrasenia(String contrasenia){
+        if(this.getContrasenia().equals(contrasenia)) {
+            System.out.println("Acceso Permitido");
+            return true;
+        }else{
+            System.out.println("Error En contraseña ingresada");
+            return false;
+        }
+    }
+
+    //metodo para validar
+    public boolean tienePermisoSistema(){
+        if(this.acceso){
+            return true;
+        }else{
+            System.out.println("Solicitar permiso al administrador");
+            return false;
+        }
+    }
+
+
+
+
+
 }
