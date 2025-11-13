@@ -115,7 +115,7 @@ public class SistemaHotel <T extends Usuario>{
         ArrayList<Empleados> empleadosLista = new ArrayList<>();
        for(T usuario : this.gestorHotel){
            if(usuario instanceof Empleados){
-               empleadosLista.add((empleadosLista))
+               empleadosLista.add((Empleados) usuario);
            }
        }
 
