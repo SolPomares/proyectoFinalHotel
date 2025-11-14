@@ -1,3 +1,7 @@
+package Clases;
+import Enums.TipoDisponibilidad;
+import Enums.TipoHabitacion;
+
 import java.util.Date;
 import java.util.UUID;
 

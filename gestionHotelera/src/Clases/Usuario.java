@@ -1,4 +1,5 @@
-
+package Clases;
+import Excepciones.*;
 import Enums.TipoRol;
 import org.json.JSONObject;
 import org.json.JSONException;
@@ -67,4 +68,27 @@ public abstract class Usuario {
     //metodos
     public abstract void imprimirDatos();
 
+<<<<<<< HEAD
+=======
+    /// Mer guiate por aca
+//PERSISTENCIA - PARA USAR JSON LA CLASE PADRE DEBE TENERLO Y TODAS LAS DEMAS
+    //DEBE SER LLAMADO POR LAS DEMAS
+    public JSONObject toJSON() {
+        JSONObject json = new JSONObject();
+        //Manejo de excepciones
+        try {
+            //CENTRO DELPOLIMORFISMO EN NUESTRO TP
+            json.put("UsuarioTipo", this.getClass().getSimpleName()); //Usa el nombre de las clases hijas
+            json.put("nombre", this.nombre);
+            json.put("Apellido", this.apellido);
+            json.put("DNI", this.dni);
+            json.put("TipoRol: ", this.tipoRol.name());
+        } catch (JSONException ex) {
+            System.err.println("ERROR AL CONVERTIR EL USUARIO A JSON");
+            throw new PersistenciaException("Error de conversion - problema en la estructura de datos");
+        }
+        return json;
+    }
+
+>>>>>>> 3d907b0a929c230991c5c13eb2210afe0d0aaea2
 }
