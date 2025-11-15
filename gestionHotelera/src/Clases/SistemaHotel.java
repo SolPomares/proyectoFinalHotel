@@ -26,7 +26,7 @@ public class SistemaHotel <T extends Usuario> {
         this.gestorHotel = gestorHotel;
     }
 
-    // --- MÉTODOS DE BÚSQUEDA ---
+    // Busqueda
 
     public Usuario buscarUsuario(int dni) {
         for (T usuario : this.gestorHotel) {
@@ -48,7 +48,7 @@ public class SistemaHotel <T extends Usuario> {
         return null;
     }
 
-    // --- MÉTODOS DE SEGURIDAD Y LOGIN ---
+    // VALIDACIONES Y SEguridad
 
     public Empleados gestionarAcceso(String nombreUsuario, String contrasenia) {
         Usuario empleado = buscarEmpleado(nombreUsuario);
@@ -71,27 +71,45 @@ public class SistemaHotel <T extends Usuario> {
         return null;
     }
 
-    public boolean validacionDeAdministrador(Empleados quienEjecuta, String nombreUsuarioAdmin, String contraseniaAdmin) {
-        // Valido Rol
-        if (quienEjecuta.getTipoRol() != TipoRol.ADMINISTRADOR) {
-            System.err.println("ACCESO DENEGADO: La acción requiere el rol de ADMINISTRADOR.");
-            return false;
-        }
+    private Empleados validarCredenciales(String nombreUsuario, String contrasenia) {
+        // gestionarAcceso ya se encarga de buscar, validar contraseña y permiso de sistema.
+        Empleados empleadoValidado = gestionarAcceso(nombreUsuario, contrasenia);
 
-        // El Administrador se auto-valida usando gestionarAcceso
-        Empleados adminValidado = gestionarAcceso(nombreUsuarioAdmin, contraseniaAdmin);
+        if(empleadoValidado == null) {
+            return null;
+        }
+        return empleadoValidado;
+    }
+
+    public boolean validarAdmin(String nombreUsuarioAdmin, String contraseniaAdmin) {
+
+        Empleados adminValidado = validarCredenciales(nombreUsuarioAdmin, contraseniaAdmin);
 
         if (adminValidado != null && adminValidado.getTipoRol() == TipoRol.ADMINISTRADOR) {
-            System.out.println("Credenciales de Administrador verificadas. Acción autorizada.");
+            System.out.println("Autenticación de ADMINISTRADOR exitosa.");
             return true;
         } else {
-            // Si gestionaAcceso falló (contraseña incorrecta)
-            System.err.println(" Error de Autenticación: Nombre de usuario o contraseña de Administrador incorrectos.");
+            System.err.println(" ACCESO DENEGADO: La acción requiere credenciales de ADMINISTRADOR.");
             return false;
         }
     }
 
-    // --- MÉTODOS DE ALTA/BAJA (CRUD) ---
+    public boolean validarRecepcionista(String nombreUsuarioRecep, String contraseniaRecep) {
+
+        Empleados empleadoValidado = validarCredenciales(nombreUsuarioRecep, contraseniaRecep);
+
+        if (empleadoValidado != null) {
+            TipoRol rol = empleadoValidado.getTipoRol();
+
+            if (rol == TipoRol.RECEPCIONISTA || rol == TipoRol.ADMINISTRADOR) {
+                System.out.println(" Autenticación de Recepcionista/Admin exitosa.");
+                return true;
+            }
+        }
+
+        System.err.println(" ACCESO DENEGADO: La acción requiere credenciales válidas de RECEPCIONISTA o ADMINISTRADOR.");
+        return false;
+    }
 
     // Metodo para dar de baja a un empleado SOLO PUEDE EJECUTAR UN ADMINISTRADOR
     public void bajaEmpleado(Empleados quienEjecuta, int dni) throws datoInvalidoException {
