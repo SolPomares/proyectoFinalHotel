@@ -1,5 +1,5 @@
 package Clases;
-//import Clases.Empleados;
+
 import Excepciones.datoInvalidoException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -8,10 +8,15 @@ import Enums.TipoRol;
 public class SistemaHotel <T extends Usuario> {
     ArrayList<T> gestorHotel;
 
+    //Constructores
+    public SistemaHotel() {
+    }
+
     public SistemaHotel(ArrayList<T> gestorHotel) {
         this.gestorHotel = new ArrayList<>();
     }
 
+    //getters y Setters
     public ArrayList<T> getGestorHotel() {
         return gestorHotel;
     }
@@ -20,7 +25,8 @@ public class SistemaHotel <T extends Usuario> {
         this.gestorHotel = gestorHotel;
     }
 
-    //Metodo para buscar un usuario por dni
+    //Metodos
+
     public Usuario buscarUsuario(int dni) {
         for (T usuario : this.gestorHotel) {
             if (usuario.getDni() == dni) {
@@ -40,44 +46,52 @@ public class SistemaHotel <T extends Usuario> {
                 }
             }
         }
-
         return null;
     }
 
-    //Metodo para login, validar ingreso y retonar el usuario
+    //Login, validar ingreso y retonar el usuario
     public Empleados gestionarAcceso(String nombreUsuario, String contrasenia) {
         Usuario empleado = buscarEmpleado(nombreUsuario);
         if (empleado == null) {
             System.out.println("ERROR! empleado no encontrado, acceso invalido");
+            return null;
         }
-<<<<<<<HEAD
+
         if (empleado instanceof Empleados) {
             if (((Empleados) empleado).validarContrasenia(contrasenia)) {
                 if (((Empleados) empleado).tienePermisoSistema()) {
                     System.out.println("Acceso exitoso como: " + empleado.getTipoRol());
+                    return (Empleados) empleado;
+
                 } else {
                     System.out.println("ERROR! No tiene permiso sistema");
                 }
             }
         }
-
         return null;
     }
 
-    //Metodo QUE COMIENZAN A IMPLEMENTAR EL LOGIN
-    //Metodo para alta y baja de empleados SOLO PUEDE HACERLO UN ADMINISTRADOR
     public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException {
-        if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
-            if (empleadoNuevo == null) {
-                throw new datoInvalidoException("ERROR! el empleado no existe");
-            }
-            gestorHotel.add((T) empleadoNuevo);
-            System.out.println("Empleado" + empleadoNuevo.getNombre() + "agregado exitosamente");
-        } else {
-            System.out.println("ERROR! No tiene permiso sistema");
+        //Validaciones
+        // Permiso del administrador
+        if (quienEjecuta.getTipoRol() != TipoRol.ADMINISTRADOR) {
+            System.out.println("ACCESO DENEGADO: Solo un ADMINISTRADOR puede dar de alta nuevos empleados.");
+            return;
         }
 
+        if (empleadoNuevo == null) {
+            throw new datoInvalidoException("ERROR! El objeto Empleados a dar de alta no puede ser nulo.");
+        }
+        //Reviso que el empleado no este dado de alta para no duplicar
+        if (buscarUsuario(empleadoNuevo.getDni()) != null) {
+            throw new datoInvalidoException("ERROR! Ya existe un usuario (o empleado) con el DNI: " + empleadoNuevo.getDni());
+        }
+
+        this.gestorHotel.add((T)empleadoNuevo);
+
+        System.out.println("Empleado " + empleadoNuevo.getNombre() + " agregado exitosamente al sistema.");
     }
+}
 
     //Metodo para dar de baja a un empleado SOLO PUEDE EJECUTAR UN ADMINISTRADOR
     public void bajaEmpleado(Empleados quienEjecuta, int dni) throws datoInvalidoException {
