@@ -68,8 +68,6 @@ public abstract class Usuario {
     //metodos
     public abstract void imprimirDatos();
 
-<<<<<<< HEAD
-=======
     /// Mer guiate por aca
 //PERSISTENCIA - PARA USAR JSON LA CLASE PADRE DEBE TENERLO Y TODAS LAS DEMAS
     //DEBE SER LLAMADO POR LAS DEMAS
@@ -89,6 +87,4 @@ public abstract class Usuario {
         }
         return json;
     }
-
->>>>>>> 3d907b0a929c230991c5c13eb2210afe0d0aaea2
 }
