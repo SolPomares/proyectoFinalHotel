@@ -1,5 +1,6 @@
 package Clases;
 
+import Excepciones.AccesoDenegadoException;
 import Excepciones.datoInvalidoException;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -51,20 +52,18 @@ public class SistemaHotel <T extends Usuario> {
     // VALIDACIONES Y SEguridad
 
     public Empleados gestionarAcceso(String nombreUsuario, String contrasenia) {
-        Usuario empleado = buscarEmpleado(nombreUsuario);
-        if (empleado == null) {
-            System.out.println("ERROR! empleado no encontrado, acceso invalido");
-            return null;
+        Usuario empleadoValidado = buscarEmpleado(nombreUsuario);
+        if (empleadoValidado == null) {
+            throw new AccesoDenegadoException("ACCESO DENEGADO: Error empleado no encontrado")
         }
 
-        if (empleado instanceof Empleados emp) {
-            if (emp.validarContrasenia(contrasenia)) {
-                if (emp.tienePermisoSistema()) {
-                    System.out.println("Acceso exitoso como: " + emp.getTipoRol());
-                    return emp; // Devuelve el Empleado validado
-
+        if (empleadoValidado instanceof Empleados empleado) {
+            if (empleado.validarContrasenia(contrasenia)) {
+                if (empleado.tienePermisoSistema()) {
+                    System.out.println("Acceso exitoso como: " + empleado.getTipoRol());
+                    return empleado; // Devuelve el Empleado validado
                 } else {
-                    System.err.println("ERROR! No tiene permiso sistema");
+                    throw new AccesoDenegadoException("ACCESO DENEGADO - Solicite permiso al administrador")
                 }
             }
         }
@@ -72,12 +71,7 @@ public class SistemaHotel <T extends Usuario> {
     }
 
     private Empleados validarCredenciales(String nombreUsuario, String contrasenia) {
-        // gestionarAcceso ya se encarga de buscar, validar contraseña y permiso de sistema.
         Empleados empleadoValidado = gestionarAcceso(nombreUsuario, contrasenia);
-
-        if(empleadoValidado == null) {
-            return null;
-        }
         return empleadoValidado;
     }
 
@@ -89,8 +83,8 @@ public class SistemaHotel <T extends Usuario> {
             System.out.println("Autenticación de ADMINISTRADOR exitosa.");
             return true;
         } else {
-            System.err.println(" ACCESO DENEGADO: La acción requiere credenciales de ADMINISTRADOR.");
-            return false;
+            System.err.println(" El usuario "+nombreUsuarioAdmin+ "no posee credenciales");
+            throw new AccesoDenegadoException("ACCESO DENEGADO");
         }
     }
 
@@ -98,20 +92,18 @@ public class SistemaHotel <T extends Usuario> {
 
         Empleados empleadoValidado = validarCredenciales(nombreUsuarioRecep, contraseniaRecep);
 
-        if (empleadoValidado != null) {
-            TipoRol rol = empleadoValidado.getTipoRol();
+        TipoRol rol = empleadoValidado.getTipoRol();
 
-            if (rol == TipoRol.RECEPCIONISTA || rol == TipoRol.ADMINISTRADOR) {
-                System.out.println(" Autenticación de Recepcionista/Admin exitosa.");
-                return true;
-            }
+        if (rol == TipoRol.RECEPCIONISTA || rol == TipoRol.ADMINISTRADOR) {
+            System.out.println(" Autenticación de Recepcionista/Admin exitosa.");
+            return true;
         }
 
-        System.err.println(" ACCESO DENEGADO: La acción requiere credenciales válidas de RECEPCIONISTA o ADMINISTRADOR.");
-        return false;
+        throw new AccesoDenegadoException("ACCESO DENEGADO: La acción requiere credenciales válidas de RECEPCIONISTA o ADMINISTRADOR.");
     }
 
-    // Metodo para dar de baja a un empleado SOLO PUEDE EJECUTAR UN ADMINISTRADOR
+
+    // ALTAS Y BAJAS
     public void bajaEmpleado(Empleados quienEjecuta, int dni) throws datoInvalidoException {
         if (quienEjecuta.getTipoRol() != TipoRol.ADMINISTRADOR) {
             System.err.println("ERROR! No tiene permiso sistema para dar de baja empleados.");
@@ -132,7 +124,7 @@ public class SistemaHotel <T extends Usuario> {
 
         // Eliminación
         this.gestorHotel.remove(usuarioABorrar);
-        System.out.println("✅ Empleado con DNI " + dni + " eliminado.");
+        System.out.println("Empleado con DNI " + dni + " eliminado.");
     }
 
     // Metodo para dar de alta a un pasajero SOLO PUEDE HACERLO EL RECEPCIONISTA (o Admin)
@@ -151,7 +143,7 @@ public class SistemaHotel <T extends Usuario> {
         }
 
         gestorHotel.add((T) pasajeroNuevo);
-        System.out.println("✅ Pasajero " + pasajeroNuevo.getNombre() + " agregado exitosamente.");
+        System.out.println("Pasajero " + pasajeroNuevo.getNombre() + " agregado exitosamente.");
     }
 
     // Metodo para dar de baja un pasajero SOLO EJECUTA RECEPCIONISTA (o Admin)
@@ -175,7 +167,7 @@ public class SistemaHotel <T extends Usuario> {
 
         // Eliminación (Check-out)
         this.gestorHotel.remove(usuarioABorrar);
-        System.out.println("✅ Pasajero con DNI " + dni + " eliminado/check-out realizado.");
+        System.out.println("Pasajero con DNI " + dni + " eliminado/check-out realizado.");
     }
 
     // --- MÉTODOS DE MOSTRAR / LISTAR ---
@@ -183,7 +175,6 @@ public class SistemaHotel <T extends Usuario> {
     public void imprimirTodosUsuarios() {
         System.out.println("=== USUARIOS REGISTRADOS ===");
         for (T usuario : this.gestorHotel) {
-            // El método imprimirDatos() es abstracto en Usuario
             usuario.imprimirDatos();
         }
     }
