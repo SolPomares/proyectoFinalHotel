@@ -50,7 +50,6 @@ public class SistemaHotel <T extends Usuario>{
         if(empleado == null){
             System.out.println("ERROR! empleado no encontrado, acceso invalido");
         }
-<<<<<<< HEAD
         if(empleado instanceof Empleados){
             if(((Empleados) empleado).validarContrasenia(contrasenia)){
                 if(((Empleados) empleado).tienePermisoSistema()){
@@ -261,16 +260,14 @@ public class SistemaHotel <T extends Usuario>{
         while(it.hasNext()){
             if(it.next() instanceof Empleados){
                 empleadosLista.add((Empleados)it.next());
->>>>>>> 3d907b0a929c230991c5c13eb2210afe0d0aaea2
             }
             if (!encontrado) {
                 System.out.println("No se encontró un Pasajero con DNI " + dni + ".");
             }
-        } else {
+             else {
             System.out.println("ACCESO DENEGADO: Solo un ADMINISTRADOR o RECEPCIONISTA puede realizar el check-out/baja de pasajeros.");
         }
     }
-
 }
 
 

@@ -1,15 +1,19 @@
+package Clases;
+
+import Clases.Habitacion;
+import Clases.Pasajero;
+import Enums.TipoDisponibilidad;
 import Excepciones.habitacionOcupadaException;
 
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.UUID;
-
-/// SOL SOY MEEERRR!!!!!!
+import Clases.Reserva;
 
 public class SistemaHabitaciones {
     //Atributos
     private ArrayList<Habitacion> listaHabitaciones;
-    private ArrayList<Reserva>  listaReservas;
+    private ArrayList <Reserva>  listaReservas;
 
     //Constructor
     public SistemaHabitaciones(ArrayList<Habitacion> listaHabitaciones, ArrayList<Reserva> listaReservas) {
