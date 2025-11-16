@@ -1,8 +1,8 @@
 package Clases;
 import Excepciones.*;
 import Enums.TipoRol;
-import org.json.JSONObject;
-import org.json.JSONException;
+//import org.json.JSONObject;
+//import org.json.JSONException;
 
 public abstract class Usuario {
     //Atributos
@@ -24,8 +24,7 @@ public abstract class Usuario {
     }
 
     //Constructor infimo para JSON Deserializacion
-    public Usuario(int idUsuario) {
-        this.idUsuario = ++contadorUsuario;
+    public Usuario() {
     }
 
     //Getters y setters
@@ -67,10 +66,12 @@ public abstract class Usuario {
 
     //metodos
     public abstract void imprimirDatos();
-
 }
 
 /*
+=======
+    /// Mer guiate por aca
+>>>>>>> 3c226f520f2465ac96adc0631d22b0595b8a9e28
 //PERSISTENCIA - PARA USAR JSON LA CLASE PADRE DEBE TENERLO Y TODAS LAS DEMAS
     //DEBE SER LLAMADO POR LAS DEMAS
     public JSONObject toJSON() {
