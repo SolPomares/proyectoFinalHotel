@@ -1,13 +1,14 @@
 package Clases;
 import Excepciones.*;
 import Enums.TipoRol;
+
+import java.util.UUID;
 //import org.json.JSONObject;
 //import org.json.JSONException;
 
 public abstract class Usuario {
     //Atributos
-    private static int contadorUsuario = 1; //prueba git bash
-    private int idUsuario;
+    private UUID idUsuario;
     private String nombre;
     private String apellido;
     private int dni;
@@ -15,8 +16,8 @@ public abstract class Usuario {
 
 
     //constructor
-    public Usuario(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol) {
-        this.idUsuario = contadorUsuario++;
+    public Usuario(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol) {
+        this.idUsuario = UUID.randomUUID();
         this.nombre = nombre;
         this.apellido = apellido;
         this.dni = dni;
@@ -28,7 +29,7 @@ public abstract class Usuario {
     }
 
     //Getters y setters
-    public int getIdUsuario() {
+    public UUID getIdUsuario() {
         return idUsuario;
     }
 
