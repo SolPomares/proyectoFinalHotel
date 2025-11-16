@@ -28,7 +28,7 @@ public class SistemaHabitaciones {
                 return r;
             }
         }
-        return null; 
+        return null;
     }
 
     //Metodo para crear una reserva
