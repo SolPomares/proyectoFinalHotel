@@ -3,21 +3,33 @@ import java.util.List;
 import java.util.UUID;
 
 import Enums.TipoRol;
+import Interfaces.IValidarContrasenia;
 
-public class Pasajero extends Usuario {
+public class Pasajero extends Usuario implements IValidarContrasenia {
     //Atributos propios
     private String Origen;
     private String DomicilioOrigen;
     private List<String> Historial;
+    private String nombreUsuarioPasajero;
+    private String clavePasajero;
 
     //Constructor
 
-
-    public Pasajero(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String origen, String domicilioOrigen, List<String> historial) {
+    public Pasajero(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String origen, String domicilioOrigen, List<String> historial, String nombreUsuarioPasajero, String clavePasajero) {
         super(idUsuario, nombre, apellido, dni, tipoRol);
         Origen = origen;
         DomicilioOrigen = domicilioOrigen;
         Historial = historial;
+        this.nombreUsuarioPasajero = nombreUsuarioPasajero;
+        this.clavePasajero = clavePasajero;
+    }
+
+    public Pasajero(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String origen) {
+        super(idUsuario, nombre, apellido, dni, tipoRol);
+        Origen = origen;
+    }
+
+    public Pasajero() {
     }
 
     //Gets y sets
@@ -45,10 +57,31 @@ public class Pasajero extends Usuario {
         Historial = historial;
     }
 
+    public String getNombreUsuarioPasajero() {
+        return nombreUsuarioPasajero;
+    }
+
+    public void setNombreUsuarioPasajero(String nombreUsuarioPasajero) {
+        this.nombreUsuarioPasajero = nombreUsuarioPasajero;
+    }
+
+    public String getClavePasajero() {
+        return clavePasajero;
+    }
+
+    public void setClavePasajero(String clavePasajero) {
+        this.clavePasajero = clavePasajero;
+    }
+
     public void imprimirDatos(){
         System.out.println("getNombre() = " + getNombre() + " Apellido " + getApellido());
-         ///poner que mas queremos se vea del pasajero
+        System.out.println("DNI : " + getDni()+ "Origen = " + Origen);
+        System.out.println("Historial = " + Historial);
 
     }
 
+    @Override
+    public boolean validarContrasenia(String contraseniaAValidar) {
+        return this.clavePasajero.equals(contraseniaAValidar);
+    }
 }
