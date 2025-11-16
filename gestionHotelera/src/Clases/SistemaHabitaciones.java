@@ -11,6 +11,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.UUID;
+import java.util.stream.Collectors;
+
 import Clases.Reserva;
 
 public class SistemaHabitaciones {
@@ -35,8 +37,12 @@ public class SistemaHabitaciones {
     }
 
     //metodo para listar habitaciones disponibles
-    public List listarHabitaciones disponibles(){
-        
+    public List<Habitacion> listarHabitacionesDisponibles() {// El stream aplica dos filtros:
+            return listaHabitaciones.stream()
+                    .filter(h -> h.getDisponibilidad() == TipoDisponibilidad.DISPONIBLE)
+                    .filter(h -> h.getTipoNODisponible() == null)
+                    .collect(Collectors.toList());
+
     }
 
     //Metodo para crear una reserva
