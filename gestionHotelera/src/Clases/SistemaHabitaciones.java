@@ -3,6 +3,7 @@ package Clases;
 import Clases.Habitacion;
 import Clases.Pasajero;
 import Enums.TipoDisponibilidad;
+import Excepciones.ReservaInexistenteExeption;
 import Excepciones.datoInvalidoException;
 import Excepciones.habitacionOcupadaException;
 
@@ -46,7 +47,7 @@ public class SistemaHabitaciones {
     }
 
     //METODOS PARA CHECK-IN Y CHECK-OUT
-    //Check-in
+
     public boolean checkin (UUID id) throws datoInvalidoException {
         if (id == null) {
             throw new datoInvalidoException("ERROR! El ID de reserva no puede ser nulo.");
@@ -56,8 +57,7 @@ public class SistemaHabitaciones {
 
         // Si la reserva no existe, salimos
         if(r == null){
-            System.out.println("ERROR! La reserva ingresada no existe.");
-            return false;
+            throw new ReservaInexistenteExeption("ERROR! La reserva ingresada no existe.");
         }
 
         // La reserva existe, procedemos al check-in
@@ -74,21 +74,33 @@ public class SistemaHabitaciones {
 
         return true;
     }
-    
-    public boolean checkout(UUID id){
-        Reserva r = buscarReservaPorId(id);
-        if(r != null){
-            System.out.println("ERROR! La reserva ingresada no existe");
-            return false;
+
+    public boolean checkout(UUID id) throws datoInvalidoException {
+
+        // Validación de entrada
+        if (id == null) {
+            throw new datoInvalidoException("ERROR! El ID de reserva no puede ser nulo.");
         }
-        else{
+
+        Reserva r = buscarReservaPorId(id);
+
+        // Si la reserva NO existe.
+        if (r == null) {
+            throw new ReservaInexistenteExeption("ERROR! La reserva ingresada no existe.");
+
+        } else {
+            //Ejecutar Check-Out (sólo si r != null)
             Habitacion h = r.getHabitacion();
+
             h.setDisponibilidad(TipoDisponibilidad.DISPONIBLE);
-            h.setDateIn(null);
-            h.setDateOut("Check-out: " + java.time.LocalDate.now().toString());
+            h.setDateIn(null);  // La habitación ya no tiene una fecha de check-in activa
+            h.setDateOut(null); // La habitación está libre
+
+            System.out.println("Check-Out exitoso para la reserva ID: " + id);
+
+            listaReservas.remove(r); // Si la reserva debe ser eliminada después del check-out
 
             return true;
         }
     }
-
 }
