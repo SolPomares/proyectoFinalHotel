@@ -19,9 +19,6 @@ public class App {
     private static Scanner teclado = new Scanner(System.in);
     private static Usuario usuarioActual = null;
 
-    // Cambiado a tipo Usuario para permitir login de Pasajeros
-    private static Usuario usuarioActual = null;
-
     // Credenciales del administrador genérico
     private static final String ADMIN_USER = "admin";
     private static final String ADMIN_PASS = "admin123";
@@ -198,6 +195,7 @@ public class App {
                 case 2:
                     System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
                     int dniBaja = Integer.parseInt(teclado.nextLine());
+               /// Revisar
                     gestorUsuarios.bajaEmpleado(usuarioActual, dniBaja);
                     break;
                 case 3:
@@ -264,6 +262,7 @@ public class App {
                 case 4:
                     System.out.print("\n--- BAJA PASAJERO ---\nDNI del pasajero a dar de baja: ");
                     int dniPasajero = Integer.parseInt(teclado.nextLine());
+                   /// Revisar
                     gestorUsuarios.bajaPasajero(usuarioActual, dniPasajero);
                     break;
                 case 5:
@@ -297,21 +296,21 @@ public class App {
             switch (opcion) {
                 case 1: // Listar Habitaciones Disponibles
                     System.out.println("\n--- HABITACIONES DISPONIBLES ---");
-                    gestorHabitaciones.listarHabitacionesDisponibles()
+                    gestorHabitaciones.listarHabitacionesDisponibles();
                     break;
                 case 2: // Realizar Nueva Reserva
                     System.out.println("\n--- CREACIÓN DE RESERVA ---");
-                    int numHab = leerOpcion("Ingrese número de habitación a reservar: ");
-                    Habitacion habitacionElegida = gestorHabitaciones.(numHab);
+                    System.out.println("Ingrese número de habitación a reservar: ");
+                    int numHab = leerOpcion();
+                    Habitacion habitacionElegida = gestorHabitaciones.obtenerHabitacionXNumero(numHab);
+
                     if (habitacionElegida == null) {
                         System.out.println("Habitación no encontrada.");
                         break;
                     }
+
                     System.out.println("Ingrese la cantidad de días de reserva: ");
                     int dias = leerOpcion();
-                    if (dias <= 0) throw new datoInvalidoException("La cantidad de días debe ser positiva.");
-
-                    // Simulación de fechas
                     Date fechaIn = new Date();
                     Date fechaOut = new Date(fechaIn.getTime() + (long) dias * 24 * 60 * 60 * 1000);
 
