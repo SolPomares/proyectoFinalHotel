@@ -18,6 +18,13 @@ public class App {
     private static Scanner teclado = new Scanner(System.in);
     private static Empleados usuarioActual = null;
 
+    // Cambiado a tipo Usuario para permitir login de Pasajeros
+    private static Usuario usuarioActual = null;
+
+    // Credenciales del administrador genérico
+    private static final String ADMIN_USER = "admin";
+    private static final String ADMIN_PASS = "admin123";
+
     public static void main(String[] args) {
         try {
             // Cargar el sistema completo desde JSON
@@ -28,7 +35,7 @@ public class App {
             gestorUsuarios = new SistemaHotel<>(usuarios);
             gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
 
-            System.out.println("✅ Sistema cargado exitosamente");
+            System.out.println("Sistema cargado exitosamente");
 
             // Menú principal
             menuPrincipalLoop();
@@ -49,7 +56,7 @@ public class App {
                 usuarioActual = login();
                 if (usuarioActual == null) {
                     System.out.println("\n¿Intentar de nuevo o Salir? (0 para salir, cualquier tecla para reintentar): ");
-                    String input = scanner.nextLine();
+                    String input = teclado.nextLine();
                     if (input.equals("0")) {
                         break;
                     }
@@ -76,9 +83,9 @@ public class App {
 
                 System.out.print("Ingrese una opción: ");
                 try {
-                    opcion = Integer.parseInt(scanner.nextLine());
+                    opcion = Integer.parseInt(teclado.nextLine());
                 } catch (NumberFormatException e) {
-                    System.out.println("❌ Opción inválida. Ingrese un número.");
+                    System.out.println("Opción inválida. Ingrese un número.");
                     continue;
                 }
 
@@ -100,19 +107,19 @@ public class App {
     public static Empleados login() {
         System.out.println("\n=== INGRESO AL SISTEMA ===");
         System.out.print("Usuario: ");
-        String user = scanner.nextLine();
+        String user = teclado.nextLine();
         System.out.print("Contraseña: ");
-        String pass = scanner.nextLine();
+        String pass = teclado.nextLine();
 
         Usuario usuarioEncontrado = gestorUsuarios.gestionarAcceso(user, pass);
 
         if (usuarioEncontrado instanceof Empleados) {
             Empleados empleado = (Empleados) usuarioEncontrado;
-            System.out.println("✅ Login exitoso - " + empleado.getTipoRol());
+            System.out.println("Login exitoso - " + empleado.getTipoRol());
             return empleado;
         }
 
-        System.out.println("❌ Acceso denegado. Verifique usuario, contraseña o permisos.");
+        System.out.println("Acceso denegado. Verifique usuario, contraseña o permisos.");
         return null;
     }
 
@@ -151,7 +158,7 @@ public class App {
                     break;
                 case 2:
                     System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
-                    int dniBaja = Integer.parseInt(scanner.nextLine());
+                    int dniBaja = Integer.parseInt(teclado.nextLine());
                     gestorUsuarios.bajaEmpleado(usuarioActual, dniBaja);
                     break;
                 case 3:
@@ -164,27 +171,27 @@ public class App {
                     break;
                 case 5:
                     System.out.print("\n--- BUSCAR USUARIO ---\nIngrese DNI: ");
-                    int dniBuscar = Integer.parseInt(scanner.nextLine());
+                    int dniBuscar = Integer.parseInt(teclado.nextLine());
                     Usuario usuario = gestorUsuarios.buscarUsuario(dniBuscar);
                     if (usuario != null) {
                         usuario.imprimirDatos();
                     } else {
-                        System.out.println("❌ Usuario no encontrado");
+                        System.out.println("Usuario no encontrado");
                     }
                     break;
                 case 9:
-                    System.out.println("🔒 Cerrando sesión de Administrador...");
+                    System.out.println("Cerrando sesión de Administrador...");
                     usuarioActual = null;
                     break;
                 case 0:
                     System.out.println("Saliendo del programa...");
                     break;
                 default:
-                    System.out.println("❌ Opción no válida para Administrador.");
+                    System.out.println("Opción no válida para Administrador.");
                     break;
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 
@@ -195,7 +202,7 @@ public class App {
                 case 1:
                     System.out.println("\n--- CHECK-IN ---");
                     System.out.print("Ingrese ID de la Reserva para Check-In (UUID): ");
-                    String idReservaIn = scanner.nextLine();
+                    String idReservaIn = teclado.nextLine();
                     boolean checkInExitoso = recep.realizarCheckIn(null, null, UUID.fromString(idReservaIn));
                     if (checkInExitoso) {
                         System.out.println("✅ Check-in realizado exitosamente");
@@ -204,10 +211,10 @@ public class App {
                 case 2:
                     System.out.println("\n--- CHECK-OUT ---");
                     System.out.print("Ingrese ID de la Reserva para Check-Out (UUID): ");
-                    String idReservaOut = scanner.nextLine();
+                    String idReservaOut = teclado.nextLine();
                     boolean checkOutExitoso = recep.realizarCheckOut(null, null, UUID.fromString(idReservaOut));
                     if (checkOutExitoso) {
-                        System.out.println("✅ Check-out realizado exitosamente");
+                        System.out.println("Check-out realizado exitosamente");
                     }
                     break;
                 case 3:
@@ -217,7 +224,7 @@ public class App {
                     break;
                 case 4:
                     System.out.print("\n--- BAJA PASAJERO ---\nDNI del pasajero a dar de baja: ");
-                    int dniPasajero = Integer.parseInt(scanner.nextLine());
+                    int dniPasajero = Integer.parseInt(teclado.nextLine());
                     gestorUsuarios.bajaPasajero(usuarioActual, dniPasajero);
                     break;
                 case 5:
@@ -237,11 +244,11 @@ public class App {
                     System.out.println("Saliendo del programa...");
                     break;
                 default:
-                    System.out.println("❌ Opción no válida para Recepcionista.");
+                    System.out.println("Opción no válida para Recepcionista.");
                     break;
             }
         } catch (Exception e) {
-            System.out.println("❌ Error: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
         }
     }
 }
