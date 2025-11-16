@@ -45,6 +45,13 @@ public class SistemaHabitaciones {
 
     }
 
+    //metodo para buscar habitacion por numero
+public Habitacion obtenerHabitacionXNumero(int nroHabitacion){
+    return listaHabitaciones.stream()
+            .filter(h -> h.getNumeroHabitacion() == nroHabitacion)
+            .findFirst() // Devuelve el primero que coincida
+            .orElse(null); // Devuelve null si no se encuentra
+}
     //Metodo para crear una reserva
     public void crearReserva (Pasajero pasajero, Habitacion habitacion, Date inicio, Date fin) throws habitacionOcupadaException {
         if(habitacion.getDisponibilidad() == TipoDisponibilidad.DISPONIBLE){

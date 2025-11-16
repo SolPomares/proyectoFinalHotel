@@ -297,15 +297,12 @@ public class App {
             switch (opcion) {
                 case 1: // Listar Habitaciones Disponibles
                     System.out.println("\n--- HABITACIONES DISPONIBLES ---");
-                    gestorHabitaciones.listarHabitacionesDisponibles().forEach(h ->
-                            System.out.println("Nro: " + h.getNumeroHabitacion() +
-                                    " | Tipo: " + h.getTipoHabitacion() +
-                                    " | Precio: $" + h.getValorDiario()));
+                    gestorHabitaciones.listarHabitacionesDisponibles()
                     break;
                 case 2: // Realizar Nueva Reserva
                     System.out.println("\n--- CREACIÓN DE RESERVA ---");
                     int numHab = leerOpcion("Ingrese número de habitación a reservar: ");
-                    Habitacion habitacionElegida = gestorHabitaciones.obtenerHabitacionPorNumero(numHab);
+                    Habitacion habitacionElegida = gestorHabitaciones.(numHab);
                     if (habitacionElegida == null) {
                         System.out.println("Habitación no encontrada.");
                         break;
