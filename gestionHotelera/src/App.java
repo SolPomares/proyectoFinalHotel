@@ -36,6 +36,8 @@ public class App {
             gestorUsuarios = new SistemaHotel<>(usuarios);
             gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
 
+            cargarAdminGenerico();
+
             System.out.println("Sistema cargado exitosamente");
 
             // Menú principal
@@ -43,15 +45,16 @@ public class App {
 
         } catch (JSONException e) {
             throw new LecturaJsonException("Error cargando datos: " + e.getMessage());
-        }catch (Exception e){
+        } catch (Exception e) {
             throw new RuntimeException("Error Inesperado al inicializar el sistema");
         } finally {
-            if(teclado != null) {
+            if (teclado != null) {
                 teclado.close();
             }
         }
     }
-//Cargo ese primer admin
+
+    //Cargo ese primer admin
     private static void cargarAdminGenerico() {
         Usuario adminExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(ADMIN_USER);
 
@@ -75,10 +78,25 @@ public class App {
             }
         }
     }
-    public static void menuPrincipalLoop() {
-        int opcion = -1;
 
-        while (opcion != 0) {
+    private static String leerString() {
+        String opcion = teclado.next();
+        teclado.nextLine();
+        return opcion;
+    }
+
+    private static int leerOpcion() {
+        int opcionNum = teclado.nextInt();
+
+        if (opcionNum <= 0){ throw new datoInvalidoException("El numero debe ser positivo.");}
+
+        return opcionNum;
+    }
+
+    public static void menuPrincipalLoop() {
+        int opcionMenu = -1;
+
+        while (opcionMenu != 0) {
             // Si nadie está logueado, forzamos el login
             if (usuarioActual == null) {
                 usuarioActual = login();
@@ -107,54 +125,33 @@ public class App {
                         mostrarMenuPasajero();
                         break;
                     default:
-                        throw new AccesoDenegadoException("Rol no reconocido o sin acceso.");
+                        System.out.println("Rol no reconocido o sin acceso.");
                         usuarioActual = null;
-                        menuPrincipalLoop(); //vuelvo al ingreso
-                        continue;
-                }
-
-                System.out.print("Ingrese una opción: ");
-                try {
-                    opcion = Integer.parseInt(teclado.nextLine());
-                } catch (NumberFormatException e) {
-                    System.out.println("Opción inválida. Ingrese un número.");
-                    continue;
-                }
-
-                // Procesar opción según rol
-                switch (usuarioActual.getTipoRol()) {
-                    case ADMINISTRADOR:
-                        manejarOpcionAdministrador(opcion);
-                        break;
-                    case RECEPCIONISTA:
-                        manejarOpcionRecepcionista(opcion);
-                        break;
-
-                    case PASAJERO:
-                        manejarOpcionPasajero();
+                        opcionMenu = -1; //vuelvo al ingreso
                 }
             }
         }
-        System.out.println("Saliendo del sistema. ¡Adiós!");
     }
 
-    // LOGIN
-    public static Usuario login() throws AccesoDenegadoException{
+    //LOGIN
+    public static Usuario login() throws AccesoDenegadoException {
         System.out.println("\n=== INGRESO AL SISTEMA ===");
-        System.out.print("Usuario: ");
-        String user = teclado.nextLine();
-        System.out.print("Contraseña: ");
-        String pass = teclado.nextLine();
+        System.out.println("Usuario: ");
+        String user = leerString();
+        System.out.println("Contraseña: ");
+        String pass = leerString();
 
         Usuario usuarioEncontrado = gestorUsuarios.gestionarAcceso(user, pass);
-        if(usuarioEncontrado != null){
+
+        if (usuarioEncontrado != null) {
             return usuarioEncontrado;
         }
-        throw new AccesoDenegadoException ("Acceso denegado. Verifique usuario, contraseña o permisos.");
+        throw new AccesoDenegadoException("Acceso denegado. Verifique usuario, contraseña o permisos.");
     }
 
-    // MENÚS
-    private static void mostrarMenuAdministrador() {
+    //Menus
+
+    private static int mostrarMenuAdministrador() {
         System.out.println("--- MENÚ ADMINISTRADOR ---");
         System.out.println("1. Alta de Nuevo Empleado");
         System.out.println("2. Baja de Empleado (por DNI)");
@@ -163,9 +160,10 @@ public class App {
         System.out.println("5. Buscar Usuario por DNI");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
+        return leerOpcion();
     }
 
-    private static void mostrarMenuRecepcionista() {
+    private static int mostrarMenuRecepcionista() {
         System.out.println("--- MENÚ RECEPCIONISTA ---");
         System.out.println("1. Registrar Check-In de Pasajero");
         System.out.println("2. Registrar Check-Out de Pasajero");
@@ -175,21 +173,23 @@ public class App {
         System.out.println("6. Crear Nueva Reserva");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
+        return leerOpcion();
     }
 
-    private static void mostrarMenuPasajero() {
+    private static int mostrarMenuPasajero() {
         System.out.println("\n--- ZONA DE CLIENTES ---");
         System.out.println("1. Listar Habitaciones Disponibles");
         System.out.println("2. Realizar Nueva Reserva");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
+        return leerOpcion();
     }
 
 
     // MANEJO DE OPCIONES
-    private static void manejarOpcionAdministrador(int opcion) {
+    private static void manejarOpcionAdministrador(int opcionM) {
         try {
-            switch (opcion) {
+            switch (opcionM) {
                 case 1:
                     System.out.println("\n--- ALTA EMPLEADO ---");
                     // Lógica para crear empleado (simulada por ahora)
@@ -292,41 +292,64 @@ public class App {
     }
 
     private static void manejarOpcionPasajero(int opcion) {
-
         Pasajero pasajero = (Pasajero) usuarioActual;
         try {
             switch (opcion) {
-                case 1:
-                    System.out.println("\n--- HABITACIONES DISPONIBLES EN GENERAL ---");
-                    gestorHabitaciones....//no sale a ver q me falta
+                case 1: // Listar Habitaciones Disponibles
+                    System.out.println("\n--- HABITACIONES DISPONIBLES ---");
+                    gestorHabitaciones.listarHabitacionesDisponibles().forEach(h ->
+                            System.out.println("Nro: " + h.getNumeroHabitacion() +
+                                    " | Tipo: " + h.getTipoHabitacion() +
+                                    " | Precio: $" + h.getValorDiario()));
                     break;
-
-                case 2:
-                    // 2. Realizar Nueva Reserva (Usa crearReserva)
+                case 2: // Realizar Nueva Reserva
                     System.out.println("\n--- CREACIÓN DE RESERVA ---");
+                    int numHab = leerOpcion("Ingrese número de habitación a reservar: ");
+                    Habitacion habitacionElegida = gestorHabitaciones.obtenerHabitacionPorNumero(numHab);
+                    if (habitacionElegida == null) {
+                        System.out.println("Habitación no encontrada.");
+                        break;
+                    }
+                    System.out.println("Ingrese la cantidad de días de reserva: ");
+                    int dias = leerOpcion();
+                    if (dias <= 0) throw new datoInvalidoException("La cantidad de días debe ser positiva.");
 
+                    // Simulación de fechas
+                    Date fechaIn = new Date();
+                    Date fechaOut = new Date(fechaIn.getTime() + (long) dias * 24 * 60 * 60 * 1000);
+
+                    gestorHabitaciones.crearReserva(pasajero, habitacionElegida, fechaIn, fechaOut);
+                    System.out.println("Reserva creada exitosamente para la habitación " + numHab);
                     break;
 
-                case 3:
-                    // 3. Modificar Datos Personales
+                case 3: // Modificar Datos Personales
                     System.out.println("\n--- MODIFICAR DATOS PERSONALES ---");
+                    System.out.println("Confirme su contraseña actual para continuar: ");
+                    String passActual = leerString();
+
+                    if (pasajero.validarContrasenia(passActual)) {
+                        System.out.println("Funcionalidad pendiente: Implementar la actualización de datos personales en SistemaHotel.");
+                    } else {
+                        System.out.println("Contraseña incorrecta. Operación cancelada.");
+                    }
                     break;
 
-                case 4:
-                    // 4. Cambiar Contraseña
+                case 4: // Cambiar Contraseña
                     System.out.println("\n--- CAMBIAR CONTRASEÑA ---");
-                    break;
+                    System.out.println("Ingrese su Contraseña Actual: ");
+                    String oldPass = leerString();
 
-                case 9:
-                    usuarioActual = null;
-                    break;
-                case 0:
+                    if (pasajero.validarContrasenia(oldPass)) {
+                        System.out.println("");
+                    } else {
+                        System.out.println("Contraseña actual incorrecta. Operación cancelada.");
+                    }
                     break;
                 default:
                     System.out.println("Opción inválida.");
             }
-            }
-
+        } catch (Exception e) {
+            System.out.println("Error en la operación de Pasajero: " + e.getMessage());
         }
     }
-
+}

@@ -9,6 +9,7 @@ import Excepciones.habitacionOcupadaException;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 import java.util.UUID;
 import Clases.Reserva;
 
@@ -31,6 +32,11 @@ public class SistemaHabitaciones {
             }
         }
         return null;
+    }
+
+    //metodo para listar habitaciones disponibles
+    public List listarHabitaciones disponibles(){
+        
     }
 
     //Metodo para crear una reserva

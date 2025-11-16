@@ -1,6 +1,7 @@
 package Clases;
 import Enums.TipoDisponibilidad;
 import Enums.TipoHabitacion;
+import Enums.TipoNODisponible;
 
 import java.util.Date;
 import java.util.UUID;
@@ -12,6 +13,7 @@ public class Habitacion {
     private double valorDiario;
     private TipoHabitacion tipoHabitacion;
     private TipoDisponibilidad disponibilidad;
+    private TipoNODisponible tipoNODisponible = null;
     private int capacidad;
     private Date dateIn;
     private Date dateOut;
@@ -21,11 +23,12 @@ public class Habitacion {
     public Habitacion() {
     }
 
-    public Habitacion(int numeroHabitacion, double valorDiario, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad, int capacidad, Date dateIn, Date dateOut) {
+    public Habitacion(int numeroHabitacion, double valorDiario, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad, TipoNODisponible tipoNODisponible, int capacidad, Date dateIn, Date dateOut) {
         this.numeroHabitacion = numeroHabitacion;
         this.valorDiario = valorDiario;
         this.tipoHabitacion = tipoHabitacion;
         this.disponibilidad = disponibilidad;
+        this.tipoNODisponible = tipoNODisponible;
         this.capacidad = capacidad;
         this.dateIn = dateIn;
         this.dateOut = dateOut;
@@ -84,6 +87,14 @@ public class Habitacion {
         return dateIn;
     }
 
+    public TipoNODisponible getTipoNODisponible() {
+        return tipoNODisponible;
+    }
+
+    public void setTipoNODisponible(TipoNODisponible tipoNODisponible) {
+        this.tipoNODisponible = tipoNODisponible;
+    }
+
     public void setDateIn(Date dateIn) {
         this.dateIn = dateIn;
     }
@@ -94,5 +105,29 @@ public class Habitacion {
 
     public void setDateOut(Date dateOut) {
         this.dateOut = dateOut;
+    }
+
+    @Override
+    public String toString() {
+        return "Habitacion{" +
+                "numeroHabitacion=" + numeroHabitacion +
+                ", valorDiario=" + valorDiario +
+                ", tipoHabitacion=" + tipoHabitacion +
+                ", disponibilidad=" + disponibilidad +
+                ", capacidad=" + capacidad +
+                '}';
+    }
+
+    public String mostrarTodosDatosHabitacion() {
+        return "Habitacion{" +
+                "numeroHabitacion=" + numeroHabitacion +
+                ", valorDiario=" + valorDiario +
+                ", tipoHabitacion=" + tipoHabitacion +
+                ", disponibilidad=" + disponibilidad +
+                ", tipoNODisponible=" + tipoNODisponible +
+                ", capacidad=" + capacidad +
+                ", dateIn=" + dateIn +
+                ", dateOut=" + dateOut +
+                '}';
     }
 }
