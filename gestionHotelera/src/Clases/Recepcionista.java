@@ -13,7 +13,6 @@ public class Recepcionista extends Empleados implements IValidarContrasenia {
 
     //constructor
 
-
     public Recepcionista(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, Turno turno, String claveRecepcion, SistemaHabitaciones gestorHabitaciones) {
         super(idUsuario, nombre, apellido, dni, tipoRol, nombreUsuario, email, acceso);
         this.turno = turno;
@@ -59,7 +58,7 @@ public class Recepcionista extends Empleados implements IValidarContrasenia {
 
     @Override
     public boolean validarContrasenia(String contraseniaAValidar) {
-        return this.claveRecepcion(contraseniaAValidar);
+        return this.claveRecepcion.equals(contraseniaAValidar);
     }
 }
 
