@@ -30,9 +30,9 @@ public class SistemaHotel <T extends Usuario> {
 
 
     //Metodo para buscar un usuario por dni
-    public Usuario buscarUsuario (int dni){
-        for(T usuario : this.gestorHotel){
-            if(usuario.getDni() == dni ){
+    public Usuario buscarUsuario(int dni) {
+        for (T usuario : this.gestorHotel) {
+            if (usuario.getDni() == dni) {
                 return usuario;
             }
         }
@@ -41,10 +41,10 @@ public class SistemaHotel <T extends Usuario> {
     }
 
     //Metodo para buscar especificamente empleados
-    public Usuario buscarEmpleado(String nombreDeUsuario){
-        for(T empleado : this.gestorHotel){
-            if(empleado instanceof Empleados){
-                if(((Empleados) empleado).getNombreUsuario().equals(nombreDeUsuario)){
+    public Usuario buscarEmpleado(String nombreDeUsuario) {
+        for (T empleado : this.gestorHotel) {
+            if (empleado instanceof Empleados) {
+                if (((Empleados) empleado).getNombreUsuario().equals(nombreDeUsuario)) {
                     return empleado;
                 }
             }
@@ -54,14 +54,14 @@ public class SistemaHotel <T extends Usuario> {
     }
 
     // Busca por nombre de usuario
-    public Usuario buscarUsuarioPorNombreUsuario(String nombreUsuario){
-        for(T usuario : this.gestorHotel){
+    public Usuario buscarUsuarioPorNombreUsuario(String nombreUsuario) {
+        for (T usuario : this.gestorHotel) {
             // Comprobar si es un Empleado y si el nombre coincide
-            if(usuario instanceof Empleados empleado && empleado.getNombreUsuario().equals(nombreUsuario)){
+            if (usuario instanceof Empleados empleado && empleado.getNombreUsuario().equals(nombreUsuario)) {
                 return empleado;
             }
             // Comprobar si es un Pasajero y si el nombre coincide
-            if(usuario instanceof Pasajero pasajero && pasajero.getNombreUsuario().equals(nombreUsuario)){
+            if (usuario instanceof Pasajero pasajero && pasajero.getNombreUsuario().equals(nombreUsuario)) {
                 return pasajero;
             }
         }
@@ -70,16 +70,16 @@ public class SistemaHotel <T extends Usuario> {
 
     //Metodo para login, validar ingreso y retonar el usuario
     //Lo cambio por: ampliar uso del metodo y como estaba el lleva a error la mayoria de las veces -
-    public Empleados gestionarAcceso(String nombreUsuario, String contraseniaAValidar){
+    public Usuario gestionarAcceso(String nombreUsuario, String contraseniaAValidar) {
         Usuario usuario = buscarUsuarioPorNombreUsuario(nombreUsuario);
         //Si no hay empleado dretorna null
-        if(usuario == null){
+        if (usuario == null) {
             System.out.println("ERROR! empleado no encontrado, acceso invalido");
             return null;
         }
         //aca verifica que sea un empleado que pueda loguearse
-        if(usuario instanceof IValidarContrasenia validador){
-            if(validador.validarContrasenia(contraseniaAValidar)){
+        if (usuario instanceof IValidarContrasenia validador) {
+            if (validador.validarContrasenia(contraseniaAValidar)) {
                 //Si accede aca seguimos con permisos y rol
                 if (usuario instanceof Empleados empleado) {
                     if (empleado.tienePermisoSistema()) {
@@ -91,16 +91,11 @@ public class SistemaHotel <T extends Usuario> {
                         return empleado;
                     }
                 }
-                if(usuario instanceof Pasajero pasajero) {
-                    if (pasajero.tienePermisoSistema()) {
-                        System.out.println("El pasajero con nombreUsuario = " + nombreUsuario + " tiene ACCESO EXITOSO");
-                        return pasajero;
-                    } else {
-                        System.out.println("El Pasajero con nombreUsuario = " + nombreUsuario + "NO TIENE ACCESO.");
-                        System.out.println("Solicitar acceso en administracion");
-                        return pasajero;
-                    }
+                if (usuario instanceof Pasajero pasajero) {
+                   System.out.println("El pasajero con nombreUsuario = " + nombreUsuario + " tiene ACCESO EXITOSO");
+                   return pasajero;
                 }
+
             } else {
                 System.out.println("ERROR! Contraseña incorrecta.");
             }
@@ -112,26 +107,24 @@ public class SistemaHotel <T extends Usuario> {
     }
 
 
-
     //Metodo QUE COMIENZAN A IMPLEMENTAR EL LOGIN
     //Metodo para alta y baja de empleados SOLO PUEDE HACERLO UN ADMINISTRADOR
-    public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException{
-        if(quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR){
-            if(empleadoNuevo == null){
+    public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException {
+        if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
+            if (empleadoNuevo == null) {
                 throw new datoInvalidoException("ERROR! el empleado no existe");
             }
-            gestorHotel.add((T)empleadoNuevo);
-            System.out.println("Empleado" + empleadoNuevo.getNombre()+ "agregado exitosamente");
-        }
-        else{
+            gestorHotel.add((T) empleadoNuevo);
+            System.out.println("Empleado" + empleadoNuevo.getNombre() + "agregado exitosamente");
+        } else {
             System.out.println("ERROR! No tiene permiso sistema");
         }
 
     }
 
     //Metodo para dar de baja a un empleado SOLO PUEDE EJECUTAR UN ADMINISTRADOR
-    public void bajaEmpleado (Empleados quienEjecuta, int dni) throws datoInvalidoException{
-        if(quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR){
+    public void bajaEmpleado(Empleados quienEjecuta, int dni) throws datoInvalidoException {
+        if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
             String dniComoTexto = String.valueOf(dni);
             if (dniComoTexto.length() != 8) {
                 throw new datoInvalidoException("Error!! DNI invalido (debe tener 8 dígitos).");
@@ -150,28 +143,26 @@ public class SistemaHotel <T extends Usuario> {
             if (!encontrado) {
                 System.out.println("No se encontró un Empleado con DNI " + dni + ".");
             }
-        }
-        else{
+        } else {
             System.out.println("ERROR! No tiene permiso sistema");
         }
     }
 
     //Metodo para dar de alta a un empleado SOLO PUEDE HACERLO EL RECEPCIONISTA
-    public void altaPasajero (Empleados quienEjecuta, Pasajero pasajeroNuevo) throws datoInvalidoException{
-        if(quienEjecuta.getTipoRol() == TipoRol.RECEPCIONISTA){
-            if(pasajeroNuevo == null){
+    public void altaPasajero(Empleados quienEjecuta, Pasajero pasajeroNuevo) throws datoInvalidoException {
+        if (quienEjecuta.getTipoRol() == TipoRol.RECEPCIONISTA) {
+            if (pasajeroNuevo == null) {
                 throw new datoInvalidoException("ERROR! el empleado no existe");
             }
-            gestorHotel.add((T)pasajeroNuevo);
+            gestorHotel.add((T) pasajeroNuevo);
             System.out.println("Pasajero agregado exitosamente");
-        }
-        else{
+        } else {
             System.out.println("ERROR! No tiene permiso sistema");
         }
     }
 
     //Metodo para dar de baja un pasajero SOLO EJECUTA RECEPCIONISTA
-    public void bajaPasajero (Empleados quienEjecuta, int dni) throws datoInvalidoException {
+    public void bajaPasajero(Empleados quienEjecuta, int dni) throws datoInvalidoException {
         if (quienEjecuta.getTipoRol() == TipoRol.RECEPCIONISTA) {
             String dniComoTexto = String.valueOf(dni);
             if (dniComoTexto.length() != 8) {
@@ -191,110 +182,110 @@ public class SistemaHotel <T extends Usuario> {
         }
     }
 
-            //Eliminar empleado
-            public void eliminarEmpleado (int dni) throws datoInvalidoException{
-                if (String.valueOf(dni).length() != 8) {
-                    throw new datoInvalidoException("Error!! DNI inválido");
-                }
-                Iterator<T> it = this.gestorHotel.iterator();
-                boolean encontrado = false;
+    //Eliminar empleado
+    public void eliminarEmpleado(int dni) throws datoInvalidoException {
+        if (String.valueOf(dni).length() != 8) {
+            throw new datoInvalidoException("Error!! DNI inválido");
+        }
+        Iterator<T> it = this.gestorHotel.iterator();
+        boolean encontrado = false;
 
-                while (it.hasNext()) {
-                    T usuario = it.next();
-                    if (usuario instanceof Empleados && usuario.getDni() == dni) {
-                        it.remove();
-                        System.out.println("Empleado con DNI " + dni + " eliminado ");
-                        encontrado = true;
-                        break;
-                    }
-                }
-
-                if (!encontrado) {
-                    System.out.println("No se encontró empleado con DNI: " + dni);
-                }
-
+        while (it.hasNext()) {
+            T usuario = it.next();
+            if (usuario instanceof Empleados && usuario.getDni() == dni) {
+                it.remove();
+                System.out.println("Empleado con DNI " + dni + " eliminado ");
+                encontrado = true;
+                break;
             }
+        }
 
-            //Anadir pasajero
-            public void agregarPasajero (T pasajero) throws datoInvalidoException{
-                if(pasajero == null){
-                    throw new datoInvalidoException("Error!! campos vacios");
-                }
-                this.gestorHotel.add(pasajero);
+        if (!encontrado) {
+            System.out.println("No se encontró empleado con DNI: " + dni);
+        }
+
+    }
+
+    //Anadir pasajero
+    public void agregarPasajero(T pasajero) throws datoInvalidoException {
+        if (pasajero == null) {
+            throw new datoInvalidoException("Error!! campos vacios");
+        }
+        this.gestorHotel.add(pasajero);
+    }
+
+    //Eliminar pasajero
+    public void eliminarPasajero(int dni) throws datoInvalidoException {
+        if (String.valueOf(dni).length() != 8) {
+            throw new datoInvalidoException("Error!! DNI inválido");
+        }
+
+        Iterator<T> it = this.gestorHotel.iterator();
+        boolean encontrado = false;
+
+        while (it.hasNext()) {
+            T usuario = it.next();
+            if (usuario instanceof Pasajero && usuario.getDni() == dni) {
+                it.remove();
+                System.out.println("Pasajero con DNI " + dni + " eliminado ");
+                encontrado = true;
+                break;
             }
+        }
 
-            //Eliminar pasajero
-            public void eliminarPasajero(int dni) throws datoInvalidoException {
-                if (String.valueOf(dni).length() != 8) {
-                    throw new datoInvalidoException("Error!! DNI inválido");
-                }
+        if (!encontrado) {
+            System.out.println("No se encontró pasajero con DNI: " + dni);
+        }
+    }
 
-                Iterator<T> it = this.gestorHotel.iterator();
-                boolean encontrado = false;
 
-                while (it.hasNext()) {
-                    T usuario = it.next();
-                    if (usuario instanceof Pasajero && usuario.getDni() == dni) {
-                        it.remove();
-                        System.out.println("Pasajero con DNI " + dni + " eliminado ");
-                        encontrado = true;
-                        break;
-                    }
-                }
+    //Mostrar usuarios
+    public void imprimirTodosUsuarios() {
+        Iterator it = this.gestorHotel.iterator();
+        while (it.hasNext()) {
+            System.out.println(it.next());
+        }
+    }
 
-                if (!encontrado) {
-                    System.out.println("No se encontró pasajero con DNI: " + dni);
-                }
+
+    //Listar Empleados
+    public ArrayList<Empleados> ListarEmpleados() {
+        ArrayList<Empleados> empleadosLista = new ArrayList<>();
+        for (T usuario : this.gestorHotel) {
+            if (usuario instanceof Empleados) {
+                empleadosLista.add((Empleados) usuario);
             }
+        }
 
+        return empleadosLista;
+    }
 
-            //Mostrar usuarios
-            public void imprimirTodosUsuarios(){
-                Iterator it = this.gestorHotel.iterator();
-                while(it.hasNext()){
-                    System.out.println(it.next());
-                }
+    //Mostrar solo pasajeros
+    public void mostrarPasajeros() {
+        System.out.println("=== PASAJEROS REGISTRADOS ===");
+        boolean hayPasajeros = false;
+
+        for (T usuario : gestorHotel) {
+            if (usuario instanceof Pasajero) {
+                ((Pasajero) usuario).imprimirDatos();
+                hayPasajeros = true;
             }
+        }
 
+        if (!hayPasajeros) {
+            System.out.println("No hay pasajeros registrados.");
+        }
+    }
 
-            //Listar Empleados
-            public ArrayList<Empleados> ListarEmpleados(){
-                ArrayList<Empleados> empleadosLista = new ArrayList<>();
-                for(T usuario : this.gestorHotel){
-                    if(usuario instanceof Empleados){
-                        empleadosLista.add((Empleados) usuario);
-                    }
-                }
-
-                return empleadosLista;
+    //Listar Pasajeros
+    public ArrayList<Empleados> filtrarEmpleados() {
+        ArrayList<Empleados> empleadosLista = new ArrayList<>();
+        Iterator it = this.gestorHotel.iterator();
+        while (it.hasNext()) {
+            if (it.next() instanceof Empleados) {
+                empleadosLista.add((Empleados) it.next());
             }
-
-            //Mostrar solo pasajeros
-            public void mostrarPasajeros() {
-                System.out.println("=== PASAJEROS REGISTRADOS ===");
-                boolean hayPasajeros = false;
-
-                for (T usuario : gestorHotel) {
-                    if (usuario instanceof Pasajero) {
-                        ((Pasajero) usuario).imprimirDatos();
-                        hayPasajeros = true;
-                    }
-                }
-
-                if (!hayPasajeros) {
-                    System.out.println("No hay pasajeros registrados.");
-                }
-            }
-
-            //Listar Pasajeros
-            public ArrayList<Empleados> filtrarEmpleados() {
-                ArrayList<Empleados> empleadosLista = new ArrayList<>();
-                Iterator it = this.gestorHotel.iterator();
-                while (it.hasNext()) {
-                    if (it.next() instanceof Empleados) {
-                        empleadosLista.add((Empleados) it.next());
-                    }
-                }
-                return empleadosLista;
-            }
+        }
+        return empleadosLista;
+    }
 }

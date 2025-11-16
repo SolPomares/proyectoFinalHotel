@@ -73,6 +73,12 @@ public class Pasajero extends Usuario implements IValidarContrasenia {
         this.clavePasajero = clavePasajero;
     }
 
+    @Override
+    public boolean tienePermisoSistema() {
+        // Los pasajeros no tienen acceso al sistema
+        return false;
+    }
+
     public void imprimirDatos(){
         System.out.println("getNombre() = " + getNombre() + " Apellido " + getApellido());
         System.out.println("DNI : " + getDni()+ "Origen = " + Origen);
