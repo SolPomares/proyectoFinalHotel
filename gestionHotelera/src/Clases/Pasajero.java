@@ -10,7 +10,7 @@ public class Pasajero extends Usuario implements IValidarContrasenia {
     private String Origen;
     private String DomicilioOrigen;
     private List<String> Historial;
-    private String nombreUsuarioPasajero;
+    private String nombreUsuario;
     private String clavePasajero;
 
     //Constructor
@@ -20,7 +20,7 @@ public class Pasajero extends Usuario implements IValidarContrasenia {
         Origen = origen;
         DomicilioOrigen = domicilioOrigen;
         Historial = historial;
-        this.nombreUsuarioPasajero = nombreUsuarioPasajero;
+        this.nombreUsuario = nombreUsuarioPasajero;
         this.clavePasajero = clavePasajero;
     }
 
@@ -58,11 +58,11 @@ public class Pasajero extends Usuario implements IValidarContrasenia {
     }
 
     public String getNombreUsuarioPasajero() {
-        return nombreUsuarioPasajero;
+        return nombreUsuario;
     }
 
     public void setNombreUsuarioPasajero(String nombreUsuarioPasajero) {
-        this.nombreUsuarioPasajero = nombreUsuarioPasajero;
+        this.nombreUsuario = nombreUsuarioPasajero;
     }
 
     public String getClavePasajero() {
