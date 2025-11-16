@@ -69,7 +69,7 @@ public class SistemaHotel <T extends Usuario> {
     }
 
     //Metodo para login, validar ingreso y retonar el usuario
-    //Lo cambio porque como estaba el lleva a error la mayoria de las veces -
+    //Lo cambio por: ampliar uso del metodo y como estaba el lleva a error la mayoria de las veces -
     public Empleados gestionarAcceso(String nombreUsuario, String contraseniaAValidar){
         Usuario usuario = buscarUsuarioPorNombreUsuario(nombreUsuario);
         //Si no hay empleado dretorna null

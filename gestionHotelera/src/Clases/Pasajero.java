@@ -57,12 +57,12 @@ public class Pasajero extends Usuario implements IValidarContrasenia {
         Historial = historial;
     }
 
-    public String getNombreUsuarioPasajero() {
+    public String getNombreUsuario() {
         return nombreUsuario;
     }
 
-    public void setNombreUsuarioPasajero(String nombreUsuarioPasajero) {
-        this.nombreUsuario = nombreUsuarioPasajero;
+    public void setNombreUsuario(String nombreUsuarioPasajero) {
+        this.nombreUsuario = nombreUsuario;
     }
 
     public String getClavePasajero() {
