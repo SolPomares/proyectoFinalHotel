@@ -1,8 +1,9 @@
 package Clases;
 
 import Enums.TipoRol;
+import Interfaces.IValidarContrasenia;
 
-public class Administrador extends Empleados {
+public class Administrador extends Empleados implements IValidarContrasenia {
     private final TipoRol rol = TipoRol.ADMINISTRADOR;
     private String claveAdministracion;
 
@@ -24,6 +25,11 @@ public class Administrador extends Empleados {
 
     public void setClaveAdministracion(String claveAdministracion) {
         this.claveAdministracion = claveAdministracion;
+    }
+
+    @Override
+    public boolean validarContrasenia(String contraseniaAValidar) {
+        return this.claveAdministracion.equals(contraseniaAValidar);
     }
 
    /* //metodos
