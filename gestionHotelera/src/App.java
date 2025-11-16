@@ -134,11 +134,11 @@ public class App {
                 }
             }
         }
-        System.out.println("👋 Saliendo del sistema. ¡Adiós!");
+        System.out.println("Saliendo del sistema. ¡Adiós!");
     }
 
-    // LOGIN MEJORADO (del menú que me pasaste)
-    public static Empleados login() {
+    // LOGIN
+    public static Usuario login() throws AccesoDenegadoException{
         System.out.println("\n=== INGRESO AL SISTEMA ===");
         System.out.print("Usuario: ");
         String user = teclado.nextLine();
@@ -146,15 +146,10 @@ public class App {
         String pass = teclado.nextLine();
 
         Usuario usuarioEncontrado = gestorUsuarios.gestionarAcceso(user, pass);
-
-        if (usuarioEncontrado instanceof Empleados) {
-            Empleados empleado = (Empleados) usuarioEncontrado;
-            System.out.println("Login exitoso - " + empleado.getTipoRol());
-            return empleado;
+        if(usuarioEncontrado != null){
+            return usuarioEncontrado;
         }
-
-        System.out.println("Acceso denegado. Verifique usuario, contraseña o permisos.");
-        return null;
+        throw new AccesoDenegadoException ("Acceso denegado. Verifique usuario, contraseña o permisos.");
     }
 
     // MENÚS (del menú que me pasaste - más organizados)
