@@ -103,7 +103,7 @@ public class SistemaHotel <T extends Usuario> {
                 System.out.println("ERROR! Contraseña incorrecta.");
             }
         } else {
-            System.out.println("ERROR! El usuario encontrado no tiene credenciales de acceso.");
+            throw new AccesoDenegadoException("ERROR! El usuario encontrado no tiene credenciales de acceso.");
         }
 
         return null; // Falla de login
@@ -358,7 +358,7 @@ public class SistemaHotel <T extends Usuario> {
 
     public ArrayList<Pasajero> ordenarPasajerosPorDni() throws ListaVaciaException {
         ArrayList<Pasajero> pasajeros = listarPasajerosSistema();
-
+/// Revisar no estoy segura si es asi o List sort--- casi segura que es asi
         Collections.sort(pasajeros, (p1, p2) -> Integer.compare(p1.getDni(), p2.getDni()));
 
         return pasajeros;
