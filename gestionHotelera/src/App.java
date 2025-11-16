@@ -17,7 +17,7 @@ public class App {
     private static SistemaHotel<Usuario> gestorUsuarios;
     private static SistemaHabitaciones gestorHabitaciones;
     private static Scanner teclado = new Scanner(System.in);
-    private static Empleados usuarioActual = null;
+    private static Usuario usuarioActual = null;
 
     // Cambiado a tipo Usuario para permitir login de Pasajeros
     private static Usuario usuarioActual = null;
@@ -105,6 +105,7 @@ public class App {
                         break;
                     case PASAJERO:
                         mostrarMenuPasajero();
+                        break;
                     default:
                         throw new AccesoDenegadoException("Rol no reconocido o sin acceso.");
                         usuarioActual = null;
@@ -130,7 +131,7 @@ public class App {
                         break;
 
                     case PASAJERO:
-
+                        manejarOpcionPasajero();
                 }
             }
         }
@@ -152,7 +153,7 @@ public class App {
         throw new AccesoDenegadoException ("Acceso denegado. Verifique usuario, contraseña o permisos.");
     }
 
-    // MENÚS (del menú que me pasaste - más organizados)
+    // MENÚS
     private static void mostrarMenuAdministrador() {
         System.out.println("--- MENÚ ADMINISTRADOR ---");
         System.out.println("1. Alta de Nuevo Empleado");
@@ -176,7 +177,16 @@ public class App {
         System.out.println("0. Salir del Programa");
     }
 
-    // MANEJO DE OPCIONES (combinación de ambos)
+    private static void mostrarMenuPasajero() {
+        System.out.println("\n--- ZONA DE CLIENTES ---");
+        System.out.println("1. Listar Habitaciones Disponibles");
+        System.out.println("2. Realizar Nueva Reserva");
+        System.out.println("9. Cerrar Sesión");
+        System.out.println("0. Salir del Programa");
+    }
+
+
+    // MANEJO DE OPCIONES
     private static void manejarOpcionAdministrador(int opcion) {
         try {
             switch (opcion) {
@@ -280,4 +290,43 @@ public class App {
             System.out.println("Error: " + e.getMessage());
         }
     }
-}
+
+    private static void manejarOpcionPasajero(int opcion) {
+
+        Pasajero pasajero = (Pasajero) usuarioActual;
+        try {
+            switch (opcion) {
+                case 1:
+                    System.out.println("\n--- HABITACIONES DISPONIBLES EN GENERAL ---");
+                    gestorHabitaciones....//no sale a ver q me falta
+                    break;
+
+                case 2:
+                    // 2. Realizar Nueva Reserva (Usa crearReserva)
+                    System.out.println("\n--- CREACIÓN DE RESERVA ---");
+
+                    break;
+
+                case 3:
+                    // 3. Modificar Datos Personales
+                    System.out.println("\n--- MODIFICAR DATOS PERSONALES ---");
+                    break;
+
+                case 4:
+                    // 4. Cambiar Contraseña
+                    System.out.println("\n--- CAMBIAR CONTRASEÑA ---");
+                    break;
+
+                case 9:
+                    usuarioActual = null;
+                    break;
+                case 0:
+                    break;
+                default:
+                    System.out.println("Opción inválida.");
+            }
+            }
+
+        }
+    }
+
