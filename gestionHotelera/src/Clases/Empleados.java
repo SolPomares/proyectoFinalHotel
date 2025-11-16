@@ -33,14 +33,6 @@ public abstract class Empleados extends Usuario {
         this.email = email;
     }
 
-    public String getContrasenia() {
-        return contrasenia;
-    }
-
-    public void setContrasenia(String contrasenia) {
-        this.contrasenia = contrasenia;
-    }
-
     public boolean isAcceso() {
         return acceso;
     }
@@ -70,17 +62,6 @@ public abstract class Empleados extends Usuario {
         System.out.println("--------------------------------------------------");
     }
 
-    //metodo para validar contrasenia
-    public boolean validarContrasenia(String contrasenia){
-        if(this.getContrasenia().equals(contrasenia)) {
-            System.out.println("Acceso Permitido");
-            return true;
-        }else{
-            System.out.println("Error En contraseña ingresada");
-            return false;
-        }
-    }
-
     //metodo para validar
     public boolean tienePermisoSistema(){
         if(this.acceso){
@@ -90,9 +71,5 @@ public abstract class Empleados extends Usuario {
             return false;
         }
     }
-
-
-
-
 
 }
