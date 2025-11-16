@@ -256,23 +256,4 @@ public class SistemaHotel <T extends Usuario> {
                 }
                 return empleadosLista;
             }
-
-
-
-
-
-        }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+}

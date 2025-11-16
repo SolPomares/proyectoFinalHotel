@@ -5,15 +5,13 @@ import Enums.TipoRol;
 public abstract class Empleados extends Usuario {
     private String nombreUsuario;
     private String email;
-    private String contrasenia;
     private boolean acceso;
 
     //constructores
-    public Empleados(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, String contrasenia, boolean acceso) {
+    public Empleados(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso) {
         super(idUsuario, nombre, apellido, dni, tipoRol);
         this.nombreUsuario = nombreUsuario;
         this.email = email;
-        this.contrasenia = contrasenia;
         this.acceso = acceso;
     }
 

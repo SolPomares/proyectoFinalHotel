@@ -7,8 +7,9 @@ public class Administrador extends Empleados {
     private String claveAdministracion;
 
    //constructor
-    public Administrador(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, String claveAdministracion) {
-        super(idUsuario, nombre, apellido, dni, TipoRol.ADMINISTRADOR, nombreUsuario, email, true);
+
+    public Administrador(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, String claveAdministracion , boolean acceso) {
+        super(idUsuario, nombre, apellido, dni, tipoRol, nombreUsuario, email, acceso);
         this.claveAdministracion = claveAdministracion;
     }
 
