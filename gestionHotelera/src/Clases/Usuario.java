@@ -67,5 +67,6 @@ public abstract class Usuario {
 
     //metodos
     public abstract void imprimirDatos();
+    public abstract boolean tienePermisoSistema();
 }
 

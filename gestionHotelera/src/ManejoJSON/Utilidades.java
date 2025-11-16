@@ -13,6 +13,7 @@ import Enums.Turno;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 
 public class Utilidades {
 
@@ -115,30 +116,32 @@ public class Utilidades {
     // MAPEAR ADMINISTRADOR
     private static Administrador mapearAdministrador(JSONObject json) throws JSONException {
         return new Administrador(
-                json.getInt("idUsuario"),
+                UUID.fromString(json.getString("idUsuario")),
                 json.getString("nombre"),
                 json.getString("apellido"),
                 json.getInt("dni"),
                 TipoRol.valueOf(json.getString("tipoRol")),
                 json.getString("nombreUsuario"),
                 json.getString("email"),
-                json.getBoolean("acceso"),
-                json.getString("claveAdministracion")
+                json.getString("claveAdministracion"),
+                json.getBoolean("acceso")
         );
     }
 
     // MAPEAR RECEPCIONISTA
     private static Recepcionista mapearRecepcionista(JSONObject json) throws JSONException {
         return new Recepcionista(
-                json.getInt("idUsuario"),
+                UUID.fromString(json.getString("idUsuario")),
                 json.getString("nombre"),
                 json.getString("apellido"),
                 json.getInt("dni"),
                 TipoRol.valueOf(json.getString("tipoRol")),
                 json.getString("nombreUsuario"),
                 json.getString("email"),
-                json.getBoolean("acceso"),
-                Turno.valueOf(json.getString("turno"))
+                json.getBoolean("acceso"),        // ← acceso va ANTES de turno
+                Turno.valueOf(json.getString("turno")),
+                json.getString("claveRecepcion"), // ← clave va DESPUÉS de turno
+                null                              // ← gestorHabitaciones (puede ser null por ahora)
         );
     }
 
@@ -152,21 +155,24 @@ public class Utilidades {
         }
 
         return new Pasajero(
-                json.getInt("idUsuario"),
+                UUID.fromString(json.getString("idUsuario")),
                 json.getString("nombre"),
                 json.getString("apellido"),
                 json.getInt("dni"),
                 TipoRol.valueOf(json.getString("tipoRol")),
                 json.getString("origen"),
                 json.getString("domicilioOrigen"),
-                historial
+                historial,
+                json.getString("nombreUsuario"),  // ← PARÁMETRO QUE FALTABA
+                json.getString("clavePasajero")   // ← PARÁMETRO QUE FALTABA
         );
+
     }
 
     // MAPEAR EMPLEADO GENÉRICO
     private static Empleados mapearEmpleado(JSONObject json) throws JSONException {
         return new Empleados(
-                json.getInt("idUsuario"),
+                UUID.fromString(json.getString("idUsuario")),
                 json.getString("nombre"),
                 json.getString("apellido"),
                 json.getInt("dni"),

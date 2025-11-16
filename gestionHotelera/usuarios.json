@@ -1,0 +1,86 @@
+{
+  "usuarios": [
+    {
+      "tipoUsuario": "Administrador",
+      "idUsuario": "550e8400-e29b-41d4-a716-446655440000",
+      "nombre": "Carlos",
+      "apellido": "Lopez",
+      "dni": 30123456,
+      "tipoRol": "ADMINISTRADOR",
+      "nombreUsuario": "clopez_admin",
+      "email": "c.lopez@hoteldorado.com",
+      "acceso": true,
+      "claveAdministracion": "masterKey2024"
+    },
+    {
+      "tipoUsuario": "Recepcionista",
+      "idUsuario": "550e8400-e29b-41d4-a716-446655440001",
+      "nombre": "Ana",
+      "apellido": "Martinez",
+      "dni": 32123456,
+      "tipoRol": "RECEPCIONISTA",
+      "nombreUsuario": "amartinez",
+      "email": "a.martinez@hoteldorado.com",
+      "acceso": true,
+      "turno": "MANANA",
+      "claveRecepcion": "recepcion123"
+    },
+    {
+      "tipoUsuario": "Recepcionista",
+      "idUsuario": "550e8400-e29b-41d4-a716-446655440002",
+      "nombre": "Luis",
+      "apellido": "Garcia",
+      "dni": 33123456,
+      "tipoRol": "RECEPCIONISTA",
+      "nombreUsuario": "lgarcia",
+      "email": "l.garcia@hoteldorado.com",
+      "acceso": true,
+      "turno": "TARDE",
+      "claveRecepcion": "turnotarde123"
+    },
+    {
+      "tipoUsuario": "Pasajero",
+      "idUsuario": "550e8400-e29b-41d4-a716-446655440003",
+      "nombre": "Roberto",
+      "apellido": "Silva",
+      "dni": 35123456,
+      "tipoRol": "CLIENTE",
+      "origen": "Buenos Aires",
+      "domicilioOrigen": "Av. Corrientes 1234, CABA",
+      "historial": [
+        "2023-12-20: Hab 102 - 3 noches",
+        "2024-01-15: Hab 102 - 2 noches"
+      ],
+      "nombreUsuario": "rsilva",
+      "clavePasajero": "cliente123"
+    },
+    {
+      "tipoUsuario": "Pasajero",
+      "idUsuario": "550e8400-e29b-41d4-a716-446655440004",
+      "nombre": "Laura",
+      "apellido": "Fernandez",
+      "dni": 36123456,
+      "tipoRol": "CLIENTE",
+      "origen": "Córdoba",
+      "domicilioOrigen": "Bv. San Juan 567, Córdoba Capital",
+      "historial": [
+        "2024-01-16: Hab 201 - 2 noches"
+      ],
+      "nombreUsuario": "lfernandez",
+      "clavePasajero": "cliente456"
+    },
+    {
+      "tipoUsuario": "Pasajero",
+      "idUsuario": "550e8400-e29b-41d4-a716-446655440005",
+      "nombre": "Diego",
+      "apellido": "Lopez",
+      "dni": 37123456,
+      "tipoRol": "CLIENTE",
+      "origen": "Mendoza",
+      "domicilioOrigen": "Av. San Martín 890, Mendoza",
+      "historial": [],
+      "nombreUsuario": "dlopez",
+      "clavePasajero": "cliente789"
+    }
+  ]
+}

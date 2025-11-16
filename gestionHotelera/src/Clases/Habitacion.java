@@ -13,10 +13,10 @@ public class Habitacion {
     private TipoHabitacion tipoHabitacion;
     private TipoDisponibilidad disponibilidad;
     private int capacidad;
-    private Date dateIn;
-    private Date dateOut;
+    private String dateIn;
+    private String dateOut;
 
-    public Habitacion(int numero, double valorDiario, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad, int capacidad, Date dateIn, Date dateOut) {
+    public Habitacion(int numero, double valorDiario, TipoHabitacion tipoHabitacion, TipoDisponibilidad disponibilidad, int capacidad, String dateIn, String dateOut) {
         this.numeroHabitacion = contador++;
         this.valorDiario = valorDiario;
         this.tipoHabitacion = tipoHabitacion;
@@ -75,19 +75,19 @@ public class Habitacion {
         this.capacidad = capacidad;
     }
 
-    public Date getDateIn() {
+    public String getDateIn() {
         return dateIn;
     }
 
-    public void setDateIn(Date dateIn) {
+    public void setDateIn(String dateIn) {
         this.dateIn = dateIn;
     }
 
-    public Date getDateOut() {
+    public String getDateOut() {
         return dateOut;
     }
 
-    public void setDateOut(Date dateOut) {
+    public void setDateOut(String dateOut) {
         this.dateOut = dateOut;
     }
 

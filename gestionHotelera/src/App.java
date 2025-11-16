@@ -1,240 +1,247 @@
+import Clases.*;
+import Enums.TipoRol;
+import Enums.Turno;
+import Excepciones.AccesoDenegadoException;
+import Excepciones.datoInvalidoException;
+import Excepciones.habitacionOcupadaException;
+import ManejoJSON.Utilidades;
+import org.json.JSONException;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Scanner;
+import java.util.UUID;
+
 public class App {
+    private static SistemaHotel<Usuario> gestorUsuarios;
+    private static SistemaHabitaciones gestorHabitaciones;
+    private static Scanner scanner = new Scanner(System.in);
+    private static Empleados usuarioActual = null;
+
     public static void main(String[] args) {
-    }
-}
+        try {
+            // Cargar el sistema completo desde JSON
+            System.out.println("🚀 Inicializando sistema hotelero...");
+            ArrayList<Usuario> usuarios = new ArrayList<>(Utilidades.cargarUsuarios());
+            ArrayList<Habitacion> habitaciones = new ArrayList<>(Utilidades.cargarHabitaciones());
 
+            gestorUsuarios = new SistemaHotel<>(usuarios);
+            gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
 
-        /// POSIBLE MENU QUE ME HIZO LA IA!!!!!!!!
-        /*
-        // Simulación de "Login" simple
-        public static Empleados login(SistemaHotel<Usuario> sistemaHotel, Scanner scanner) {
-            System.out.println("\n=== INGRESO AL SISTEMA ===");
-            System.out.print("Usuario: ");
-            String user = scanner.nextLine();
-            System.out.print("Contraseña: ");
-            String pass = scanner.nextLine(); // En un sistema real se debería usar JPasswordField o métodos más seguros.
+            System.out.println("✅ Sistema cargado exitosamente");
 
-            // Asumiendo que has corregido la lógica de login en SistemaHotel
-            // Este método en el SistemaHotel es 'gestionarAcceso(String nombreUsuario, String contrasenia)'
-            // Pero actualmente retorna 'null' en la mayoría de los casos.
+            // Menú principal
+            menuPrincipalLoop();
 
-            // Simularemos la búsqueda para el boceto:
-            Usuario usuarioEncontrado = sistemaHotel.buscarEmpleado(user);
-
-            if (usuarioEncontrado instanceof Empleados) {
-                Empleados empleado = (Empleados) usuarioEncontrado;
-                // Si tiene permiso y la contraseña es válida
-                if (empleado.validarContrasenia(pass) && empleado.tienePermisoSistema()) {
-                    return empleado;
-                }
-            }
-            System.err.println("Acceso denegado. Verifique usuario, contraseña o permisos.");
-            return null;
-        }
-
-        public static void main(String[] args) {
-            // --- 1. Inicialización de Datos/Sistemas ---
-            Scanner scanner = new Scanner(System.in);
-            SistemaHotel<Usuario> gestorUsuarios = new SistemaHotel<>();
-            SistemaHabitaciones gestorHabitaciones = new SistemaHabitaciones(new ArrayList<>(), new ArrayList<>());
-
-            // NOTA: Recuerda que los constructores de Empleados necesitan la 'contrasenia'.
-            // He añadido una contraseña aquí para la simulación.
-
-            // Crear un Administrador y un Recepcionista iniciales
-            Administrador admin = new Administrador(0, "Ana", "Gomez", 11111111, TipoRol.ADMINISTRADOR, "admin", "admin@hotel.com", true, "claveSecreta");
-            admin.setContrasenia("1234"); // Necesitas settear la contraseña.
-
-            Recepcionista recepcionista = new Recepcionista(0, "Beto", "Diaz", 22222222, TipoRol.RECEPCIONISTA, "recepcion", "recep@hotel.com", true, Turno.MANANA, gestorHabitaciones);
-            recepcionista.setContrasenia("5678"); // Necesitas settear la contraseña.
-
-            try {
-                gestorUsuarios.altaEmpleado(admin, admin);
-                gestorUsuarios.altaEmpleado(admin, recepcionista);
-            } catch (Exception e) {
-                System.err.println("Error al cargar empleados iniciales: " + e.getMessage());
-            }
-
-            Empleados usuarioActual = null; // Almacenará el usuario logueado.
-            int opcion = -1;
-
-            while (opcion != 0) {
-                // Si nadie está logueado, forzamos el login
-                if (usuarioActual == null) {
-                    usuarioActual = login(gestorUsuarios, scanner);
-                    if (usuarioActual == null) {
-                        System.out.println("\nIntentar de nuevo o Salir (0 para salir).");
-                        String input = scanner.nextLine();
-                        if (input.equals("0")) {
-                            opcion = 0;
-                            continue;
-                        }
-                    }
-                } else {
-
-                    // --- 2. Menú Principal Dinámico (según el rol) ---
-                    System.out.println("\n=============================================");
-                    System.out.println("  Bienvenido, " + usuarioActual.getNombre() + " (" + usuarioActual.getTipoRol() + ")");
-                    System.out.println("=============================================");
-
-                    switch (usuarioActual.getTipoRol()) {
-                        case ADMINISTRADOR:
-                            mostrarMenuAdministrador();
-                            break;
-                        case RECEPCIONISTA:
-                            mostrarMenuRecepcionista();
-                            break;
-                        default:
-                            System.out.println("Rol no reconocido o sin acceso.");
-                            usuarioActual = null; // Forzar logout
-                            continue;
-                    }
-
-                    System.out.print("Ingrese una opción: ");
-                    try {
-                        opcion = Integer.parseInt(scanner.nextLine());
-                    } catch (NumberFormatException e) {
-                        System.err.println("Opción inválida. Ingrese un número.");
-                        continue;
-                    }
-
-                    // --- 3. SWITCH CASE centralizado ---
-                    switch (usuarioActual.getTipoRol()) {
-                        case ADMINISTRADOR:
-                            manejarOpcionAdministrador(opcion, gestorUsuarios, scanner, usuarioActual);
-                            break;
-                        case RECEPCIONISTA:
-                            manejarOpcionRecepcionista(opcion, gestorUsuarios, gestorHabitaciones, scanner, usuarioActual);
-                            break;
-                    }
-                }
-            }
-            System.out.println("Saliendo del sistema. ¡Adiós!");
+        } catch (JSONException e) {
+            System.out.println("❌ Error cargando datos: " + e.getMessage());
+        } finally {
             scanner.close();
         }
+    }
 
-        // --- MÉTODOS DE MENÚ ---
-        private static void mostrarMenuAdministrador() {
-            System.out.println("--- MENÚ ADMINISTRADOR ---");
-            System.out.println("1. Alta de Nuevo Empleado");
-            System.out.println("2. Baja de Empleado (por DNI)");
-            System.out.println("3. Listar Todos los Empleados");
-            System.out.println("4. Asignar Permiso de Acceso");
-            System.out.println("9. Cerrar Sesión");
-            System.out.println("0. Salir del Programa");
-        }
+    public static void menuPrincipalLoop() {
+        int opcion = -1;
 
-        private static void mostrarMenuRecepcionista() {
-            System.out.println("--- MENÚ RECEPCIONISTA ---");
-            System.out.println("1. Registrar Check-In de Pasajero");
-            System.out.println("2. Registrar Check-Out de Pasajero");
-            System.out.println("3. Dar de Alta Pasajero (sin reserva)");
-            System.out.println("4. Mostrar Pasajeros Registrados");
-            System.out.println("5. Crear Nueva Reserva"); // Falta implementar la creación de objetos para la reserva
-            System.out.println("9. Cerrar Sesión");
-            System.out.println("0. Salir del Programa");
-        }
+        while (opcion != 0) {
+            // Si nadie está logueado, forzamos el login
+            if (usuarioActual == null) {
+                usuarioActual = login();
+                if (usuarioActual == null) {
+                    System.out.println("\n¿Intentar de nuevo o Salir? (0 para salir, cualquier tecla para reintentar): ");
+                    String input = scanner.nextLine();
+                    if (input.equals("0")) {
+                        break;
+                    }
+                    continue;
+                }
+            } else {
+                // Mostrar menú según el rol
+                System.out.println("\n=============================================");
+                System.out.println("  Bienvenido, " + usuarioActual.getNombre() + " (" + usuarioActual.getTipoRol() + ")");
+                System.out.println("=============================================");
 
-        // --- MÉTODOS DE ACCIÓN ---
-        private static void manejarOpcionAdministrador(int opcion, SistemaHotel<Usuario> gestorUsuarios, Scanner scanner, Empleados admin) {
-            try {
-                switch (opcion) {
-                    case 1:
-                        System.out.println("\n--- ALTA EMPLEADO ---");
-                        // Aquí iría la lógica para pedir todos los datos (nombre, dni, rol, etc.)
-                        // Crear el objeto Empleado nuevo y llamar a:
-                        // Empleados nuevoEmp = crearNuevoEmpleado(scanner);
-                        // gestorUsuarios.altaEmpleado(admin, nuevoEmp);
-                        System.out.println("[SIMULACIÓN] Alta de empleado simulada.");
+                switch (usuarioActual.getTipoRol()) {
+                    case ADMINISTRADOR:
+                        mostrarMenuAdministrador();
                         break;
-                    case 2:
-                        System.out.print("DNI del empleado a dar de baja: ");
-                        int dniBaja = Integer.parseInt(scanner.nextLine());
-                        gestorUsuarios.bajaEmpleado(admin, dniBaja);
-                        break;
-                    case 3:
-                        System.out.println("\n--- LISTA DE EMPLEADOS ---");
-                        gestorUsuarios.ListarEmpleados().forEach(e -> e.imprimirDatos());
-                        break;
-                    case 4:
-                        System.out.print("Nombre de usuario a asignar permisos: ");
-                        String userPermiso = scanner.nextLine();
-                        Empleados empleadoPermiso = (Empleados) gestorUsuarios.buscarEmpleado(userPermiso);
-                        if (empleadoPermiso != null) {
-                             El método asignarPermisos está en Administrador.java
-                            ((Administrador) admin).asignarPermisos(gestorUsuarios, empleadoPermiso);
-                        } else {
-                            System.err.println("Empleado no encontrado.");
-                        }
-                        break;
-                    case 9:
-                        System.out.println("Cerrando sesión de Administrador...");
-                        usuarioActual = null;
-                        break;
-                    case 0:
-                        // Opción 0 se maneja en el while principal.
+                    case RECEPCIONISTA:
+                        mostrarMenuRecepcionista();
                         break;
                     default:
-                        System.out.println("Opción no válida para Administrador.");
+                        System.out.println("Rol no reconocido o sin acceso.");
+                        usuarioActual = null;
+                        continue;
+                }
+
+                System.out.print("Ingrese una opción: ");
+                try {
+                    opcion = Integer.parseInt(scanner.nextLine());
+                } catch (NumberFormatException e) {
+                    System.out.println("❌ Opción inválida. Ingrese un número.");
+                    continue;
+                }
+
+                // Procesar opción según rol
+                switch (usuarioActual.getTipoRol()) {
+                    case ADMINISTRADOR:
+                        manejarOpcionAdministrador(opcion);
+                        break;
+                    case RECEPCIONISTA:
+                        manejarOpcionRecepcionista(opcion);
                         break;
                 }
-            } catch (Exception e) {
-                System.err.println("Ocurrió un error en la operación: " + e.getMessage());
             }
         }
+        System.out.println("👋 Saliendo del sistema. ¡Adiós!");
+    }
 
-        private static void manejarOpcionRecepcionista(int opcion, SistemaHotel<Usuario> gestorUsuarios, SistemaHabitaciones gestorHabitaciones, Scanner scanner, Empleados recepcionista) {
-            // Asignamos el objeto actual al tipo Recepcionista para acceder a sus métodos
-            Recepcionista recep = (Recepcionista) recepcionista;
-            try {
-                switch (opcion) {
-                    case 1:
-                        System.out.println("\n--- CHECK-IN ---");
-                        System.out.print("Ingrese ID de la Reserva para Check-In (UUID): ");
-                        // Aquí se necesitaría el Pasajero y la Habitacion, pero se obtienen de la Reserva.
-                        // UUID idReservaIn = UUID.fromString(scanner.nextLine());
-                        // recep.realizarCheckIn(pasajeroDummy, habitacionDummy, idReservaIn);
-                        System.out.println("[SIMULACIÓN] Check-in simulado. Necesitas una Reserva real.");
-                        break;
-                    case 2:
-                        System.out.println("\n--- CHECK-OUT ---");
-                        System.out.print("Ingrese ID de la Reserva para Check-Out (UUID): ");
-                        // UUID idReservaOut = UUID.fromString(scanner.nextLine());
-                        // recep.realizarCheckOut(pasajeroDummy, habitacionDummy, idReservaOut);
-                        System.out.println("[SIMULACIÓN] Check-out simulado. Necesitas una Reserva real.");
-                        break;
-                    case 3:
-                        System.out.println("\n--- ALTA PASAJERO ---");
-                        // Aquí iría la lógica para pedir datos y crear un Pasajero.
-                        // Pasajero nuevoPasajero = crearNuevoPasajero(scanner);
-                        // gestorUsuarios.altaPasajero(recep, nuevoPasajero);
-                        System.out.println("[SIMULACIÓN] Alta de pasajero simulada.");
-                        break;
-                    case 4:
-                        gestorUsuarios.mostrarPasajeros();
-                        break;
-                    case 5:
-                        System.out.println("\n--- CREAR RESERVA ---");
-                        // Lógica para pedir Pasajero, Habitacion, fechas y llamar a:
-                        // gestorHabitaciones.crearReserva(pasajero, habitacion, inicio, fin);
-                        System.out.println("[SIMULACIÓN] Creación de reserva simulada.");
-                        break;
-                    case 9:
-                        System.out.println("Cerrando sesión de Recepcionista...");
-                        usuarioActual = null;
-                        break;
-                    case 0:
-                        // Opción 0 se maneja en el while principal.
-                        break;
-                    default:
-                        System.out.println("Opción no válida para Recepcionista.");
-                        break;
-                }
-            } catch (Exception e) {
-                System.err.println("Ocurrió un error en la operación: " + e.getMessage());
+    // LOGIN MEJORADO (del menú que me pasaste)
+    public static Empleados login() {
+        System.out.println("\n=== INGRESO AL SISTEMA ===");
+        System.out.print("Usuario: ");
+        String user = scanner.nextLine();
+        System.out.print("Contraseña: ");
+        String pass = scanner.nextLine();
+
+        Usuario usuarioEncontrado = gestorUsuarios.gestionarAcceso(user, pass);
+
+        if (usuarioEncontrado instanceof Empleados) {
+            Empleados empleado = (Empleados) usuarioEncontrado;
+            System.out.println("✅ Login exitoso - " + empleado.getTipoRol());
+            return empleado;
+        }
+
+        System.out.println("❌ Acceso denegado. Verifique usuario, contraseña o permisos.");
+        return null;
+    }
+
+    // MENÚS (del menú que me pasaste - más organizados)
+    private static void mostrarMenuAdministrador() {
+        System.out.println("--- MENÚ ADMINISTRADOR ---");
+        System.out.println("1. Alta de Nuevo Empleado");
+        System.out.println("2. Baja de Empleado (por DNI)");
+        System.out.println("3. Listar Todos los Empleados");
+        System.out.println("4. Listar Todos los Usuarios");
+        System.out.println("5. Buscar Usuario por DNI");
+        System.out.println("9. Cerrar Sesión");
+        System.out.println("0. Salir del Programa");
+    }
+
+    private static void mostrarMenuRecepcionista() {
+        System.out.println("--- MENÚ RECEPCIONISTA ---");
+        System.out.println("1. Registrar Check-In de Pasajero");
+        System.out.println("2. Registrar Check-Out de Pasajero");
+        System.out.println("3. Dar de Alta Pasajero");
+        System.out.println("4. Dar de Baja Pasajero");
+        System.out.println("5. Mostrar Pasajeros Registrados");
+        System.out.println("6. Crear Nueva Reserva");
+        System.out.println("9. Cerrar Sesión");
+        System.out.println("0. Salir del Programa");
+    }
+
+    // MANEJO DE OPCIONES (combinación de ambos)
+    private static void manejarOpcionAdministrador(int opcion) {
+        try {
+            switch (opcion) {
+                case 1:
+                    System.out.println("\n--- ALTA EMPLEADO ---");
+                    // Lógica para crear empleado (simulada por ahora)
+                    System.out.println("🛠️ Funcionalidad en desarrollo - necesitarías implementar crearEmpleado()");
+                    break;
+                case 2:
+                    System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
+                    int dniBaja = Integer.parseInt(scanner.nextLine());
+                    gestorUsuarios.bajaEmpleado(usuarioActual, dniBaja);
+                    break;
+                case 3:
+                    System.out.println("\n--- LISTA DE EMPLEADOS ---");
+                    gestorUsuarios.ListarEmpleados().forEach(e -> e.imprimirDatos());
+                    break;
+                case 4:
+                    System.out.println("\n--- TODOS LOS USUARIOS ---");
+                    gestorUsuarios.imprimirTodosUsuarios();
+                    break;
+                case 5:
+                    System.out.print("\n--- BUSCAR USUARIO ---\nIngrese DNI: ");
+                    int dniBuscar = Integer.parseInt(scanner.nextLine());
+                    Usuario usuario = gestorUsuarios.buscarUsuario(dniBuscar);
+                    if (usuario != null) {
+                        usuario.imprimirDatos();
+                    } else {
+                        System.out.println("❌ Usuario no encontrado");
+                    }
+                    break;
+                case 9:
+                    System.out.println("🔒 Cerrando sesión de Administrador...");
+                    usuarioActual = null;
+                    break;
+                case 0:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("❌ Opción no válida para Administrador.");
+                    break;
             }
+        } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
         }
     }
-        
-    }/*
 
+    private static void manejarOpcionRecepcionista(int opcion) {
+        Recepcionista recep = (Recepcionista) usuarioActual;
+        try {
+            switch (opcion) {
+                case 1:
+                    System.out.println("\n--- CHECK-IN ---");
+                    System.out.print("Ingrese ID de la Reserva para Check-In (UUID): ");
+                    String idReservaIn = scanner.nextLine();
+                    boolean checkInExitoso = recep.realizarCheckIn(null, null, UUID.fromString(idReservaIn));
+                    if (checkInExitoso) {
+                        System.out.println("✅ Check-in realizado exitosamente");
+                    }
+                    break;
+                case 2:
+                    System.out.println("\n--- CHECK-OUT ---");
+                    System.out.print("Ingrese ID de la Reserva para Check-Out (UUID): ");
+                    String idReservaOut = scanner.nextLine();
+                    boolean checkOutExitoso = recep.realizarCheckOut(null, null, UUID.fromString(idReservaOut));
+                    if (checkOutExitoso) {
+                        System.out.println("✅ Check-out realizado exitosamente");
+                    }
+                    break;
+                case 3:
+                    System.out.println("\n--- ALTA PASAJERO ---");
+                    // Lógica para crear pasajero (simulada)
+                    System.out.println("🛠️ Funcionalidad en desarrollo - necesitarías implementar crearPasajero()");
+                    break;
+                case 4:
+                    System.out.print("\n--- BAJA PASAJERO ---\nDNI del pasajero a dar de baja: ");
+                    int dniPasajero = Integer.parseInt(scanner.nextLine());
+                    gestorUsuarios.bajaPasajero(usuarioActual, dniPasajero);
+                    break;
+                case 5:
+                    System.out.println("\n--- PASAJEROS REGISTRADOS ---");
+                    gestorUsuarios.mostrarPasajeros();
+                    break;
+                case 6:
+                    System.out.println("\n--- CREAR RESERVA ---");
+                    // Lógica para crear reserva (simulada)
+                    System.out.println("🛠️ Funcionalidad en desarrollo - necesitarías implementar crearReserva()");
+                    break;
+                case 9:
+                    System.out.println("🔒 Cerrando sesión de Recepcionista...");
+                    usuarioActual = null;
+                    break;
+                case 0:
+                    System.out.println("Saliendo del programa...");
+                    break;
+                default:
+                    System.out.println("❌ Opción no válida para Recepcionista.");
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println("❌ Error: " + e.getMessage());
+        }
+    }
+}

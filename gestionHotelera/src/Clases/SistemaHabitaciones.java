@@ -17,8 +17,8 @@ public class SistemaHabitaciones {
 
     //Constructor
     public SistemaHabitaciones(ArrayList<Habitacion> listaHabitaciones, ArrayList<Reserva> listaReservas) {
-        this.listaHabitaciones = new ArrayList<>();
-        this.listaReservas = new ArrayList<>();
+        this.listaHabitaciones = listaHabitaciones;
+        this.listaReservas = listaReservas;
     }
 
     //Metodo para busacr reserva por id
@@ -48,15 +48,15 @@ public class SistemaHabitaciones {
     //Check-in
     public boolean checkin (UUID id){
         Reserva r = buscarReservaPorId(id);
-        if(r != null){
+        if(r == null){
             System.out.println("ERROR! La reserva ingresada no existe");
             return false;
         }
         else{
             Habitacion h = r.getHabitacion();
             h.setDisponibilidad(TipoDisponibilidad.OCUPADO);
-            h.setDateIn(new Date());
-            h.setDateOut(new Date());
+            h.setDateIn("Check-in: " + java.time.LocalDate.now().toString());
+            h.setDateOut("Check-out: " + java.time.LocalDate.now().toString());
 
             System.out.println("Check-In realizado. Habitación: " + h.getNumeroHabitacion() +
                     " | Pasajero: " + r.getPasajero().getApellido());
@@ -75,7 +75,7 @@ public class SistemaHabitaciones {
             Habitacion h = r.getHabitacion();
             h.setDisponibilidad(TipoDisponibilidad.DISPONIBLE);
             h.setDateIn(null);
-            h.setDateOut(new Date());
+            h.setDateOut("Check-out: " + java.time.LocalDate.now().toString());
 
             return true;
         }
