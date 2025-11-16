@@ -3,6 +3,7 @@ package Clases;
 import Clases.Habitacion;
 import Clases.Pasajero;
 import Enums.TipoDisponibilidad;
+import Excepciones.datoInvalidoException;
 import Excepciones.habitacionOcupadaException;
 
 import java.util.ArrayList;
@@ -46,25 +47,34 @@ public class SistemaHabitaciones {
 
     //METODOS PARA CHECK-IN Y CHECK-OUT
     //Check-in
-    public boolean checkin (UUID id){
+    public boolean checkin (UUID id) throws datoInvalidoException {
+        if (id == null) {
+            throw new datoInvalidoException("ERROR! El ID de reserva no puede ser nulo.");
+        }
+
         Reserva r = buscarReservaPorId(id);
+
+        // Si la reserva no existe, salimos
         if(r == null){
-            System.out.println("ERROR! La reserva ingresada no existe");
+            System.out.println("ERROR! La reserva ingresada no existe.");
             return false;
         }
-        else{
-            Habitacion h = r.getHabitacion();
-            h.setDisponibilidad(TipoDisponibilidad.OCUPADO);
-            h.setDateIn("Check-in: " + java.time.LocalDate.now().toString());
-            h.setDateOut("Check-out: " + java.time.LocalDate.now().toString());
 
-            System.out.println("Check-In realizado. Habitación: " + h.getNumeroHabitacion() +
-                    " | Pasajero: " + r.getPasajero().getApellido());
+        // La reserva existe, procedemos al check-in
+        Habitacion h = r.getHabitacion();
 
-            return true;
-        }
+        // 1. DISPONIBILIDAD y FECHAS como objetos Date
+        h.setDisponibilidad(TipoDisponibilidad.OCUPADO);
+        h.setDateIn(new java.util.Date()); // Aca estaba el problema
+        // fecha de salida de la reserva
+        h.setDateOut(r.getCheckOut());
+
+        System.out.println("Check-In realizado. Habitación: " + h.getNumeroHabitacion() +
+                " | Pasajero: " + r.getPasajero().getApellido());
+
+        return true;
     }
-
+    
     public boolean checkout(UUID id){
         Reserva r = buscarReservaPorId(id);
         if(r != null){
