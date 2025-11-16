@@ -363,6 +363,21 @@ public class SistemaHotel <T extends Usuario> {
 
         return pasajeros;
     }
+
+    public boolean actualizarDatosUsuario(int dni, String nuevoNombre, String nuevoApellido) {
+        Usuario usuario = buscarUsuario(dni);
+        if (usuario == null) {
+            return false;
+        }
+
+        if (nuevoNombre != null && !nuevoNombre.trim().isEmpty()) {
+            usuario.setNombre(nuevoNombre);
+        }
+        if (nuevoApellido != null && !nuevoApellido.trim().isEmpty()) {
+            usuario.setApellido(nuevoApellido);
+        }
+        return true;
+    }
 }
 
 
