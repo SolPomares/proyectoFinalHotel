@@ -51,7 +51,30 @@ public class App {
             }
         }
     }
+//Cargo ese primer admin
+    private static void cargarAdminGenerico() {
+        Usuario adminExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(ADMIN_USER);
 
+        if (adminExistente == null) {
+            Administrador adminInicial = new Administrador(
+                    UUID.randomUUID(),
+                    "Sol", "Pomares",
+                    12345678,
+                    TipoRol.ADMINISTRADOR,
+                    ADMIN_USER,
+                    "admin@hotel.com",
+                    ADMIN_PASS, // ClaveAdministracion (contraseña)
+                    true
+            );
+
+            try {
+                gestorUsuarios.agregarPasajero(adminInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
+                System.out.println("[INFO] Administrador genérico ('admin'/'admin123') cargado.");
+            } catch (datoInvalidoException e) {
+                System.err.println("[ERROR] Error al cargar Admin inicial: " + e.getMessage());
+            }
+        }
+    }
     public static void menuPrincipalLoop() {
         int opcion = -1;
 
@@ -80,9 +103,12 @@ public class App {
                     case RECEPCIONISTA:
                         mostrarMenuRecepcionista();
                         break;
+                    case PASAJERO:
+                        mostrarMenuPasajero();
                     default:
-                        System.out.println("Rol no reconocido o sin acceso.");
+                        throw new AccesoDenegadoException("Rol no reconocido o sin acceso.");
                         usuarioActual = null;
+                        menuPrincipalLoop(); //vuelvo al ingreso
                         continue;
                 }
 
@@ -102,6 +128,9 @@ public class App {
                     case RECEPCIONISTA:
                         manejarOpcionRecepcionista(opcion);
                         break;
+
+                    case PASAJERO:
+
                 }
             }
         }
