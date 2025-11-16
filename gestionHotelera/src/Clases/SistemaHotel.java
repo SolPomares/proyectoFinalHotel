@@ -5,6 +5,7 @@ import Excepciones.datoInvalidoException;
 import java.util.ArrayList;
 import java.util.Iterator;
 import Enums.TipoRol;
+import Interfaces.IValidarContrasenia;
 
 public class SistemaHotel <T extends Usuario> {
     ArrayList<T> gestorHotel;
@@ -52,25 +53,65 @@ public class SistemaHotel <T extends Usuario> {
         return null;
     }
 
-    //Metodo para login, validar ingreso y retonar el usuario
-    public Empleados gestionarAcceso(String nombreUsuario, String contrasenia){
-        Usuario empleado = buscarEmpleado(nombreUsuario);
-        if(empleado == null){
-            System.out.println("ERROR! empleado no encontrado, acceso invalido");
-        }
-        if(empleado instanceof Empleados){
-            if(((Empleados) empleado).validarContrasenia(contrasenia)){
-                if(((Empleados) empleado).tienePermisoSistema()){
-                    System.out.println("Acceso exitoso como: " + empleado.getTipoRol());
-                }
-                else{
-                    System.out.println("ERROR! No tiene permiso sistema");
-                }
+    // Busca por nombre de usuario
+    public Usuario buscarUsuarioPorNombreUsuario(String nombreUsuario){
+        for(T usuario : this.gestorHotel){
+            // Comprobar si es un Empleado y si el nombre coincide
+            if(usuario instanceof Empleados empleado && empleado.getNombreUsuario().equals(nombreUsuario)){
+                return empleado;
+            }
+            // Comprobar si es un Pasajero y si el nombre coincide
+            if(usuario instanceof Pasajero pasajero && pasajero.getNombreUsuario().equals(nombreUsuario)){
+                return pasajero;
             }
         }
-
         return null;
     }
+
+    //Metodo para login, validar ingreso y retonar el usuario
+    //Lo cambio porque como estaba el lleva a error la mayoria de las veces -
+    public Empleados gestionarAcceso(String nombreUsuario, String contraseniaAValidar){
+        Usuario usuario = buscarUsuarioPorNombreUsuario(nombreUsuario);
+        //Si no hay empleado dretorna null
+        if(usuario == null){
+            System.out.println("ERROR! empleado no encontrado, acceso invalido");
+            return null;
+        }
+        //aca verifica que sea un empleado que pueda loguearse
+        if(usuario instanceof IValidarContrasenia validador){
+            if(validador.validarContrasenia(contraseniaAValidar)){
+                //Si accede aca seguimos con permisos y rol
+                if (usuario instanceof Empleados empleado) {
+                    if (empleado.tienePermisoSistema()) {
+                        System.out.println("El empleado con nombreUsuario = " + nombreUsuario + " tiene ACCESO EXITOSO");
+                        return empleado;
+                    } else {
+                        System.out.println("El empleado con nombreUsuario = " + nombreUsuario + "NO TIENE ACCESO.");
+                        System.out.println("Solicitar acceso en administracion");
+                        return empleado;
+                    }
+                }
+                if(usuario instanceof Pasajero pasajero) {
+                    if (pasajero.tienePermisoSistema()) {
+                        System.out.println("El pasajero con nombreUsuario = " + nombreUsuario + " tiene ACCESO EXITOSO");
+                        return pasajero;
+                    } else {
+                        System.out.println("El Pasajero con nombreUsuario = " + nombreUsuario + "NO TIENE ACCESO.");
+                        System.out.println("Solicitar acceso en administracion");
+                        return pasajero;
+                    }
+                }
+            } else {
+                System.out.println("ERROR! Contraseña incorrecta.");
+            }
+        } else {
+            System.out.println("ERROR! El usuario encontrado no tiene credenciales de acceso.");
+        }
+
+        return null; // Falla de login
+    }
+
+
 
     //Metodo QUE COMIENZAN A IMPLEMENTAR EL LOGIN
     //Metodo para alta y baja de empleados SOLO PUEDE HACERLO UN ADMINISTRADOR
