@@ -109,7 +109,7 @@ public class SistemaHotel <T extends Usuario> {
 
     //Metodo QUE COMIENZAN A IMPLEMENTAR EL LOGIN
     //Metodo para alta y baja de empleados SOLO PUEDE HACERLO UN ADMINISTRADOR
-    public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException {
+    public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException{
         if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
             if (empleadoNuevo == null) {
                 throw new datoInvalidoException("ERROR! el empleado no existe");
@@ -117,13 +117,13 @@ public class SistemaHotel <T extends Usuario> {
             gestorHotel.add((T) empleadoNuevo);
             System.out.println("Empleado" + empleadoNuevo.getNombre() + "agregado exitosamente");
         } else {
-            System.out.println("ERROR! No tiene permiso sistema");
+            throw new AccesoDenegadoException("ERROR! No tiene permiso sistema");
         }
 
     }
 
     //Metodo para dar de baja a un empleado SOLO PUEDE EJECUTAR UN ADMINISTRADOR
-    public void bajaEmpleado(Empleados quienEjecuta, int dni) throws datoInvalidoException {
+    public void bajaEmpleado(Empleados quienEjecuta, int dni) throws datoInvalidoException, AccesoDenegadoException {
         if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
             String dniComoTexto = String.valueOf(dni);
             if (dniComoTexto.length() != 8) {
@@ -144,12 +144,12 @@ public class SistemaHotel <T extends Usuario> {
                 System.out.println("No se encontró un Empleado con DNI " + dni + ".");
             }
         } else {
-            System.out.println("ERROR! No tiene permiso sistema");
+            throw new AccesoDenegadoException("ERROR! No tiene permiso sistema");
         }
     }
 
     //Metodo para dar de alta a un empleado SOLO PUEDE HACERLO EL RECEPCIONISTA
-    public void altaPasajero(Empleados quienEjecuta, Pasajero pasajeroNuevo) throws datoInvalidoException {
+    public void altaPasajero(Empleados quienEjecuta, Pasajero pasajeroNuevo) throws datoInvalidoException, AccesoDenegadoException {
         if (quienEjecuta.getTipoRol() == TipoRol.RECEPCIONISTA) {
             if (pasajeroNuevo == null) {
                 throw new datoInvalidoException("ERROR! el empleado no existe");
@@ -157,12 +157,12 @@ public class SistemaHotel <T extends Usuario> {
             gestorHotel.add((T) pasajeroNuevo);
             System.out.println("Pasajero agregado exitosamente");
         } else {
-            System.out.println("ERROR! No tiene permiso sistema");
+            throw new AccesoDenegadoException("ERROR! No tiene permiso sistema");
         }
     }
 
     //Metodo para dar de baja un pasajero SOLO EJECUTA RECEPCIONISTA
-    public void bajaPasajero(Empleados quienEjecuta, int dni) throws datoInvalidoException {
+    public void bajaPasajero(Empleados quienEjecuta, int dni) throws datoInvalidoException, AccesoDenegadoException {
         if (quienEjecuta.getTipoRol() == TipoRol.RECEPCIONISTA) {
             String dniComoTexto = String.valueOf(dni);
             if (dniComoTexto.length() != 8) {
@@ -179,6 +179,8 @@ public class SistemaHotel <T extends Usuario> {
                     break;
                 }
             }
+        } else {
+            throw new AccesoDenegadoException("ERROR NO TIENE ACCESO");
         }
     }
 
@@ -281,7 +283,7 @@ public class SistemaHotel <T extends Usuario> {
         ArrayList<Empleados> empleadosLista = new ArrayList<>();
         Iterator<T> it = this.gestorHotel.iterator();
         while (it.hasNext()) {
-            T usuario = it.next(); // 
+            T usuario = it.next(); //
             if (usuario instanceof Empleados empleado) {
                 empleadosLista.add(empleado);
             }
