@@ -15,7 +15,7 @@ import java.util.UUID;
 public class App {
     private static SistemaHotel<Usuario> gestorUsuarios;
     private static SistemaHabitaciones gestorHabitaciones;
-    private static Scanner scanner = new Scanner(System.in);
+    private static Scanner teclado = new Scanner(System.in);
     private static Empleados usuarioActual = null;
 
     public static void main(String[] args) {
@@ -34,9 +34,9 @@ public class App {
             menuPrincipalLoop();
 
         } catch (JSONException e) {
-            System.out.println("❌ Error cargando datos: " + e.getMessage());
+            System.out.println("Error cargando datos: " + e.getMessage());
         } finally {
-            scanner.close();
+            teclado.close();
         }
     }
 
