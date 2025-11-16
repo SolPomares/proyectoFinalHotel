@@ -18,22 +18,11 @@
 
 
     <center>
-        <StackPane fx:id="heroPane"
-                   styleClass="hero"
-                   prefWidth="900" prefHeight="550"
-                   maxWidth="900" maxHeight="550"
-                   BorderPane.alignment="CENTER">
-
-            <ImageView fx:id="carouselImage"
-                       preserveRatio="true"
-                       smooth="true"
-                       pickOnBounds="true"
-                       fitWidth="900"
-                       fitHeight="550" />
-
-            <VBox alignment="CENTER" spacing="8">
-                <Label text="Vistas al mar &amp; confort" styleClass="hero-title"/>
-                <Label text="Una experiencia inolvidable en cada estadía."
+        <!-- Caja central con mensaje, sin imágenes -->
+        <StackPane styleClass="hero" BorderPane.alignment="CENTER">
+            <VBox alignment="CENTER" spacing="10">
+                <Label text="Bienvenido al Hotel Las Olas" styleClass="hero-title"/>
+                <Label text="Mañana agregamos secciones (Habitaciones, Promos, Contacto)."
                        styleClass="hero-sub"/>
             </VBox>
         </StackPane>
