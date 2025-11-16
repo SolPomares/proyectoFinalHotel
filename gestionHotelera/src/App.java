@@ -21,7 +21,7 @@ public class App {
     public static void main(String[] args) {
         try {
             // Cargar el sistema completo desde JSON
-            System.out.println("🚀 Inicializando sistema hotelero...");
+            System.out.println("Inicializando sistema hotelero...");
             ArrayList<Usuario> usuarios = new ArrayList<>(Utilidades.cargarUsuarios());
             ArrayList<Habitacion> habitaciones = new ArrayList<>(Utilidades.cargarHabitaciones());
 
