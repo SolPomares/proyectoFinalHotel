@@ -1,40 +1,28 @@
-/* --- Fondo general del programa --- */
+/* Fondo general de la ventana */
 .root {
-    -fx-background-color: #c7e2ff; /* Celeste claro */
+    /* degradado suave celeste */
+    -fx-background-color: linear-gradient(to bottom, #d4e1f5, #a8c6e8);
 }
 
-/* --- Estilo general de etiquetas --- */
-.label {
-    -fx-font-family: "Segoe UI";
-}
-
-/* --- Título principal (parte superior: “Hotel Las Olas”) --- */
-.title {
-    -fx-font-size: 20px;
-    -fx-font-weight: bold;
-    -fx-text-fill: #2c3e50; /* gris azulado */
-}
-
-/* --- Texto principal sobre la imagen (titulo del hero) --- */
-.hero-title {
-    -fx-font-size: 28px;
-    -fx-font-weight: 800;
-    -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.55), 18, 0.2, 0, 3);
-}
-
-/* --- Subtexto (línea inferior sobre la imagen) --- */
-.hero-sub {
-    -fx-text-fill: #f0f0f0;
-    -fx-font-size: 14px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.45), 12, 0.2, 0, 2);
-}
-
-/* --- Ajustes opcionales del VBox de texto encima del fondo --- */
-.hero VBox {
-    -fx-alignment: center;
-    -fx-spacing: 8;
-}
+/* “Tarjeta” central (contenedor del mensaje) */
 .hero {
-    -fx-background-color: transparent;
+    -fx-background-color: linear-gradient(to bottom right, #f2f2f2, #e9e9e9);
+    -fx-background-radius: 12;
+    -fx-padding: 32;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.22), 18, 0.2, 0, 3);
 }
+
+/* Títulos y subtítulos */
+.hero-title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 28px;
+    -fx-text-fill: #153a6b;
+}
+
+.hero-sub {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 15px;
+    -fx-text-fill: #2c4f7a;
+    -fx-opacity: 0.95;
+}
+
