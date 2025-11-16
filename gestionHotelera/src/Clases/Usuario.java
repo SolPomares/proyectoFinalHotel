@@ -68,27 +68,3 @@ public abstract class Usuario {
     public abstract void imprimirDatos();
 }
 
-/*
-=======
-    /// Mer guiate por aca
->>>>>>> 3c226f520f2465ac96adc0631d22b0595b8a9e28
-//PERSISTENCIA - PARA USAR JSON LA CLASE PADRE DEBE TENERLO Y TODAS LAS DEMAS
-    //DEBE SER LLAMADO POR LAS DEMAS
-    public JSONObject toJSON() {
-        JSONObject json = new JSONObject();
-        //Manejo de excepciones
-        try {
-            //CENTRO DELPOLIMORFISMO EN NUESTRO TP
-            json.put("UsuarioTipo", this.getClass().getSimpleName()); //Usa el nombre de las clases hijas
-            json.put("nombre", this.nombre);
-            json.put("Apellido", this.apellido);
-            json.put("DNI", this.dni);
-            json.put("TipoRol: ", this.tipoRol.name());
-        } catch (JSONException ex) {
-            System.err.println("ERROR AL CONVERTIR EL USUARIO A JSON");
-            throw new PersistenciaException("Error de conversion - problema en la estructura de datos");
-        }
-        return json;
-    }
-}
-*/

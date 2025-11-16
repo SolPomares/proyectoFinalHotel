@@ -23,14 +23,12 @@ public class SistemaHabitaciones {
 
     //Metodo para busacr reserva por id
     public Reserva buscarReservaPorId (UUID id){
-        Reserva r = new Reserva();
-        for(int i = 0; i < listaReservas.size(); i++){
-            if(r.getIdReserva().equals(listaReservas.get(i).getIdReserva())){
-                r = listaReservas.get(i);
+        for(Reserva r : listaReservas){
+            if(r.getIdReserva().equals(id)){
+                return r;
             }
         }
-
-        return r;
+        return null; 
     }
 
     //Metodo para crear una reserva
