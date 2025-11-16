@@ -1,5 +1,6 @@
 package Clases;
 import Enums.TipoRol;
+import java.util.UUID;
 
 
 public abstract class Empleados extends Usuario {
@@ -8,7 +9,7 @@ public abstract class Empleados extends Usuario {
     private boolean acceso;
 
     //constructores
-    public Empleados(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso) {
+    public Empleados(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso) {
         super(idUsuario, nombre, apellido, dni, tipoRol);
         this.nombreUsuario = nombreUsuario;
         this.email = email;
