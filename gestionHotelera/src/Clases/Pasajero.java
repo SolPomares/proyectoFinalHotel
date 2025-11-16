@@ -1,5 +1,6 @@
 package Clases;
 import java.util.List;
+import java.util.UUID;
 
 import Enums.TipoRol;
 
@@ -10,7 +11,9 @@ public class Pasajero extends Usuario {
     private List<String> Historial;
 
     //Constructor
-    public Pasajero(int idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String origen, String domicilioOrigen, List<String> historial) {
+
+
+    public Pasajero(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String origen, String domicilioOrigen, List<String> historial) {
         super(idUsuario, nombre, apellido, dni, tipoRol);
         Origen = origen;
         DomicilioOrigen = domicilioOrigen;
