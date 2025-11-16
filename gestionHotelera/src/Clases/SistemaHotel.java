@@ -247,7 +247,6 @@ public class SistemaHotel <T extends Usuario> {
         }
     }
 
-
     //Listar Empleados
     public ArrayList<Empleados> ListarEmpleados() {
         ArrayList<Empleados> empleadosLista = new ArrayList<>();
@@ -280,10 +279,11 @@ public class SistemaHotel <T extends Usuario> {
     //Listar Pasajeros
     public ArrayList<Empleados> filtrarEmpleados() {
         ArrayList<Empleados> empleadosLista = new ArrayList<>();
-        Iterator it = this.gestorHotel.iterator();
+        Iterator<T> it = this.gestorHotel.iterator();
         while (it.hasNext()) {
-            if (it.next() instanceof Empleados) {
-                empleadosLista.add((Empleados) it.next());
+            T usuario = it.next(); // 
+            if (usuario instanceof Empleados empleado) {
+                empleadosLista.add(empleado);
             }
         }
         return empleadosLista;
