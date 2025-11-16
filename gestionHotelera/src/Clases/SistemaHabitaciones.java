@@ -45,6 +45,12 @@ public class SistemaHabitaciones {
 
     }
 
+    public List<Habitacion> listarHabitacionesReservadas() {
+        return listaHabitaciones.stream()
+                .filter(h -> h.getDisponibilidad() == TipoDisponibilidad.OCUPADO || h.getDisponibilidad() == TipoDisponibilidad.RESERVADO)
+                .collect(Collectors.toList());
+    }
+
     //metodo para buscar habitacion por numero
 public Habitacion obtenerHabitacionXNumero(int nroHabitacion){
     return listaHabitaciones.stream()
@@ -121,5 +127,20 @@ public Habitacion obtenerHabitacionXNumero(int nroHabitacion){
 
             return true;
         }
+    }
+
+    private boolean haySuperposicionDeFechas(Habitacion habitacion, Date nuevoInicio, Date nuevoFin) {
+        for (Reserva existente : listaReservas) {
+            // Solo revisa las reservas de la misma habitación
+            if (existente.getHabitacion().equals(habitacion)) {
+
+                ///ACA Me ayude con AI - Lógica de superposición: (Inicio1 < Fin2) y (Fin1 > Inicio2)
+                // Comprueba si el nuevo rango [nuevoInicio, nuevoFin] se cruza con [existente.getCheckIn(), existente.getCheckOut()]
+                if (nuevoInicio.before(existente.getCheckOut()) && nuevoFin.after(existente.getCheckIn())) {
+                    return true; // Hay superposición
+                }
+            }
+        }
+        return false; // No hay superposición
     }
 }
