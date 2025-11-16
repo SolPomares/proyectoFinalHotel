@@ -2,6 +2,7 @@ import Clases.*;
 import Enums.TipoRol;
 import Enums.Turno;
 import Excepciones.AccesoDenegadoException;
+import Excepciones.LecturaJsonException;
 import Excepciones.datoInvalidoException;
 import Excepciones.habitacionOcupadaException;
 import ManejoJSON.Utilidades;
@@ -41,9 +42,13 @@ public class App {
             menuPrincipalLoop();
 
         } catch (JSONException e) {
-            System.out.println("Error cargando datos: " + e.getMessage());
+            throw new LecturaJsonException("Error cargando datos: " + e.getMessage());
+        }catch (Exception e){
+            throw new RuntimeException("Error Inesperado al inicializar el sistema");
         } finally {
-            teclado.close();
+            if(teclado != null) {
+                teclado.close();
+            }
         }
     }
 
