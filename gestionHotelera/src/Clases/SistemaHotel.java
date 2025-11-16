@@ -3,9 +3,12 @@ package Clases;
 import Excepciones.AccesoDenegadoException;
 import Excepciones.datoInvalidoException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 import Enums.TipoRol;
 import Interfaces.IValidarContrasenia;
+import Excepciones.ListaVaciaException;
+import java.util.stream.Collectors;
 
 public class SistemaHotel <T extends Usuario> {
     ArrayList<T> gestorHotel;
@@ -92,8 +95,8 @@ public class SistemaHotel <T extends Usuario> {
                     }
                 }
                 if (usuario instanceof Pasajero pasajero) {
-                   System.out.println("El pasajero con nombreUsuario = " + nombreUsuario + " tiene ACCESO EXITOSO");
-                   return pasajero;
+                    System.out.println("El pasajero con nombreUsuario = " + nombreUsuario + " tiene ACCESO EXITOSO");
+                    return pasajero;
                 }
 
             } else {
@@ -109,7 +112,7 @@ public class SistemaHotel <T extends Usuario> {
 
     //Metodo QUE COMIENZAN A IMPLEMENTAR EL LOGIN
     //Metodo para alta y baja de empleados SOLO PUEDE HACERLO UN ADMINISTRADOR
-    public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException{
+    public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException {
         if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
             if (empleadoNuevo == null) {
                 throw new datoInvalidoException("ERROR! el empleado no existe");
@@ -290,4 +293,76 @@ public class SistemaHotel <T extends Usuario> {
         }
         return empleadosLista;
     }
+
+
+    public ArrayList<Usuario> listarPorRol(TipoRol rol) throws datoInvalidoException, ListaVaciaException {
+        if (rol == null) {
+            throw new datoInvalidoException("ERROR! El rol de búsqueda no puede ser nulo.");
+        }
+
+        ArrayList<Usuario> usuariosPorRol = this.gestorHotel.stream()
+                .filter(u -> u.getTipoRol() == rol)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (usuariosPorRol.isEmpty()) {
+            throw new ListaVaciaException("ERROR! No se encontraron usuarios con el rol: " + rol);
+        }
+        return usuariosPorRol;
+    }
+
+    public ArrayList<Empleados> listarPorPermisos(boolean tieneAcceso) throws ListaVaciaException {
+        ArrayList<Empleados> empleadosFiltrados = this.gestorHotel.stream()
+                .filter(u -> u instanceof Empleados)
+                .map(u -> (Empleados) u)
+                .filter(e -> e.tienePermisoSistema() == tieneAcceso)
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (empleadosFiltrados.isEmpty()) {
+            String mensaje = tieneAcceso ? " con acceso al sistema." : " sin acceso al sistema.";
+            throw new ListaVaciaException("ERROR! No se encontraron empleados");
+        }
+        return empleadosFiltrados;
+    }
+
+    public ArrayList<Pasajero> listarPasajerosPorOrigen(String origen) throws datoInvalidoException, ListaVaciaException {
+        if (origen == null || origen.trim().isEmpty()) {
+            throw new datoInvalidoException("ERROR! El origen de búsqueda no puede ser vacío.");
+        }
+/// Aca me ayude con chat
+        ArrayList<Pasajero> pasajerosFiltrados = this.gestorHotel.stream()
+                .filter(u -> u instanceof Pasajero)
+                .map(u -> (Pasajero) u)
+                .filter(p -> ((Pasajero) p).getOrigen().equalsIgnoreCase(origen))
+                .collect(Collectors.toCollection(ArrayList::new));
+
+        if (pasajerosFiltrados.isEmpty()) {
+            throw new ListaVaciaException("ERROR! No se encontraron pasajeros provenientes de: " + origen);
+        }
+        return pasajerosFiltrados;
+    }
+
+    public ArrayList<Pasajero> listarPasajerosSistema() throws ListaVaciaException {
+        ArrayList<Pasajero> pasajerosLista = new ArrayList<>();
+
+        for (T usuario : this.gestorHotel) {
+            if (usuario instanceof Pasajero) {
+                pasajerosLista.add((Pasajero) usuario);
+            }
+        }
+
+        if (pasajerosLista.isEmpty()) {
+            throw new ListaVaciaException("ERROR! No hay pasajeros registrados en el sistema.");
+        }
+        return pasajerosLista;
+    }
+
+    public ArrayList<Pasajero> ordenarPasajerosPorDni() throws ListaVaciaException {
+        ArrayList<Pasajero> pasajeros = listarPasajerosSistema();
+
+        Collections.sort(pasajeros, (p1, p2) -> Integer.compare(p1.getDni(), p2.getDni()));
+
+        return pasajeros;
+    }
 }
+
+
