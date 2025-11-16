@@ -2,7 +2,7 @@ package Clases;
 
 import java.util.Date;
 import java.util.UUID;
-import Clases.Pasajero
+import Clases.Pasajero;
 
 public class Reserva {
     //Atributos

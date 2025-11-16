@@ -68,8 +68,9 @@ public abstract class Usuario {
     //metodos
     public abstract void imprimirDatos();
 
+}
 
-    /// Mer guiate por aca
+/*
 //PERSISTENCIA - PARA USAR JSON LA CLASE PADRE DEBE TENERLO Y TODAS LAS DEMAS
     //DEBE SER LLAMADO POR LAS DEMAS
     public JSONObject toJSON() {
@@ -89,3 +90,4 @@ public abstract class Usuario {
         return json;
     }
 }
+*/
