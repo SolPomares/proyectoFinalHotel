@@ -125,6 +125,22 @@ public class SistemaHotel <T extends Usuario> {
 
     }
 
+    //Metodo para dar de alta a un empleado
+    public void AltaEmpleado (Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException {
+        if(quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR){
+            if (empleadoNuevo != null){
+                gestorHotel.add((T) empleadoNuevo);
+            }
+            else{
+                throw new datoInvalidoException("ERROR! El empleado a ingresar no existe");
+            }
+        }
+        else{
+            throw new AccesoDenegadoException("ERROR! No tiene permiso sistema");
+        }
+    }
+
+
     //Metodo para dar de baja a un empleado SOLO PUEDE EJECUTAR UN ADMINISTRADOR
     public void bajaEmpleado(Empleados quienEjecuta, int dni) throws datoInvalidoException, AccesoDenegadoException {
         if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
