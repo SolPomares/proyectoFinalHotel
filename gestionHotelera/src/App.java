@@ -296,8 +296,7 @@ public class App {
         case 2:
                     System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
                     int dniBaja = Integer.parseInt(teclado.nextLine());
-               /// Revisar
-                    gestorUsuarios.bajaEmpleado(usuarioActual, dniBaja);
+                    gestorUsuarios.bajaEmpleado((Empleados)usuarioActual, dniBaja);
                     break;
                 case 3:
                     System.out.println("\n--- LISTA DE EMPLEADOS ---");
