@@ -233,7 +233,7 @@ public class App {
         System.out.println("5. Buscar Usuario por DNI");
         System.out.println("6. Volver al Mnu");
         System.out.println("9. Cerrar Sesión");
-        System.out.println("0. Salir del Programa");
+        System.out.println("8. Salir del Programa");
         int opcionM = leerOpcion();
         manejarOpcionAdministrador(opcionM);
     }
@@ -247,7 +247,7 @@ public class App {
         System.out.println("5. Mostrar Pasajeros Registrados");
         System.out.println("6. Crear Nueva Reserva");
         System.out.println("9. Cerrar Sesión");
-        System.out.println("0. Salir del Programa");
+        System.out.println("8. Salir del Programa");
         int opcionM = leerOpcion();
         manejarOpcionRecepcionista(opcionM);
     }
@@ -258,7 +258,7 @@ public class App {
         System.out.println("2. Realizar Nueva Reserva");
         System.out.println("3. Cambiar contraseña");
         System.out.println("9. Cerrar Sesión");
-        System.out.println("0. Salir del Programa");
+        System.out.println("8. Salir del Programa");
         int opcionM = leerOpcion();
         manejarOpcionPasajero(opcionM);
     }
@@ -316,7 +316,7 @@ public class App {
 
                                     nuevoEmpleado = new Recepcionista(
                                             UUID.randomUUID(), nombre, apellido,
-                                            dni, TipoRol.RECEPCIONISTA, nombreUsuarioEmp, eMail, acceso,                  // 7. acceso (Debería ser email)
+                                            dni, TipoRol.RECEPCIONISTA, nombreUsuarioEmp, eMail, acceso,
                                             turno, contraseniaEmp, gestorHabitaciones);
                                     break;
                                 }
@@ -425,7 +425,7 @@ public class App {
                     break;
                 }
 
-                case 0: {
+                case 8: {
                     System.out.println("Saliendo del programa...");
                     break;
                 }
