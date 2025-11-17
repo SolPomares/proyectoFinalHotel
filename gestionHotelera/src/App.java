@@ -241,7 +241,7 @@ public class App {
                 case 1:
                     System.out.println("\n--- CHECK-IN ---");
                     System.out.print("Ingrese ID de la Reserva para Check-In (UUID): ");
-                    String idReservaIn = teclado.nextLine();
+                    String idReservaIn = leerString();
                     boolean checkInExitoso = recep.realizarCheckIn(null, null, UUID.fromString(idReservaIn));
                     if (checkInExitoso) {
                         System.out.println("✅ Check-in realizado exitosamente");
@@ -327,13 +327,8 @@ public class App {
                     Date fechaIn = new Date();
                     Date fechaOut = new Date(fechaIn.getTime() + (long) dias * 24 * 60 * 60 * 1000);
 
-                    boolean superposicion = gestorHabitaciones.haySuperposicionDeFechas(habitacionElegida,fechaIn, fechaOut);
-                    if(!superposicion) {
-                        gestorHabitaciones.crearReserva(pasajero, habitacionElegida, fechaIn, fechaOut);
-                        System.out.println("Reserva creada exitosamente para la habitación " + numHab);
-                    }else{
-                        System.out.println("No se puede en esas fechas");
-                    }
+                    gestorHabitaciones.crearReserva(pasajero, habitacionElegida, fechaIn, fechaOut);
+                    
                     break;
 
                 case 3:
