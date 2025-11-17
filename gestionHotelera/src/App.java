@@ -165,7 +165,7 @@ public class App {
     public static void menuPrincipalLoop() {
         int opcionMenu = -1;
 
-        while (opcionMenu != 0) {
+        do {
             // Si nadie está logueado, forzamos el login
             if (usuarioActual == null) {
                 usuarioActual = login();
@@ -199,7 +199,9 @@ public class App {
                         //opcionMenu = -1; //vuelvo al ingreso
                 }
             }
-        }
+            System.out.println("Desea Salir presione 0");
+            opcionMenu = leerOpcion();
+        }while (opcionMenu != 0);
     }
 
     //LOGIN
@@ -219,7 +221,7 @@ public class App {
     }
 
     //Menus
-    private static int mostrarMenuAdministrador() {
+    private static void mostrarMenuAdministrador() {
         System.out.println("--- MENÚ ADMINISTRADOR ---");
         System.out.println("1. Alta de Nuevo Empleado");
         System.out.println("2. Baja de Empleado (por DNI)");
@@ -229,10 +231,10 @@ public class App {
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
         int opcionM = leerOpcion();
-        return opcionM;
+        manejarOpcionAdministrador(opcionM);
     }
 
-    private static int mostrarMenuRecepcionista() {
+    private static void mostrarMenuRecepcionista() {
         System.out.println("--- MENÚ RECEPCIONISTA ---");
         System.out.println("1. Registrar Check-In de Pasajero");
         System.out.println("2. Registrar Check-Out de Pasajero");
@@ -243,7 +245,7 @@ public class App {
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
         int opcionM = leerOpcion();
-        return opcionM;
+       manejarOpcionRecepcionista(opcionM);
     }
 
     private static int mostrarMenuPasajero() {
@@ -254,7 +256,7 @@ public class App {
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
         int opcionM = leerOpcion();
-        return opcionM;
+        manejarOpcionPasajero(opcionM);
     }
 
     // MANEJO DE OPCIONES
