@@ -8,6 +8,7 @@ import ManejoJSON.Utilidades;
 import Excepciones.JSONException;
 
 import java.util.*;
+
 // Comenzandogit add
 public class App {
     private static SistemaHotel<Usuario> gestorUsuarios;
@@ -28,10 +29,10 @@ public class App {
     private static final String PASAJERO_PASS = "pasajero123";
 
     public static void main(String[] args) {
-       try {
+        try {
             // Cargar el sistema completo desde JSON
             System.out.println("Inicializando sistema hotelero...");
-            List <Usuario> usuariosCargados = Utilidades.cargarUsuarios();
+            List<Usuario> usuariosCargados = Utilidades.cargarUsuarios();
             List<Habitacion> habitacionesCargadas = Utilidades.cargarHabitaciones();
 
             // Si es nulo, creamos una lista vacía para evitar el NullPointerException
@@ -157,7 +158,9 @@ public class App {
         int opcionNum = teclado.nextInt();
         teclado.nextLine();
 
-        if (opcionNum <= 0){ throw new datoInvalidoException("El numero debe ser positivo.");}
+        if (opcionNum <= 0) {
+            throw new datoInvalidoException("El numero debe ser positivo.");
+        }
 
         return opcionNum;
     }
@@ -200,7 +203,7 @@ public class App {
             }
             System.out.println("Desea Salir presione 0");
             opcionMenu = leerOpcion();
-        }while (opcionMenu != 0);
+        } while (opcionMenu != 0);
     }
 
     //LOGIN
@@ -246,7 +249,7 @@ public class App {
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
         int opcionM = leerOpcion();
-       manejarOpcionRecepcionista(opcionM);
+        manejarOpcionRecepcionista(opcionM);
     }
 
     private static void mostrarMenuPasajero() {
@@ -339,12 +342,11 @@ public class App {
                                     break;
                                 }
 
-                                case 4:
-                                    {
-                                        System.out.println("Volvemos");
-                                        mostrarMenuAdministrador();
-                                        break;
-                                    }
+                                case 4: {
+                                    System.out.println("Volvemos");
+                                    mostrarMenuAdministrador();
+                                    break;
+                                }
 
                                 default: {
                                     // 'nuevoEmpleado' permanece null
@@ -359,7 +361,7 @@ public class App {
                                     System.out.println("Quiere Salir presione 5");
                                     opcionSeguir = leerOpcion();
 
-                                   break;
+                                    break;
 
                                 }
 
@@ -379,23 +381,27 @@ public class App {
                 }
 
 
-
-        case 2:
+                case 2: {
                     System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
                     int dniBaja = Integer.parseInt(teclado.nextLine());
-                    gestorUsuarios.bajaEmpleado((Empleados)usuarioActual, dniBaja);
-                    break;
+                    gestorUsuarios.bajaEmpleado((Empleados) usuarioActual, dniBaja);
 
-                case 3:
+                    break;
+                }
+
+                case 3: {
                     System.out.println("\n--- LISTA DE EMPLEADOS ---");
                     gestorUsuarios.ListarEmpleados().forEach(e -> e.imprimirDatos());
                     break;
+                }
 
-                case 4:
+                case 4: {
                     System.out.println("\n--- TODOS LOS USUARIOS ---");
                     gestorUsuarios.imprimirTodosUsuarios();
                     break;
-                case 5:
+                }
+
+                case 5: {
                     System.out.print("\n--- BUSCAR USUARIO ---\nIngrese DNI: ");
                     int dniBuscar = Integer.parseInt(teclado.nextLine());
                     Usuario usuario = gestorUsuarios.buscarUsuario(dniBuscar);
@@ -405,23 +411,29 @@ public class App {
                         System.out.println("Usuario no encontrado");
                     }
                     break;
-                case 6:
-                {
+                }
+
+                case 6: {
                     System.out.println("Volvemos");
                     mostrarMenuAdministrador();
                     break;
                 }
 
-                case 9:
+                case 9: {
                     System.out.println("Cerrando sesión de Administrador...");
                     usuarioActual = null;
                     break;
-                case 0:
+                }
+
+                case 0: {
                     System.out.println("Saliendo del programa...");
                     break;
-                default:
+                }
+
+                default: {
                     System.out.println("Opción no válida para Administrador.");
                     break;
+                }
             }
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
@@ -439,8 +451,7 @@ public class App {
                     boolean checkInExitoso = gestorHabitaciones.checkin(reservaId);
                     if (checkInExitoso) {
                         System.out.println("✅ Check-in realizado exitosamente");
-                    }
-                    else{
+                    } else {
                         System.out.println("La reserva ingresada no existe");
                     }
                     break;
@@ -451,14 +462,13 @@ public class App {
                     boolean checkOutExitoso = gestorHabitaciones.checkout(idReservaOut);
                     if (checkOutExitoso) {
                         System.out.println("Check-out realizado exitosamente");
-                    }
-                    else{
+                    } else {
                         System.out.println("La reserva ingresada no existe");
                     }
                     break;
                 case 3:
                     System.out.println("\n--- ALTA PASAJERO ---");
-                    System.out.println(" INGRESO DE DATOS DEL PASAJERO" );
+                    System.out.println(" INGRESO DE DATOS DEL PASAJERO");
 
                     System.out.print("Nombre: ");
                     String nombre = leerString();
@@ -472,16 +482,16 @@ public class App {
                     System.out.print("Email: ");
                     String eMail = leerString();
 
-                    System.out.println("Domicilio de origen:" );
+                    System.out.println("Domicilio de origen:");
                     String domicilioOrigen = leerString();
 
-                    Pasajero pasajeroNuevo = new Pasajero(nombre, apellido, dni,  TipoRol.PASAJERO, domicilioOrigen);
+                    Pasajero pasajeroNuevo = new Pasajero(nombre, apellido, dni, TipoRol.PASAJERO, domicilioOrigen);
                     gestorUsuarios.altaPasajero((Empleados) usuarioActual, pasajeroNuevo);
 
                     break;
                 case 4:
                     System.out.print("\n--- BAJA PASAJERO ---\nDNI del pasajero a dar de baja: ");
-                    System.out.println(" Ingrese el dni del pasajero que desea dar de baja: " );
+                    System.out.println(" Ingrese el dni del pasajero que desea dar de baja: ");
                     int dniBaja = Integer.parseInt(teclado.nextLine());
                     gestorUsuarios.bajaPasajero((Empleados) usuarioActual, dniBaja);
                     break;
@@ -564,10 +574,10 @@ public class App {
                     usuarioActual = null;
                     break;
 
-                    default:
-                        System.out.println("EXIT - Gracias por Visitarnos");
-                        System.out.println("Opción inválida.");
-                         break;
+                default:
+                    System.out.println("EXIT - Gracias por Visitarnos");
+                    System.out.println("Opción inválida.");
+                    break;
             }
         } catch (Exception e) {
             System.out.println("Error en la operación de Pasajero: " + e.getMessage());
