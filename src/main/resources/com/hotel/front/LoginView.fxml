@@ -18,12 +18,15 @@
                 <Insets top="20" right="20" bottom="20" left="20"/>
             </padding>
 
-            <TextField     fx:id="emailField"    promptText="Email"/>
-            <PasswordField fx:id="passwordField" promptText="Contraseña"/>
+            <!-- Estos IDs deben coincidir con LoginController -->
+            <TextField fx:id="txtUsuario" promptText="Usuario"/>
+            <PasswordField fx:id="txtPassword" promptText="Contraseña"/>
 
-            <HBox spacing="10">
-                <Button text="Iniciar sesión" fx:id="loginButton"/>
-                <Button text="Volver"         fx:id="volverButton"/>
+            <HBox spacing="10" alignment="CENTER">
+                <!-- Botón que llama al método loginUser() -->
+                <Button text="Iniciar sesión" onAction="#loginUser"/>
+                <!-- Botón que llama a volverAlInicio() -->
+                <Button text="Volver" onAction="#volverAlInicio"/>
             </HBox>
         </VBox>
     </center>
