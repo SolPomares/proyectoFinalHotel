@@ -177,6 +177,7 @@ public class App {
         System.out.println("\n--- ZONA DE CLIENTES ---");
         System.out.println("1. Listar Habitaciones Disponibles");
         System.out.println("2. Realizar Nueva Reserva");
+        System.out.println("3. Cambiar contraseña");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
         int opcionM = leerOpcion();
@@ -341,12 +342,17 @@ public class App {
                     String oldPass = leerString();
 
                     if (pasajero.validarContrasenia(oldPass)) {
-                        System.out.println("");
+                        System.out.println("Contraseña Modificada");
                     } else {
                         System.out.println("Contraseña actual incorrecta. Operación cancelada.");
                     }
                     break;
-                default:
+
+                case 9:
+                    System.out.println("EXIT - Gracias por Visitarnos");
+                    usuarioActual = null;
+                    break;
+                    default:
                     System.out.println("Opción inválida.");
             }
         } catch (Exception e) {
