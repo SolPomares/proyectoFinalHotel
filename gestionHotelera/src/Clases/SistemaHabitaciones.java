@@ -59,16 +59,26 @@ public Habitacion obtenerHabitacionXNumero(int nroHabitacion){
             .orElse(null); // Devuelve null si no se encuentra
 }
     //Metodo para crear una reserva
-    public void crearReserva (Pasajero pasajero, Habitacion habitacion, Date inicio, Date fin) throws habitacionOcupadaException {
-        if(habitacion.getDisponibilidad() == TipoDisponibilidad.DISPONIBLE){
-            Reserva r = new Reserva(pasajero, habitacion, inicio, fin);
-            listaReservas.add(r);
-            System.out.println("Reserva" + r + "realizada con exito");
-            habitacion.setDisponibilidad(TipoDisponibilidad.OCUPADO);
+    public void crearReserva (Pasajero pasajero, Habitacion habitacion, Date inicio, Date fin)
+            throws habitacionOcupadaException, datoInvalidoException { // Añade datoInvalidoException
+
+        if (pasajero == null || habitacion == null || inicio == null || fin == null) {
+            throw new datoInvalidoException("ERROR! Los datos de pasajero, habitación o fechas no pueden ser nulos.");
         }
-        else{
-            throw new habitacionOcupadaException ("ERROR! La habitacion seleccionada no esta disponible");
+
+        if (habitacion.getDisponibilidad() == TipoDisponibilidad.OCUPADO ||
+                habitacion.getTipoNODisponible() != null ||
+                haySuperposicionDeFechas(habitacion, inicio, fin))
+        {
+            throw new habitacionOcupadaException ("ERROR! La habitacion seleccionada no esta disponible en esas fechas.");
         }
+
+        Reserva r = new Reserva(pasajero, habitacion, inicio, fin);
+        listaReservas.add(r);
+
+        System.out.println("Reserva (ID: " + r.getIdReserva() + ") realizada con exito");
+        
+        habitacion.setDisponibilidad(TipoDisponibilidad.RESERVADO);
     }
 
     //METODOS PARA CHECK-IN Y CHECK-OUT
@@ -129,7 +139,7 @@ public Habitacion obtenerHabitacionXNumero(int nroHabitacion){
         }
     }
 
-    private boolean haySuperposicionDeFechas(Habitacion habitacion, Date nuevoInicio, Date nuevoFin) {
+    public boolean haySuperposicionDeFechas(Habitacion habitacion, Date nuevoInicio, Date nuevoFin) {
         for (Reserva existente : listaReservas) {
             // Solo revisa las reservas de la misma habitación
             if (existente.getHabitacion().equals(habitacion)) {

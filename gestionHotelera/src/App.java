@@ -8,10 +8,7 @@ import Excepciones.habitacionOcupadaException;
 import ManejoJSON.Utilidades;
 import org.json.JSONException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
-import java.util.UUID;
+import java.util.*;
 
 public class App {
     private static SistemaHotel<Usuario> gestorUsuarios;
@@ -300,8 +297,19 @@ public class App {
             switch (opcionM) {
                 case 1: // Listar Habitaciones Disponibles
                     System.out.println("\n--- HABITACIONES DISPONIBLES ---");
-                    gestorHabitaciones.listarHabitacionesDisponibles();
+                    List<Habitacion> disponibles = gestorHabitaciones.listarHabitacionesDisponibles();
+                    if (disponibles.isEmpty()) {
+                        System.out.println("No hay habitaciones disponibles en este momento.");
+                    } else {
+                        disponibles.forEach(h ->
+                                System.out.println(
+                                        "Nro: " + h.getNumeroHabitacion() +
+                                                " | Tipo: " + h.getTipoHabitacion() +
+                                                " | Precio: $" + h.getValorDiario()
+                                ));
+                    }
                     break;
+
                 case 2: // Realizar Nueva Reserva
                     System.out.println("\n--- CREACIÓN DE RESERVA ---");
                     System.out.println("Ingrese número de habitación a reservar: ");
@@ -318,23 +326,16 @@ public class App {
                     Date fechaIn = new Date();
                     Date fechaOut = new Date(fechaIn.getTime() + (long) dias * 24 * 60 * 60 * 1000);
 
-                    gestorHabitaciones.crearReserva(pasajero, habitacionElegida, fechaIn, fechaOut);
-                    System.out.println("Reserva creada exitosamente para la habitación " + numHab);
-                    break;
-
-                case 3: // Modificar Datos Personales
-                    System.out.println("\n--- MODIFICAR DATOS PERSONALES ---");
-                    System.out.println("Confirme su contraseña actual para continuar: ");
-                    String passActual = leerString();
-
-                    if (pasajero.validarContrasenia(passActual)) {
-                        System.out.println("Funcionalidad pendiente: Implementar la actualización de datos personales en SistemaHotel.");
-                    } else {
-                        System.out.println("Contraseña incorrecta. Operación cancelada.");
+                    boolean superposicion = gestorHabitaciones.haySuperposicionDeFechas(habitacionElegida,fechaIn, fechaOut);
+                    if(!superposicion) {
+                        gestorHabitaciones.crearReserva(pasajero, habitacionElegida, fechaIn, fechaOut);
+                        System.out.println("Reserva creada exitosamente para la habitación " + numHab);
+                    }else{
+                        System.out.println("No se puede en esas fechas");
                     }
                     break;
 
-                case 4: // Cambiar Contraseña
+                case 3:
                     System.out.println("\n--- CAMBIAR CONTRASEÑA ---");
                     System.out.println("Ingrese su Contraseña Actual: ");
                     String oldPass = leerString();
