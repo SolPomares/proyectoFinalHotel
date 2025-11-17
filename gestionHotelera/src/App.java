@@ -14,7 +14,7 @@ import java.util.*;
 public class App {
     private static SistemaHotel<Usuario> gestorUsuarios;
     private static SistemaHabitaciones gestorHabitaciones;
-    private static Scanner teclado = new Scanner(System.in);
+    private static final Scanner teclado = new Scanner(System.in);
     private static Usuario usuarioActual = null;
 
     // Credenciales del administrador genérico
