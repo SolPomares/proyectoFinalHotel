@@ -175,9 +175,8 @@ public class App {
                     if (input.equals("0")) {
                         break;
                     }
-                    continue;
                 }
-            } else {
+
                 // Mostrar menú según el rol
                 System.out.println("\n=============================================");
                 System.out.println("  Bienvenido, " + usuarioActual.getNombre() + " (" + usuarioActual.getTipoRol() + ")");
