@@ -384,10 +384,12 @@ public class App {
                     int dniBaja = Integer.parseInt(teclado.nextLine());
                     gestorUsuarios.bajaEmpleado((Empleados)usuarioActual, dniBaja);
                     break;
+
                 case 3:
                     System.out.println("\n--- LISTA DE EMPLEADOS ---");
                     gestorUsuarios.ListarEmpleados().forEach(e -> e.imprimirDatos());
                     break;
+
                 case 4:
                     System.out.println("\n--- TODOS LOS USUARIOS ---");
                     gestorUsuarios.imprimirTodosUsuarios();

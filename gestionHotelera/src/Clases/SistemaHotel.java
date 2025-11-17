@@ -194,63 +194,6 @@ public class SistemaHotel <T extends Usuario> {
         }
     }
 
-    //Eliminar empleado
-    /*public void eliminarEmpleado(int dni) throws datoInvalidoException {
-        if (String.valueOf(dni).length() != 8) {
-            throw new datoInvalidoException("Error!! DNI inválido");
-        }
-        Iterator<T> it = this.gestorHotel.iterator();
-        boolean encontrado = false;
-
-        while (it.hasNext()) {
-            T usuario = it.next();
-            if (usuario instanceof Empleados && usuario.getDni() == dni) {
-                it.remove();
-                System.out.println("Empleado con DNI " + dni + " eliminado ");
-                encontrado = true;
-                break;
-            }
-        }
-
-        if (!encontrado) {
-            System.out.println("No se encontró empleado con DNI: " + dni);
-        }
-
-    }
-
-    //Anadir pasajero
-    public void agregarPasajero(T pasajero) throws datoInvalidoException {
-        if (pasajero == null) {
-            throw new datoInvalidoException("Error!! campos vacios");
-        }
-        this.gestorHotel.add(pasajero);
-    }
-
-    //Eliminar pasajero
-    public void eliminarPasajero(int dni) throws datoInvalidoException {
-        if (String.valueOf(dni).length() != 8) {
-            throw new datoInvalidoException("Error!! DNI inválido");
-        }
-
-        Iterator<T> it = this.gestorHotel.iterator();
-        boolean encontrado = false;
-
-        while (it.hasNext()) {
-            T usuario = it.next();
-            if (usuario instanceof Pasajero && usuario.getDni() == dni) {
-                it.remove();
-                System.out.println("Pasajero con DNI " + dni + " eliminado ");
-                encontrado = true;
-                break;
-            }
-        }
-
-        if (!encontrado) {
-            System.out.println("No se encontró pasajero con DNI: " + dni);
-        }
-    }*/
-
-
     //Mostrar usuarios
     public void imprimirTodosUsuarios() {
         Iterator it = this.gestorHotel.iterator();
