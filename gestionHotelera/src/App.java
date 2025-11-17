@@ -75,9 +75,11 @@ public class App {
     }
 
     private static String leerString() {
-        String opcion = teclado.next();
-        teclado.nextLine();
-        return opcion;
+        String linea;
+        do {
+            linea = teclado.nextLine().trim();
+        } while (linea.isEmpty());
+        return linea;
     }
 
     private static int leerOpcion() {
@@ -397,9 +399,8 @@ public class App {
             switch (opcionM) {
                 case 1: // Listar Habitaciones Disponibles
                     System.out.println("\n--- HABITACIONES DISPONIBLES ---");
-<<<<<<< HEAD
                     gestorHabitaciones.mostrarHabitacionesDisponibles();
-=======
+
                     List<Habitacion> disponibles = gestorHabitaciones.listarHabitacionesDisponibles();
                     if (disponibles.isEmpty()) {
                         System.out.println("No hay habitaciones disponibles en este momento.");
@@ -411,7 +412,7 @@ public class App {
                                                 " | Precio: $" + h.getValorDiario()
                                 ));
                     }
->>>>>>> 5e05e0428861ffcbc03de85d7e06bbb62b8baa67
+
                     break;
 
                 case 2: // Realizar Nueva Reserva
