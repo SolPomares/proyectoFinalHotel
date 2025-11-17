@@ -276,7 +276,7 @@ public class App {
                             System.out.println("1. Recepcionista");
                             System.out.println("2. Administrador");
                             System.out.println("3. Otro Empleado");
-                            System.out.println("0. Salir del Programa");
+                            System.out.println("4. Salir del Programa");
                             System.out.print("Seleccione tipo: ");
                             int tipo = leerOpcion(); //
 
@@ -305,12 +305,7 @@ public class App {
                             Empleados nuevoEmpleado = null;
 
                             switch (tipo) {
-                                case 0:
-                                {
-                                    System.out.println("Volvemos");
-                                    mostrarMenuAdministrador();
-                                    break;
-                                }
+
                                 case 1: { // Crear Recepcionista
                                     System.out.print("Turno (MANANA, TARDE, NOCHE): ");
                                     Turno turno = Turno.valueOf(leerString().toUpperCase());
@@ -339,10 +334,16 @@ public class App {
                                             UUID.randomUUID(), nombre, apellido, dni, TipoRol.MANTENIMIENTO,
                                             nombreUsuarioEmp, eMail, acceso, turno
                                     );
+
                                     break;
                                 }
 
-
+                                case 4:
+                                    {
+                                        System.out.println("Volvemos");
+                                        mostrarMenuAdministrador();
+                                        break;
+                                    }
 
                                 default: {
                                     // 'nuevoEmpleado' permanece null
