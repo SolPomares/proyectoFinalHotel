@@ -8,6 +8,7 @@ import Excepciones.habitacionOcupadaException;
 import ManejoJSON.Utilidades;
 import Excepciones.JSONException;
 
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.*;
 
@@ -25,8 +26,18 @@ public class App {
         try {
             // Cargar el sistema completo desde JSON
             System.out.println("Inicializando sistema hotelero...");
-            ArrayList<Usuario> usuarios = new ArrayList<>(Utilidades.cargarUsuarios());
-            ArrayList<Habitacion> habitaciones = new ArrayList<>(Utilidades.cargarHabitaciones());
+            List <Usuario> usuariosCargados = Utilidades.cargarUsuarios();
+            List<Habitacion> habitacionesCargadas = Utilidades.cargarHabitaciones();
+
+            // Si es nulo, creamos una lista vacía para evitar el NullPointerException
+            /// Aca me ayude con chat pq no salia
+            ArrayList<Usuario> usuarios = (usuariosCargados != null)
+                    ? new ArrayList<>(usuariosCargados)
+                    : new ArrayList<>();
+
+            ArrayList<Habitacion> habitaciones = (habitacionesCargadas != null)
+                    ? new ArrayList<>(habitacionesCargadas)
+                    : new ArrayList<>();
 
             gestorUsuarios = new SistemaHotel<>(usuarios);
             gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
