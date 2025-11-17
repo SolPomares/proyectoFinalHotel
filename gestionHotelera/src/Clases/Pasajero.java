@@ -14,7 +14,6 @@ public class Pasajero extends Usuario implements IValidarContrasenia {
     private String clavePasajero;
 
     //Constructor
-
     public Pasajero(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String origen, String domicilioOrigen, List<String> historial, String nombreUsuarioPasajero, String clavePasajero) {
         super(idUsuario, nombre, apellido, dni, tipoRol);
         Origen = origen;
@@ -24,9 +23,9 @@ public class Pasajero extends Usuario implements IValidarContrasenia {
         this.clavePasajero = clavePasajero;
     }
 
-    public Pasajero(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String origen) {
+    public Pasajero(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String domicilioOrigen) {
         super(idUsuario, nombre, apellido, dni, tipoRol);
-        Origen = origen;
+        DomicilioOrigen = domicilioOrigen;
     }
 
     public Pasajero() {

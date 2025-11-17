@@ -342,25 +342,51 @@ public class App {
                 case 1:
                     System.out.println("\n--- CHECK-IN ---");
                     System.out.print("Ingrese ID de la Reserva para Check-In (UUID): ");
-                    String idReservaIn = leerString();
-                    boolean checkInExitoso = recep.realizarCheckIn(null, null, UUID.fromString(idReservaIn));
+                    UUID reservaId = UUID.fromString(teclado.nextLine());
+                    boolean checkInExitoso = gestorHabitaciones.checkin(reservaId);
                     if (checkInExitoso) {
                         System.out.println("✅ Check-in realizado exitosamente");
+                    }
+                    else{
+                        System.out.println("La reserva ingresada no existe");
                     }
                     break;
                 case 2:
                     System.out.println("\n--- CHECK-OUT ---");
                     System.out.print("Ingrese ID de la Reserva para Check-Out (UUID): ");
-                    String idReservaOut = teclado.nextLine();
-                    boolean checkOutExitoso = recep.realizarCheckOut(null, null, UUID.fromString(idReservaOut));
+                    UUID idReservaOut = UUID.fromString(teclado.nextLine());
+                    boolean checkOutExitoso = gestorHabitaciones.checkout(idReservaOut);
                     if (checkOutExitoso) {
                         System.out.println("Check-out realizado exitosamente");
+                    }
+                    else{
+                        System.out.println("La reserva ingresada no existe");
                     }
                     break;
                 case 3:
                     System.out.println("\n--- ALTA PASAJERO ---");
-                    // Lógica para crear pasajero (simulada)
-                    System.out.println("🛠️ Funcionalidad en desarrollo - necesitarías implementar crearPasajero()");
+                    System.out.println(" INGRESO DE DATOS DEL PASAJERO" );
+                    System.out.println("Ingrese su id de pasajero (asignado al registrarse)");
+
+
+
+                    System.out.print("Nombre: ");
+                    String nombre = leerString();
+
+                    System.out.print("Apellido: ");
+                    String apellido = leerString();
+
+                    System.out.print("DNI: ");
+                    int dni = leerOpcion();
+
+                    System.out.print("Email: ");
+                    String eMail = leerString();
+
+                    System.out.println("Domicilio de origen:" );
+                    String domicilioOrigen = leerString();
+
+                    Pasajero pasajeroNuevo = new Pasajero(UUID.randomUUID(), nombre, apellido)
+
                     break;
                 case 4:
                     System.out.print("\n--- BAJA PASAJERO ---\nDNI del pasajero a dar de baja: ");

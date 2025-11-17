@@ -24,6 +24,13 @@ public abstract class Usuario {
         this.tipoRol = tipoRol;
     }
 
+    public Usuario(String nombre, String apellido, int dni, TipoRol tipoRol) {
+        this.nombre = nombre;
+        this.apellido = apellido;
+        this.dni = dni;
+        this.tipoRol = tipoRol;
+    }
+
     //Constructor infimo para JSON Deserializacion
     public Usuario() {
     }
