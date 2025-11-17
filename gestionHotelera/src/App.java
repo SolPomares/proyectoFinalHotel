@@ -233,7 +233,7 @@ public class App {
         System.out.println("5. Buscar Usuario por DNI");
         System.out.println("6. Volver al Mnu");
         System.out.println("9. Cerrar Sesión");
-        System.out.println("8. Salir del Programa");
+
         int opcionM = leerOpcion();
         manejarOpcionAdministrador(opcionM);
     }
@@ -503,7 +503,12 @@ public class App {
                     System.out.println("Cerrando sesión de Recepcionista...");
                     usuarioActual = null;
                     break;
-                case 0:
+                case 7: {
+                    System.out.println("Volvemos");
+                    mostrarMenuRecepcionista();
+                    break;
+                }
+                case 8:
                     System.out.println("Saliendo del programa...");
                     break;
                 default:
@@ -568,6 +573,11 @@ public class App {
                         System.out.println("Contraseña actual incorrecta. Operación cancelada.");
                     }
                     break;
+                case 4: {
+                    System.out.println("Volvemos");
+                    mostrarMenuPasajero();
+                    break;
+                }
 
                 case 9:
                     System.out.println("EXIT - Gracias por Visitarnos");
