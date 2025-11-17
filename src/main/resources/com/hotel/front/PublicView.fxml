@@ -1,28 +1,30 @@
 <?xml version="1.0" encoding="UTF-8"?>
+
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
-<?import java.net.*?>
 <?import javafx.geometry.Insets?>
-
+<?import java.net.URL?>
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.hotel.front.PublicController">
+
     <stylesheets>
         <URL value="@styles.css" />
     </stylesheets>
 
+    <!-- CABECERA SIMPLE -->
     <top>
         <Label text="Hotel Las Olas"
-               style="-fx-padding: 10; -fx-font-size: 20; -fx-font-weight: bold;"/>
+               style="-fx-padding: 12; -fx-font-size: 22; -fx-font-weight: bold;"/>
     </top>
 
-
+    <!-- CONTENIDO CENTRAL -->
     <center>
-        <VBox spacing="30" BorderPane.alignment="CENTER">
+        <VBox alignment="CENTER" spacing="30" BorderPane.alignment="CENTER">
 
-            <!-- 1) Hero actual -->
+            <!-- HERO (Presentación principal) -->
             <StackPane styleClass="hero">
                 <VBox alignment="CENTER" spacing="10">
                     <Label text="Bienvenido al Hotel Las Olas" styleClass="hero-title"/>
@@ -31,21 +33,33 @@
                 </VBox>
             </StackPane>
 
-            <!-- 2) Sección de tarjetas -->
-            <VBox spacing="10">
+            <!-- BOTONES DE LOGIN / REGISTRO -->
+            <HBox alignment="CENTER" spacing="15">
+                <Button text="Hazte una cuenta"
+                        onAction="#goToRegister"
+                        styleClass="primary-btn"/>
+                <Button text="Inicia sesión"
+                        onAction="#goToLogin"
+                        styleClass="primary-btn"/>
+            </HBox>
+
+            <!-- SECCIÓN DE TARJETAS -->
+            <VBox spacing="10" alignment="CENTER">
                 <Label text="¿Aún te interesan estos alojamientos?"
                        styleClass="section-title"/>
 
-                <!-- Scroll horizontal con tarjetas -->
                 <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER"
-                            fitToHeight="true" prefViewportHeight="260">
+                            fitToHeight="true"
+                            prefViewportHeight="260"
+                            prefViewportWidth="650">
+
                     <content>
                         <HBox spacing="20">
                             <padding>
                                 <Insets top="10" right="10" bottom="10" left="10"/>
                             </padding>
 
-                            <!-- Tarjeta 1 -->
+                            <!-- TARJETA 1 -->
                             <VBox styleClass="hotel-card" spacing="8">
                                 <ImageView fitWidth="220" fitHeight="130" preserveRatio="true">
                                     <image>
@@ -60,7 +74,21 @@
                                 </HBox>
                             </VBox>
 
-                            <!-- Tarjeta 2, etc... -->
+                            <!-- TARJETA 2 (pendiente si querés agregarla después) -->
+                            <VBox styleClass="hotel-card" spacing="8">
+                                <ImageView fitWidth="220" fitHeight="130" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/com/hotel/front/img/fondo2.jpg"/>
+                                    </image>
+                                </ImageView>
+                                <Label text="Sierra Suites" styleClass="card-title"/>
+                                <Label text="Sierra de los Padres, Argentina" styleClass="card-location"/>
+                                <HBox spacing="6">
+                                    <Label text="7.6" styleClass="card-score"/>
+                                    <Label text="Bien · 136 comentarios" styleClass="card-review"/>
+                                </HBox>
+                            </VBox>
+
                         </HBox>
                     </content>
                 </ScrollPane>
@@ -68,8 +96,5 @@
 
         </VBox>
     </center>
-
-
-
 
 </BorderPane>

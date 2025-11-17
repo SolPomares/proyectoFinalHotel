@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hotel.front.LoginController"
+      alignment="CENTER"
+      spacing="10"
+      padding="20">
+
+    <Label text="Iniciar sesión" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="txtUsuario" promptText="Nombre de usuario o email"/>
+    <PasswordField fx:id="txtPassword" promptText="Contraseña"/>
+
+    <HBox spacing="10">
+        <Button text="Entrar" onAction="#loginUser"/>
+        <Button text="Volver" onAction="#volverAlInicio"/>
+    </HBox>
+
+</VBox>
