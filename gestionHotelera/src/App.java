@@ -52,7 +52,10 @@ public class App {
         } catch (JSONException e) {
             throw new LecturaJsonException("Error cargando datos: " + e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException("Error Inesperado al inicializar el sistema");
+            System.err.println("---ERROR REAL CAPTURADO (¡ESTO ES LO QUE NECESITAMOS!) ---");
+            e.printStackTrace();
+            System.err.println("----------------------------------------------------------");
+            throw new RuntimeException("Error Inesperado al inicializar");
         } finally {
             if (teclado != null) {
                 teclado.close();
