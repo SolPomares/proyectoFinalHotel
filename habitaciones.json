@@ -49,7 +49,7 @@
       "numeroHabitacion": 105,
       "valorDiario": 200.00,
       "tipoHabitacion": "DOBLE",
-      "disponibilidad": "OCUPADA",
+      "disponibilidad": "OCUPADO",
       "capacidad": 2,
       "dateIn": null,
       "dateOut": null
