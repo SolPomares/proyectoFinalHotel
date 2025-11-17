@@ -11,7 +11,7 @@ import Excepciones.JSONException;
 import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.*;
-
+// Comenzandogit add
 public class App {
     private static SistemaHotel<Usuario> gestorUsuarios;
     private static SistemaHabitaciones gestorHabitaciones;
