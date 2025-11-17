@@ -248,7 +248,7 @@ public class App {
        manejarOpcionRecepcionista(opcionM);
     }
 
-    private static int mostrarMenuPasajero() {
+    private static void mostrarMenuPasajero() {
         System.out.println("\n--- ZONA DE CLIENTES ---");
         System.out.println("1. Listar Habitaciones Disponibles");
         System.out.println("2. Realizar Nueva Reserva");
