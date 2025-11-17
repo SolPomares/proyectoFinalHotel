@@ -237,10 +237,9 @@ public class App {
                                 Turno turno = Turno.valueOf(leerString().toUpperCase());
 
                                 nuevoEmpleado = new Recepcionista(
-                                        UUID.randomUUID(), nombre, apellido, apellido;
-                                        dni, TipoRol.RECEPCIONISTA, eMail, acceso,                 // 7. acceso (Debería ser email)
-                                        turno, nombreUsuarioEmp, contraseniaEmp, contraseniaEmp,
-                                        gestorHabitaciones);
+                                        UUID.randomUUID(), nombre, apellido,
+                                        dni, TipoRol.RECEPCIONISTA,nombreUsuarioEmp, eMail, acceso,                  // 7. acceso (Debería ser email)
+                                        turno,contraseniaEmp, gestorHabitaciones);
                                 break;
                             }
 
@@ -259,7 +258,7 @@ public class App {
 
                                 nuevoEmpleado = new PersonalMantenimiento(
                                         UUID.randomUUID(), nombre, apellido, dni,TipoRol.MANTENIMIENTO,
-                                        nombreUsuarioEmp, eMail, acceso, turno 
+                                        nombreUsuarioEmp, eMail, acceso, turno
                                 );
                                 break;
                             }
