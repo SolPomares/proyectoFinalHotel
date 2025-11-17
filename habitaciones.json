@@ -44,6 +44,15 @@
       "capacidad": 2,
       "dateIn": null,
       "dateOut": null
+    },
+    {
+      "numeroHabitacion": 105,
+      "valorDiario": 200.00,
+      "tipoHabitacion": "DOBLE",
+      "disponibilidad": "OCUPADA",
+      "capacidad": 2,
+      "dateIn": null,
+      "dateOut": null
     }
   ]
 }
