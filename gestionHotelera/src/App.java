@@ -66,7 +66,7 @@ public class App {
             );
 
             try {
-                gestorUsuarios.agregarPasajero(adminInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
+                gestorUsuarios.AltaEmpleado((Empleados) usuarioActual, adminInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
                 System.out.println("[INFO] Administrador genérico ('admin'/'admin123') cargado.");
             } catch (datoInvalidoException e) {
                 System.err.println("[ERROR] Error al cargar Admin inicial: " + e.getMessage());
@@ -366,9 +366,6 @@ public class App {
                 case 3:
                     System.out.println("\n--- ALTA PASAJERO ---");
                     System.out.println(" INGRESO DE DATOS DEL PASAJERO" );
-                    System.out.println("Ingrese su id de pasajero (asignado al registrarse)");
-
-
 
                     System.out.print("Nombre: ");
                     String nombre = leerString();
@@ -391,21 +388,16 @@ public class App {
                     break;
                 case 4:
                     System.out.print("\n--- BAJA PASAJERO ---\nDNI del pasajero a dar de baja: ");
-                    int dniPasajero = Integer.parseInt(teclado.nextLine());
-                   /// Revisar
-                    gestorUsuarios.bajaPasajero(usuarioActual, dniPasajero);
+                    System.out.println(" Ingrese el dni del pasajero que desea dar de baja: " );
+                    int dniBaja = Integer.parseInt(teclado.nextLine());
+                    gestorUsuarios.bajaPasajero((Empleados) usuarioActual, dniBaja);
                     break;
                 case 5:
                     System.out.println("\n--- PASAJEROS REGISTRADOS ---");
                     gestorUsuarios.mostrarPasajeros();
                     break;
                 case 6:
-                    System.out.println("\n--- CREAR RESERVA ---");
-                    // Lógica para crear reserva (simulada)
-                    System.out.println("🛠️ Funcionalidad en desarrollo - necesitarías implementar crearReserva()");
-                    break;
-                case 9:
-                    System.out.println("🔒 Cerrando sesión de Recepcionista...");
+                    System.out.println("Cerrando sesión de Recepcionista...");
                     usuarioActual = null;
                     break;
                 case 0:

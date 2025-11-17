@@ -112,19 +112,6 @@ public class SistemaHotel <T extends Usuario> {
 
     //Metodo QUE COMIENZAN A IMPLEMENTAR EL LOGIN
     //Metodo para alta y baja de empleados SOLO PUEDE HACERLO UN ADMINISTRADOR
-    /*public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException {
-        if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
-            if (empleadoNuevo == null) {
-                throw new datoInvalidoException("ERROR! el empleado no existe");
-            }
-            gestorHotel.add((T) empleadoNuevo);
-            System.out.println("Empleado" + empleadoNuevo.getNombre() + "agregado exitosamente");
-        } else {
-            throw new AccesoDenegadoException("ERROR! No tiene permiso sistema");
-        }
-
-    }*/
-
     //Metodo para dar de alta a un empleado
     public void AltaEmpleado (Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException {
         if(quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR){
@@ -167,7 +154,7 @@ public class SistemaHotel <T extends Usuario> {
         }
     }
 
-    //Metodo para dar de alta a un empleado SOLO PUEDE HACERLO EL RECEPCIONISTA
+    //Metodo para dar de alta a un pasajero SOLO PUEDE HACERLO EL RECEPCIONISTA
     public void altaPasajero(Empleados quienEjecuta, Pasajero pasajeroNuevo) throws datoInvalidoException, AccesoDenegadoException {
         if (quienEjecuta.getTipoRol() == TipoRol.RECEPCIONISTA) {
             if (pasajeroNuevo == null) {
@@ -204,7 +191,7 @@ public class SistemaHotel <T extends Usuario> {
     }
 
     //Eliminar empleado
-    public void eliminarEmpleado(int dni) throws datoInvalidoException {
+    /*public void eliminarEmpleado(int dni) throws datoInvalidoException {
         if (String.valueOf(dni).length() != 8) {
             throw new datoInvalidoException("Error!! DNI inválido");
         }
@@ -257,7 +244,7 @@ public class SistemaHotel <T extends Usuario> {
         if (!encontrado) {
             System.out.println("No se encontró pasajero con DNI: " + dni);
         }
-    }
+    }*/
 
 
     //Mostrar usuarios
