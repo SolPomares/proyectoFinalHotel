@@ -385,7 +385,8 @@ public class App {
                     System.out.println("Domicilio de origen:" );
                     String domicilioOrigen = leerString();
 
-                    Pasajero pasajeroNuevo = new Pasajero(UUID.randomUUID(), nombre, apellido)
+                    Pasajero pasajeroNuevo = new Pasajero(nombre, apellido, dni,  TipoRol.PASAJERO, domicilioOrigen);
+                    gestorUsuarios.altaPasajero((Empleados) usuarioActual, pasajeroNuevo);
 
                     break;
                 case 4:
