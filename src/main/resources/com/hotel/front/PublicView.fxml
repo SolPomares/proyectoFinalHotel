@@ -8,7 +8,9 @@
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
-            fx:controller="com.hotel.front.PublicController">
+            fx:controller="com.hotel.front.PublicController"
+            fx:id="mainPane">
+
 
     <stylesheets>
         <URL value="@styles.css" />
