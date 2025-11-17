@@ -8,13 +8,14 @@ import Excepciones.habitacionOcupadaException;
 import ManejoJSON.Utilidades;
 import Excepciones.JSONException;
 
+import java.sql.Array;
 import java.sql.SQLOutput;
 import java.util.*;
 
 public class App {
     private static SistemaHotel<Usuario> gestorUsuarios;
     private static SistemaHabitaciones gestorHabitaciones;
-    private static Scanner teclado = new Scanner(System.in);
+    private static final Scanner teclado = new Scanner(System.in);
     private static Usuario usuarioActual = null;
 
     // Credenciales del administrador genérico
@@ -25,8 +26,18 @@ public class App {
        try {
             // Cargar el sistema completo desde JSON
             System.out.println("Inicializando sistema hotelero...");
-            ArrayList<Usuario> usuarios = new ArrayList<>(Utilidades.cargarUsuarios());
-            ArrayList<Habitacion> habitaciones = new ArrayList<>(Utilidades.cargarHabitaciones());
+            List <Usuario> usuariosCargados = Utilidades.cargarUsuarios();
+            List<Habitacion> habitacionesCargadas = Utilidades.cargarHabitaciones();
+
+            // Si es nulo, creamos una lista vacía para evitar el NullPointerException
+            /// Aca me ayude con chat pq no salia
+            ArrayList<Usuario> usuarios = (usuariosCargados != null)
+                    ? new ArrayList<>(usuariosCargados)
+                    : new ArrayList<>();
+
+            ArrayList<Habitacion> habitaciones = (habitacionesCargadas != null)
+                    ? new ArrayList<>(habitacionesCargadas)
+                    : new ArrayList<>();
 
             gestorUsuarios = new SistemaHotel<>(usuarios);
             gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
@@ -41,7 +52,10 @@ public class App {
         } catch (JSONException e) {
             throw new LecturaJsonException("Error cargando datos: " + e.getMessage());
         } catch (Exception e) {
-            throw new RuntimeException("Error Inesperado al inicializar el sistema");
+            System.err.println("---ERROR REAL CAPTURADO (¡ESTO ES LO QUE NECESITAMOS!) ---");
+            e.printStackTrace();
+            System.err.println("----------------------------------------------------------");
+            throw new RuntimeException("Error Inesperado al inicializar");
         } finally {
             if (teclado != null) {
                 teclado.close();
@@ -61,14 +75,15 @@ public class App {
                     TipoRol.ADMINISTRADOR,
                     ADMIN_USER,
                     "admin@hotel.com",
-                    ADMIN_PASS, // ClaveAdministracion (contraseña)
+                    ADMIN_PASS,
                     true
             );
 
             try {
-                gestorUsuarios.AltaEmpleado((Empleados) usuarioActual, adminInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
+                //Aqui simplificamoes metodo para que si o si cargu un usuario inicial y no quede null que se arrastra
+                gestorUsuarios.agregar(adminInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
                 System.out.println("[INFO] Administrador genérico ('admin'/'admin123') cargado.");
-            } catch (datoInvalidoException e) {
+            } catch (Exception e) { // <-- Cambiado de datoInvalidoException a Exception
                 System.err.println("[ERROR] Error al cargar Admin inicial: " + e.getMessage());
             }
         }
