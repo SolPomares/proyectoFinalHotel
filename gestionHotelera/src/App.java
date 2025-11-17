@@ -4,12 +4,9 @@ import Enums.Turno;
 import Excepciones.AccesoDenegadoException;
 import Excepciones.LecturaJsonException;
 import Excepciones.datoInvalidoException;
-import Excepciones.habitacionOcupadaException;
 import ManejoJSON.Utilidades;
 import Excepciones.JSONException;
 
-import java.sql.Array;
-import java.sql.SQLOutput;
 import java.util.*;
 // Comenzandogit add
 public class App {
@@ -21,6 +18,10 @@ public class App {
     // Credenciales del administrador genérico
     private static final String ADMIN_USER = "admin";
     private static final String ADMIN_PASS = "admin123";
+
+    //Credenciales recepcion genericos
+    private static final String RECEP_USER = "recepcion";
+    private static final String RECEP_PASS = "recepcion123";
 
     public static void main(String[] args) {
        try {
@@ -88,6 +89,32 @@ public class App {
             }
         }
     }
+
+    private static void cargarRecepcionistaGenerico() {
+        Usuario RecepcionistaExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(RECEP_PASS);
+
+        if (RecepcionistaExistente == null) {
+            Administrador recepInicial = new Administrador(
+                    UUID.randomUUID(),
+                    "Merlina", "Fernandez",
+                    45290824,
+                    TipoRol.RECEPCIONISTA,
+                    RECEP_USER,
+                    "recep@hotel.com",
+                    RECEP_PASS,
+                    true
+            );
+
+            try {
+                //Aqui simplificamoes metodo para que si o si cargu un usuario inicial y no quede null que se arrastra
+                gestorUsuarios.agregar(recepInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
+                System.out.println("[INFO] Administrador genérico ('recepcion'/'recepcion123') cargado.");
+            } catch (Exception e) { // <-- Cambiado de datoInvalidoException a Exception
+                System.err.println("[ERROR] Error al cargar Recep inicial: " + e.getMessage());
+            }
+        }
+    }
+
 
     private static String leerString() {
         String linea;
@@ -163,7 +190,6 @@ public class App {
     }
 
     //Menus
-
     private static int mostrarMenuAdministrador() {
         System.out.println("--- MENÚ ADMINISTRADOR ---");
         System.out.println("1. Alta de Nuevo Empleado");
