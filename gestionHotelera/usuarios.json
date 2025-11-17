@@ -44,7 +44,7 @@
       "nombre": "Roberto",
       "apellido": "Silva",
       "dni": 35123456,
-      "tipoRol": "CLIENTE",
+      "tipoRol": "PASAJERO",
       "origen": "Buenos Aires",
       "domicilioOrigen": "Av. Corrientes 1234, CABA",
       "historial": [
@@ -60,7 +60,7 @@
       "nombre": "Laura",
       "apellido": "Fernandez",
       "dni": 36123456,
-      "tipoRol": "CLIENTE",
+      "tipoRol": "PASAJERO",
       "origen": "Córdoba",
       "domicilioOrigen": "Bv. San Juan 567, Córdoba Capital",
       "historial": [
@@ -75,7 +75,7 @@
       "nombre": "Diego",
       "apellido": "Lopez",
       "dni": 37123456,
-      "tipoRol": "CLIENTE",
+      "tipoRol": "PASAJERO",
       "origen": "Mendoza",
       "domicilioOrigen": "Av. San Martín 890, Mendoza",
       "historial": [],
