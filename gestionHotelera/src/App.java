@@ -61,7 +61,7 @@ public class App {
                     TipoRol.ADMINISTRADOR,
                     ADMIN_USER,
                     "admin@hotel.com",
-                    ADMIN_PASS, // ClaveAdministracion (contraseña)
+                    ADMIN_PASS,
                     true
             );
 
