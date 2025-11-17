@@ -125,23 +125,21 @@ public class App {
         Usuario PasajeroExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(PASAJERO_PASS);
 
         if (PasajeroExistente == null) {
-            Administrador recepInicial = new Administrador(
+            Pasajero pasajeroInicial = new Pasajero(
                     UUID.randomUUID(),
                     "Joel", "Beteta",
                     87654321,
                     TipoRol.PASAJERO,
                     PASAJERO_USER,
-                    "pasajero@hotel.com",
-                    PASAJERO_PASS,
-                    true
+                    PASAJERO_PASS
             );
 
             try {
                 //Aqui simplificamoes metodo para que si o si cargu un usuario inicial y no quede null que se arrastra
-                gestorUsuarios.agregar(recepInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
-                System.out.println("[INFO] Administrador genérico ('recepcion'/'recepcion123') cargado.");
+                gestorUsuarios.agregar(pasajeroInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
+                System.out.println("[INFO] Administrador genérico ('pasajero/'pasajero123') cargado.");
             } catch (Exception e) { // <-- Cambiado de datoInvalidoException a Exception
-                System.err.println("[ERROR] Error al cargar Recep inicial: " + e.getMessage());
+                System.err.println("[ERROR] Error al cargar pasajero inicial: " + e.getMessage());
             }
         }
     }

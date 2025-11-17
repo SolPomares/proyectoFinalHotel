@@ -28,6 +28,12 @@ public class Pasajero extends Usuario implements IValidarContrasenia {
         DomicilioOrigen = domicilioOrigen;
     }
 
+    public Pasajero(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String clavePasajero) {
+        super(idUsuario, nombre, apellido, dni, tipoRol);
+        this.nombreUsuario = nombreUsuario;
+        this.clavePasajero = clavePasajero;
+    }
+
     public Pasajero() {
     }
 
