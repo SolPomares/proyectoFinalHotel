@@ -95,7 +95,7 @@ public class App {
     }
 
     private static void cargarRecepcionistaGenerico() {
-        Usuario RecepcionistaExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(RECEP_PASS);
+        Usuario RecepcionistaExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(RECEP_USER);
 
         if (RecepcionistaExistente == null) {
             Recepcionista recepInicial = new Recepcionista(
@@ -122,7 +122,7 @@ public class App {
     }
 
     private static void cargarPasajeroGenerico() {
-        Usuario PasajeroExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(PASAJERO_PASS);
+        Usuario PasajeroExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(PASAJERO_USER);
 
         if (PasajeroExistente == null) {
             Pasajero pasajeroInicial = new Pasajero(
@@ -196,7 +196,7 @@ public class App {
                     default:
                         System.out.println("Rol no reconocido o sin acceso.");
                         usuarioActual = null;
-                        opcionMenu = -1; //vuelvo al ingreso
+                        //opcionMenu = -1; //vuelvo al ingreso
                 }
             }
         }
