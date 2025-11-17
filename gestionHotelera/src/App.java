@@ -228,6 +228,7 @@ public class App {
         System.out.println("3. Listar Todos los Empleados");
         System.out.println("4. Listar Todos los Usuarios");
         System.out.println("5. Buscar Usuario por DNI");
+        System.out.println("6. Volver al Mnu");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
         int opcionM = leerOpcion();
@@ -404,6 +405,13 @@ public class App {
                         System.out.println("Usuario no encontrado");
                     }
                     break;
+                case 6:
+                {
+                    System.out.println("Volvemos");
+                    mostrarMenuAdministrador();
+                    break;
+                }
+
                 case 9:
                     System.out.println("Cerrando sesión de Administrador...");
                     usuarioActual = null;
