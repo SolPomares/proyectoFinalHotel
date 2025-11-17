@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.hotel.front.RegisterController"
+      alignment="CENTER"
+      spacing="10"
+      padding="20">
+
+    <Label text="Crear cuenta nueva" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+
+    <TextField fx:id="txtNombre" promptText="Nombre"/>
+    <TextField fx:id="txtApellido" promptText="Apellido"/>
+    <TextField fx:id="txtEmail" promptText="Correo electrónico"/>
+    <PasswordField fx:id="txtPassword" promptText="Contraseña"/>
+
+    <HBox spacing="10">
+        <Button text="Registrarme" onAction="#registrarUsuario"/>
+        <Button text="Volver" onAction="#volverAlInicio"/>
+    </HBox>
+
+</VBox>
