@@ -84,6 +84,7 @@ public class App {
 
     private static int leerOpcion() {
         int opcionNum = teclado.nextInt();
+        teclado.next();
 
         if (opcionNum <= 0){ throw new datoInvalidoException("El numero debe ser positivo.");}
 
@@ -157,7 +158,8 @@ public class App {
         System.out.println("5. Buscar Usuario por DNI");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
-        return leerOpcion();
+        int opcionM = leerOpcion();
+        return opcionM;
     }
 
     private static int mostrarMenuRecepcionista() {
@@ -170,7 +172,8 @@ public class App {
         System.out.println("6. Crear Nueva Reserva");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
-        return leerOpcion();
+        int opcionM = leerOpcion();
+        return opcionM;
     }
 
     private static int mostrarMenuPasajero() {
@@ -179,7 +182,8 @@ public class App {
         System.out.println("2. Realizar Nueva Reserva");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
-        return leerOpcion();
+        int opcionM = leerOpcion();
+        return opcionM;
     }
 
 
@@ -232,10 +236,10 @@ public class App {
         }
     }
 
-    private static void manejarOpcionRecepcionista(int opcion) {
+    private static void manejarOpcionRecepcionista(int opcionM) {
         Recepcionista recep = (Recepcionista) usuarioActual;
         try {
-            switch (opcion) {
+            switch (opcionM) {
                 case 1:
                     System.out.println("\n--- CHECK-IN ---");
                     System.out.print("Ingrese ID de la Reserva para Check-In (UUID): ");
@@ -290,10 +294,10 @@ public class App {
         }
     }
 
-    private static void manejarOpcionPasajero(int opcion) {
+    private static void manejarOpcionPasajero(int opcionM) {
         Pasajero pasajero = (Pasajero) usuarioActual;
         try {
-            switch (opcion) {
+            switch (opcionM) {
                 case 1: // Listar Habitaciones Disponibles
                     System.out.println("\n--- HABITACIONES DISPONIBLES ---");
                     gestorHabitaciones.listarHabitacionesDisponibles();
