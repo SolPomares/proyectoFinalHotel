@@ -1,24 +1,31 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox xmlns="http://javafx.com/javafx"
-      xmlns:fx="http://javafx.com/fxml"
-      fx:controller="com.hotel.front.LoginController"
-      alignment="CENTER"
-      spacing="10"
-      padding="20">
+<BorderPane xmlns="http://javafx.com/javafx"
+            xmlns:fx="http://javafx.com/fxml"
+            fx:controller="com.hotel.front.LoginController">
 
-    <Label text="Iniciar sesión" style="-fx-font-size: 20; -fx-font-weight: bold;"/>
+    <top>
+        <Label text="Iniciar sesión"
+               style="-fx-padding: 10; -fx-font-size: 18; -fx-font-weight: bold;"/>
+    </top>
 
-    <TextField fx:id="txtUsuario" promptText="Nombre de usuario o email"/>
-    <PasswordField fx:id="txtPassword" promptText="Contraseña"/>
+    <center>
+        <VBox alignment="CENTER" spacing="12">
+            <padding>
+                <Insets top="20" right="20" bottom="20" left="20"/>
+            </padding>
 
-    <HBox spacing="10">
-        <Button text="Entrar" onAction="#loginUser"/>
-        <Button text="Volver" onAction="#volverAlInicio"/>
-    </HBox>
+            <TextField     fx:id="emailField"    promptText="Email"/>
+            <PasswordField fx:id="passwordField" promptText="Contraseña"/>
 
-</VBox>
+            <HBox spacing="10">
+                <Button text="Iniciar sesión" fx:id="loginButton"/>
+                <Button text="Volver"         fx:id="volverButton"/>
+            </HBox>
+        </VBox>
+    </center>
+
+</BorderPane>
