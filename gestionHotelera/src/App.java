@@ -23,6 +23,10 @@ public class App {
     private static final String RECEP_USER = "recepcion";
     private static final String RECEP_PASS = "recepcion123";
 
+    //Credenciales pasajero generico
+    private static final String PASAJERO_USER = "pasajero";
+    private static final String PASAJERO_PASS = "pasajero123";
+
     public static void main(String[] args) {
        try {
             // Cargar el sistema completo desde JSON
