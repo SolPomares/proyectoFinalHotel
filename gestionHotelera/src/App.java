@@ -99,7 +99,7 @@ public class App {
 
     private static int leerOpcion() {
         int opcionNum = teclado.nextInt();
-        teclado.next();
+        teclado.nextLine();
 
         if (opcionNum <= 0){ throw new datoInvalidoException("El numero debe ser positivo.");}
 
