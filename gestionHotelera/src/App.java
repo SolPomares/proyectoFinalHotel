@@ -237,7 +237,7 @@ public class App {
                                 Turno turno = Turno.valueOf(leerString().toUpperCase());
 
                                 nuevoEmpleado = new Recepcionista(
-                                        UUID.randomUUID(), nombre, apellido, apellido
+                                        UUID.randomUUID(), nombre, apellido, apellido;
                                         dni, TipoRol.RECEPCIONISTA, eMail, acceso,                 // 7. acceso (Debería ser email)
                                         turno, nombreUsuarioEmp, contraseniaEmp, contraseniaEmp,
                                         gestorHabitaciones);
@@ -254,13 +254,12 @@ public class App {
                             }
 
                             case 3: {
-                                System.out.print("Turno (MANANA, TARDE, NOCHE): ");
+                                System.out.print("Turno (MANANA, TARDE O NOCHE ?): ");
                                 Turno turno = Turno.valueOf(leerString().toUpperCase());
 
                                 nuevoEmpleado = new PersonalMantenimiento(
-                                        UUID.randomUUID(), nombre, apellido, dni,
-                                        nombreUsuarioEmp, eMail, acceso,
-                                        turno, contrasenia
+                                        UUID.randomUUID(), nombre, apellido, dni,TipoRol.MANTENIMIENTO,
+                                        nombreUsuarioEmp, eMail, acceso, turno 
                                 );
                                 break;
                             }
@@ -274,7 +273,7 @@ public class App {
 
                             if (nuevoEmpleado != null) {
                                 // (Casteo de 'usuarioActual' a (Empleados) es necesario para la firma)
-                                gestorUsuarios.altaEmpleado((Empleados) usuarioActual, nuevoEmpleado);
+                                gestorUsuarios.AltaEmpleado((Empleados) usuarioActual, nuevoEmpleado);
                                 System.out.println("Empleado creado exitosamente.");
                             }
                         }
