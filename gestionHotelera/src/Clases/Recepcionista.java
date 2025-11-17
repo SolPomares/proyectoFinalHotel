@@ -12,12 +12,17 @@ public class Recepcionista extends Empleados implements IValidarContrasenia {
     private SistemaHabitaciones gestorHabitaciones;
 
     //constructor
-
     public Recepcionista(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, Turno turno, String claveRecepcion, SistemaHabitaciones gestorHabitaciones) {
         super(idUsuario, nombre, apellido, dni, tipoRol, nombreUsuario, email, acceso);
         this.turno = turno;
         this.claveRecepcion = claveRecepcion;
         this.gestorHabitaciones = gestorHabitaciones;
+    }
+
+    public Recepcionista(UUID idUsuario, String nombre, String apellido, int dni, TipoRol tipoRol, String nombreUsuario, String email, boolean acceso, Turno turno, String claveRecepcion) {
+        super(idUsuario, nombre, apellido, dni, tipoRol, nombreUsuario, email, acceso);
+        this.turno = turno;
+        this.claveRecepcion = claveRecepcion;
     }
 
     // Getter y Setter
