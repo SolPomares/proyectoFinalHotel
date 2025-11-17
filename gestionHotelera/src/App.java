@@ -22,7 +22,7 @@ public class App {
     private static final String ADMIN_PASS = "admin123";
 
     public static void main(String[] args) {
-        try {
+       try {
             // Cargar el sistema completo desde JSON
             System.out.println("Inicializando sistema hotelero...");
             ArrayList<Usuario> usuarios = new ArrayList<>(Utilidades.cargarUsuarios());
