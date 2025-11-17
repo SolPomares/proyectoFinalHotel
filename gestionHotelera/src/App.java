@@ -69,7 +69,7 @@ public class App {
                 //Aqui simplificamoes metodo para que si o si cargu un usuario inicial y no quede null que se arrastra
                 gestorUsuarios.agregar(adminInicial);//falta hacer el metodo para empleado asi q use este porque el sistemaHotel acepta t elemntos
                 System.out.println("[INFO] Administrador genérico ('admin'/'admin123') cargado.");
-            } catch (datoInvalidoException e) {
+            } catch (Exception e) { // <-- Cambiado de datoInvalidoException a Exception
                 System.err.println("[ERROR] Error al cargar Admin inicial: " + e.getMessage());
             }
         }
