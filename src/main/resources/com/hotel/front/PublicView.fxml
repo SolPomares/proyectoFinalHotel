@@ -3,6 +3,8 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.image.*?>
 <?import java.net.*?>
+<?import javafx.geometry.Insets?>
+
 
 <BorderPane xmlns="http://javafx.com/javafx"
             xmlns:fx="http://javafx.com/fxml"
@@ -18,15 +20,55 @@
 
 
     <center>
-        <!-- Caja central con mensaje, sin imágenes -->
-        <StackPane styleClass="hero" BorderPane.alignment="CENTER">
-            <VBox alignment="CENTER" spacing="10">
-                <Label text="Bienvenido al Hotel Las Olas" styleClass="hero-title"/>
-                <Label text="Mañana agregamos secciones (Habitaciones, Promos, Contacto)."
-                       styleClass="hero-sub"/>
+        <VBox spacing="30" BorderPane.alignment="CENTER">
+
+            <!-- 1) Hero actual -->
+            <StackPane styleClass="hero">
+                <VBox alignment="CENTER" spacing="10">
+                    <Label text="Bienvenido al Hotel Las Olas" styleClass="hero-title"/>
+                    <Label text="Elegí tu próxima estadía entre nuestras mejores opciones."
+                           styleClass="hero-sub"/>
+                </VBox>
+            </StackPane>
+
+            <!-- 2) Sección de tarjetas -->
+            <VBox spacing="10">
+                <Label text="¿Aún te interesan estos alojamientos?"
+                       styleClass="section-title"/>
+
+                <!-- Scroll horizontal con tarjetas -->
+                <ScrollPane hbarPolicy="AS_NEEDED" vbarPolicy="NEVER"
+                            fitToHeight="true" prefViewportHeight="260">
+                    <content>
+                        <HBox spacing="20">
+                            <padding>
+                                <Insets top="10" right="10" bottom="10" left="10"/>
+                            </padding>
+
+                            <!-- Tarjeta 1 -->
+                            <VBox styleClass="hotel-card" spacing="8">
+                                <ImageView fitWidth="220" fitHeight="130" preserveRatio="true">
+                                    <image>
+                                        <Image url="@/com/hotel/front/img/fondo1.jpg"/>
+                                    </image>
+                                </ImageView>
+                                <Label text="Mini Complejo El Encuentro" styleClass="card-title"/>
+                                <Label text="Sierra de los Padres, Argentina" styleClass="card-location"/>
+                                <HBox spacing="6">
+                                    <Label text="9.6" styleClass="card-score"/>
+                                    <Label text="Excepcional · 22 comentarios" styleClass="card-review"/>
+                                </HBox>
+                            </VBox>
+
+                            <!-- Tarjeta 2, etc... -->
+                        </HBox>
+                    </content>
+                </ScrollPane>
             </VBox>
-        </StackPane>
+
+        </VBox>
     </center>
+
 
 
 
