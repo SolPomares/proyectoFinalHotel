@@ -158,7 +158,7 @@ public class App {
         int opcionNum = teclado.nextInt();
         teclado.nextLine();
 
-        if (opcionNum <= 0) {
+        if (opcionNum < 0) {
             throw new datoInvalidoException("El numero debe ser positivo.");
         }
 
