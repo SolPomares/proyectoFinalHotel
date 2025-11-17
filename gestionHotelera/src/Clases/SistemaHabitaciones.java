@@ -51,6 +51,22 @@ public class SistemaHabitaciones {
                 .collect(Collectors.toList());
     }
 
+    public void mostrarHabitacionesDisponibles() {
+        List<Habitacion> disponibles = listarHabitacionesDisponibles();
+        if (disponibles.isEmpty()) {
+            System.out.println("No hay habitaciones disponibles.");
+        } else {
+            System.out.println("=== HABITACIONES DISPONIBLES ===");
+            for (Habitacion hab : disponibles) {
+                System.out.println("Habitación " + hab.getNumeroHabitacion() +
+                        " - " + hab.getTipoHabitacion() +
+                        " - $" + hab.getValorDiario() + "/noche");
+            }
+        }
+    }
+
+
+
     //metodo para buscar habitacion por numero
 public Habitacion obtenerHabitacionXNumero(int nroHabitacion){
     return listaHabitaciones.stream()
@@ -142,5 +158,8 @@ public Habitacion obtenerHabitacionXNumero(int nroHabitacion){
             }
         }
         return false; // No hay superposición
+
+
+
     }
 }

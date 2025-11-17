@@ -300,7 +300,7 @@ public class App {
             switch (opcionM) {
                 case 1: // Listar Habitaciones Disponibles
                     System.out.println("\n--- HABITACIONES DISPONIBLES ---");
-                    gestorHabitaciones.listarHabitacionesDisponibles();
+                    gestorHabitaciones.mostrarHabitacionesDisponibles();
                     break;
                 case 2: // Realizar Nueva Reserva
                     System.out.println("\n--- CREACIÓN DE RESERVA ---");
