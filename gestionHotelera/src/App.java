@@ -6,7 +6,7 @@ import Excepciones.LecturaJsonException;
 import Excepciones.datoInvalidoException;
 import Excepciones.habitacionOcupadaException;
 import ManejoJSON.Utilidades;
-import org.json.JSONException;
+import Excepciones.JSONException;
 
 import java.util.*;
 
