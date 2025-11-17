@@ -8,10 +8,8 @@ import Excepciones.habitacionOcupadaException;
 import ManejoJSON.Utilidades;
 import Excepciones.JSONException;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Scanner;
-import java.util.UUID;
+import java.sql.SQLOutput;
+import java.util.*;
 
 public class App {
     private static SistemaHotel<Usuario> gestorUsuarios;
@@ -180,23 +178,122 @@ public class App {
         System.out.println("\n--- ZONA DE CLIENTES ---");
         System.out.println("1. Listar Habitaciones Disponibles");
         System.out.println("2. Realizar Nueva Reserva");
+        System.out.println("3. Cambiar contraseña");
         System.out.println("9. Cerrar Sesión");
         System.out.println("0. Salir del Programa");
         int opcionM = leerOpcion();
         return opcionM;
     }
 
-
     // MANEJO DE OPCIONES
     private static void manejarOpcionAdministrador(int opcionM) {
         try {
             switch (opcionM) {
                 case 1:
+                {
+                    try{
+
                     System.out.println("\n--- ALTA EMPLEADO ---");
                     // Lógica para crear empleado (simulada por ahora)
-                    System.out.println("🛠️ Funcionalidad en desarrollo - necesitarías implementar crearEmpleado()");
-                    break;
-                case 2:
+                    int opcionSeguir = 1;
+                    do {
+
+                        System.out.println("¿Qué tipo de empleado desea crear?");
+                        System.out.println("1. Recepcionista");
+                        System.out.println("2. Administrador");
+                        System.out.println("3. Otro Empleado");
+                        System.out.print("Seleccione tipo: ");
+                        int tipo = leerOpcion(); //
+
+                        System.out.println("Ingrese los datos del nuevo empleado:");
+                        System.out.print("Nombre: ");
+                        String nombre = leerString();
+
+                        System.out.print("Apellido: ");
+                        String apellido = leerString();
+
+                        System.out.print("DNI: ");
+                        int dni = leerOpcion();
+
+                        System.out.print("Email: ");
+                        String eMail = leerString(); // (Tu variable era 'EMail')
+
+                        System.out.print("Nombre de Usuario (para login): ");
+                        String nombreUsuarioEmp = leerString();
+
+                        System.out.print("Contraseña (para login): ");
+                        String contraseniaEmp = leerString();
+
+                        System.out.print("¿Dar acceso al sistema? (S/N): ");
+                        boolean acceso = leerString().equalsIgnoreCase("S");
+
+                        Empleados nuevoEmpleado = null;
+
+                        switch (tipo) {
+                            case 1: { // Crear Recepcionista
+                                System.out.print("Turno (MANANA, TARDE, NOCHE): ");
+                                Turno turno = Turno.valueOf(leerString().toUpperCase());
+
+                                nuevoEmpleado = new Recepcionista(
+                                        UUID.randomUUID(), nombre, apellido, apellido
+                                        dni, TipoRol.RECEPCIONISTA, eMail, acceso,                 // 7. acceso (Debería ser email)
+                                        turno, nombreUsuarioEmp, contraseniaEmp, contraseniaEmp,
+                                        gestorHabitaciones);
+                                break;
+                            }
+
+                            case 2: {
+                                nuevoEmpleado = new Administrador(
+                                        UUID.randomUUID(), nombre, apellido, dni,
+                                        TipoRol.ADMINISTRADOR, nombreUsuarioEmp, eMail,
+                                        contraseniaEmp, acceso
+                                );
+                                break;
+                            }
+
+                            case 3: {
+                                System.out.print("Turno (MANANA, TARDE, NOCHE): ");
+                                Turno turno = Turno.valueOf(leerString().toUpperCase());
+
+                                nuevoEmpleado = new PersonalMantenimiento(
+                                        UUID.randomUUID(), nombre, apellido, dni,
+                                        nombreUsuarioEmp, eMail, acceso,
+                                        turno, contrasenia
+                                );
+                                break;
+                            }
+
+                            default: {
+                                // Se ejecuta si 'tipo' no es 1, 2, o 3
+                                System.out.println("Tipo no válido. Operación cancelada.");
+                                // 'nuevoEmpleado' permanece null
+                                break;
+                            }
+
+                            if (nuevoEmpleado != null) {
+                                // (Casteo de 'usuarioActual' a (Empleados) es necesario para la firma)
+                                gestorUsuarios.altaEmpleado((Empleados) usuarioActual, nuevoEmpleado);
+                                System.out.println("Empleado creado exitosamente.");
+                            }
+                        }
+
+                        System.out.println("Quiere Salir presione 5");
+                        opcionSeguir = leerOpcion();
+                    } while (opcionSeguir != 5);
+
+            } catch(datoInvalidoException e){
+                System.out.println("Error de datos: " + e.getMessage());
+            } catch(IllegalArgumentException e){
+                // Captura si el usuario escribe un Turno inválido
+                System.out.println("Error: El valor ingresado (ej. Turno) no es válido.");
+            } catch(Exception e){
+                System.out.println("Error inesperado: " + e.getMessage());
+            }
+
+            break;
+        }
+
+        case 2:
                     System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
                     int dniBaja = Integer.parseInt(teclado.nextLine());
                /// Revisar
@@ -243,7 +340,7 @@ public class App {
                 case 1:
                     System.out.println("\n--- CHECK-IN ---");
                     System.out.print("Ingrese ID de la Reserva para Check-In (UUID): ");
-                    String idReservaIn = teclado.nextLine();
+                    String idReservaIn = leerString();
                     boolean checkInExitoso = recep.realizarCheckIn(null, null, UUID.fromString(idReservaIn));
                     if (checkInExitoso) {
                         System.out.println("✅ Check-in realizado exitosamente");
@@ -300,8 +397,23 @@ public class App {
             switch (opcionM) {
                 case 1: // Listar Habitaciones Disponibles
                     System.out.println("\n--- HABITACIONES DISPONIBLES ---");
+<<<<<<< HEAD
                     gestorHabitaciones.mostrarHabitacionesDisponibles();
+=======
+                    List<Habitacion> disponibles = gestorHabitaciones.listarHabitacionesDisponibles();
+                    if (disponibles.isEmpty()) {
+                        System.out.println("No hay habitaciones disponibles en este momento.");
+                    } else {
+                        disponibles.forEach(h ->
+                                System.out.println(
+                                        "Nro: " + h.getNumeroHabitacion() +
+                                                " | Tipo: " + h.getTipoHabitacion() +
+                                                " | Precio: $" + h.getValorDiario()
+                                ));
+                    }
+>>>>>>> 5e05e0428861ffcbc03de85d7e06bbb62b8baa67
                     break;
+
                 case 2: // Realizar Nueva Reserva
                     System.out.println("\n--- CREACIÓN DE RESERVA ---");
                     System.out.println("Ingrese número de habitación a reservar: ");
@@ -319,34 +431,30 @@ public class App {
                     Date fechaOut = new Date(fechaIn.getTime() + (long) dias * 24 * 60 * 60 * 1000);
 
                     gestorHabitaciones.crearReserva(pasajero, habitacionElegida, fechaIn, fechaOut);
-                    System.out.println("Reserva creada exitosamente para la habitación " + numHab);
+
                     break;
 
-                case 3: // Modificar Datos Personales
-                    System.out.println("\n--- MODIFICAR DATOS PERSONALES ---");
-                    System.out.println("Confirme su contraseña actual para continuar: ");
-                    String passActual = leerString();
-
-                    if (pasajero.validarContrasenia(passActual)) {
-                        System.out.println("Funcionalidad pendiente: Implementar la actualización de datos personales en SistemaHotel.");
-                    } else {
-                        System.out.println("Contraseña incorrecta. Operación cancelada.");
-                    }
-                    break;
-
-                case 4: // Cambiar Contraseña
+                case 3:
                     System.out.println("\n--- CAMBIAR CONTRASEÑA ---");
                     System.out.println("Ingrese su Contraseña Actual: ");
                     String oldPass = leerString();
 
                     if (pasajero.validarContrasenia(oldPass)) {
-                        System.out.println("");
+                        System.out.println("Contraseña Modificada");
                     } else {
                         System.out.println("Contraseña actual incorrecta. Operación cancelada.");
                     }
                     break;
-                default:
-                    System.out.println("Opción inválida.");
+
+                case 9:
+                    System.out.println("EXIT - Gracias por Visitarnos");
+                    usuarioActual = null;
+                    break;
+
+                    default:
+                        System.out.println("EXIT - Gracias por Visitarnos");
+                        System.out.println("Opción inválida.");
+                         break;
             }
         } catch (Exception e) {
             System.out.println("Error en la operación de Pasajero: " + e.getMessage());
