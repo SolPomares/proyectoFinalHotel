@@ -26,3 +26,47 @@
     -fx-opacity: 0.95;
 }
 
+.section-title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 20px;
+    -fx-text-fill: #1a3d6d;
+}
+
+/* Tarjeta */
+.hotel-card {
+    -fx-background-color: white;
+    -fx-padding: 10;
+    -fx-background-radius: 10;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.18), 12, 0.2, 0, 3);
+}
+
+/* Título de la tarjeta */
+.card-title {
+    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-size: 14px;
+    -fx-text-fill: #222;
+}
+
+/* Ubicación */
+.card-location {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 12px;
+    -fx-text-fill: #555;
+}
+
+/* Puntaje azulito */
+.card-score {
+    -fx-background-color: #0071c2;
+    -fx-background-radius: 4;
+    -fx-text-fill: white;
+    -fx-padding: 2 6 2 6;
+    -fx-font-size: 11px;
+    -fx-font-weight: bold;
+}
+
+/* Texto al lado del puntaje */
+.card-review {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 11px;
+    -fx-text-fill: #333;
+}
