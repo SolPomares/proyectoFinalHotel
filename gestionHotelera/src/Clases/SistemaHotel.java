@@ -112,7 +112,7 @@ public class SistemaHotel <T extends Usuario> {
 
     //Metodo QUE COMIENZAN A IMPLEMENTAR EL LOGIN
     //Metodo para alta y baja de empleados SOLO PUEDE HACERLO UN ADMINISTRADOR
-    public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException {
+    /*public void altaEmpleado(Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException {
         if (quienEjecuta.getTipoRol() == TipoRol.ADMINISTRADOR) {
             if (empleadoNuevo == null) {
                 throw new datoInvalidoException("ERROR! el empleado no existe");
@@ -123,7 +123,7 @@ public class SistemaHotel <T extends Usuario> {
             throw new AccesoDenegadoException("ERROR! No tiene permiso sistema");
         }
 
-    }
+    }*/
 
     //Metodo para dar de alta a un empleado
     public void AltaEmpleado (Empleados quienEjecuta, Empleados empleadoNuevo) throws datoInvalidoException, AccesoDenegadoException {
