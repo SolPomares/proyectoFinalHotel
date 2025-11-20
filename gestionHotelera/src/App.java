@@ -7,7 +7,6 @@ import Excepciones.datoInvalidoException;
 import ManejoJSON.Utilidades;
 import Excepciones.JSONException;
 
-import java.sql.SQLOutput;
 import java.util.*;
 
 // Comenzandogit add
@@ -272,11 +271,12 @@ public class App {
     }
 
     // MANEJO DE OPCIONES
-    private static void manejarOpcionAdministrador(int opcionM) {
+    private static boolean manejarOpcionAdministrador(int opcionM) {
         try {
             switch (opcionM) {
 
                 case 1: {
+                    int opcion = leerOpcion();
                     try {
                         System.out.println("\n--- ALTA EMPLEADO ---");
                         // Lógica para crear empleado (simulada por ahora)
@@ -325,6 +325,7 @@ public class App {
                                             UUID.randomUUID(), nombre, apellido,
                                             dni, TipoRol.RECEPCIONISTA, nombreUsuarioEmp, eMail, acceso,
                                             turno, contraseniaEmp, gestorHabitaciones);
+                                    pausa();
                                     break;
                                 }
 
@@ -334,6 +335,7 @@ public class App {
                                             TipoRol.ADMINISTRADOR, nombreUsuarioEmp, eMail,
                                             contraseniaEmp, acceso
                                     );
+                                    pausa();
                                     break;
                                 }
 
@@ -346,11 +348,13 @@ public class App {
                                             nombreUsuarioEmp, eMail, acceso, turno
                                     );
 
+                                    pausa();
                                     break;
                                 }
 
                                 case 4: {
                                     System.out.println("Volvemos");
+                                    pausa();
                                     mostrarMenuAdministrador();
                                     break;
                                 }
@@ -374,7 +378,8 @@ public class App {
                                 }
 
                             }
-                        } while (opcionSeguir != 5);
+                        } while (opcion != 0 && opcion != 9);
+                        return true;
 
                     } catch (datoInvalidoException e) {
                         System.out.println("Error de datos: " + e.getMessage());
@@ -393,19 +398,21 @@ public class App {
                     System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
                     int dniBaja = Integer.parseInt(teclado.nextLine());
                     gestorUsuarios.bajaEmpleado((Empleados) usuarioActual, dniBaja);
-
+                    pausa();
                     break;
                 }
 
                 case 3: {
                     System.out.println("\n--- LISTA DE EMPLEADOS ---");
                     gestorUsuarios.ListarEmpleados().forEach(e -> e.imprimirDatos());
+                    pausa();
                     break;
                 }
 
                 case 4: {
                     System.out.println("\n--- TODOS LOS USUARIOS ---");
                     gestorUsuarios.imprimirTodosUsuarios();
+                    pausa();
                     break;
                 }
 
@@ -418,6 +425,7 @@ public class App {
                     } else {
                         System.out.println("Usuario no encontrado");
                     }
+                    pausa();
                     break;
                 }
 
@@ -433,9 +441,10 @@ public class App {
                     break;
                 }
 
-                case 8: {
+                case 0: {
                     System.out.println("Saliendo del programa...");
-                    break;
+                    return false;
+
                 }
 
                 default: {
@@ -446,6 +455,7 @@ public class App {
         } catch (Exception e) {
             System.out.println("Error: " + e.getMessage());
         }
+        return false;
     }
 
     private static void manejarOpcionRecepcionista(int opcionM) {
