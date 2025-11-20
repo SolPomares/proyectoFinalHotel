@@ -7,6 +7,7 @@ import Excepciones.datoInvalidoException;
 import ManejoJSON.Utilidades;
 import Excepciones.JSONException;
 
+import java.sql.SQLOutput;
 import java.util.*;
 
 // Comenzandogit add
@@ -171,7 +172,12 @@ public class App {
         do {
             // Si nadie está logueado, forzamos el login
             if (usuarioActual == null) {
-                usuarioActual = login();
+                //Aca puse este try/catch porque si ponias mal el login se rompia el programa
+               try {
+                   usuarioActual = login();
+               }catch (AccesoDenegadoException e){
+                   System.out.println("ERROR DE VALIDACION - Vuelva a intentar");
+               }
                 if (usuarioActual == null) {
                     System.out.println("\n¿Intentar de nuevo o Salir? (0 para salir, cualquier tecla para reintentar): ");
                     String input = teclado.nextLine();
