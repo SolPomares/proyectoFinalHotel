@@ -278,7 +278,6 @@ public class App {
 
                 case 1: {
                     try {
-
                         System.out.println("\n--- ALTA EMPLEADO ---");
                         // Lógica para crear empleado (simulada por ahora)
                         int opcionSeguir = 1;
@@ -369,6 +368,7 @@ public class App {
                                     System.out.println("Quiere Salir presione 5");
                                     opcionSeguir = leerOpcion();
 
+                                    pausa();
                                     break;
 
                                 }
@@ -600,5 +600,10 @@ public class App {
         } catch (Exception e) {
             System.out.println("Error en la operación de Pasajero: " + e.getMessage());
         }
+    }
+
+    private static void pausa(){
+        System.out.println("\nPresione Enter para volver al menú...");
+        teclado.nextLine();
     }
 }
