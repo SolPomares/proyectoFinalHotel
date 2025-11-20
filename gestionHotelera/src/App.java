@@ -229,209 +229,213 @@ public class App {
 
         boolean seguirEnPrograma = true;
 
-        System.out.println("--- MENÚ ADMINISTRADOR ---");
-        System.out.println("1. Alta de Nuevo Empleado");
-        System.out.println("2. Baja de Empleado (por DNI)");
-        System.out.println("3. Listar Todos los Empleados");
-        System.out.println("4. Listar Todos los Usuarios");
-        System.out.println("5. Buscar Usuario por DNI");
-        System.out.println("6. LEER Archivo Habitaciones ");
-        System.out.println("7. GRABAR Archivo Habitaciones ");
-        System.out.println("8. Hacer BackUp de Usuarios");
-        System.out.println("9. Leer BackUp de Usuarios");
-        System.out.println("10. Asignar o Quitar Permisos de sistema");
-        System.out.println("0. Cerrar Sesión");
-        System.out.println("--------------------------------------------");
+        int opcionSalida = 0;
 
-        System.out.print("Elija una opción: ");
-        int opcionM = leerOpcion();
+        do {
 
-        try {
-            switch (opcionM) {
+            System.out.println("--- MENÚ ADMINISTRADOR ---");
+            System.out.println("1. Alta de Nuevo Empleado");
+            System.out.println("2. Baja de Empleado (por DNI)");
+            System.out.println("3. Listar Todos los Empleados");
+            System.out.println("4. Listar Todos los Usuarios");
+            System.out.println("5. Buscar Usuario por DNI");
+            System.out.println("6. LEER Archivo Habitaciones ");
+            System.out.println("7. GRABAR Archivo Habitaciones ");
+            System.out.println("8. Hacer BackUp de Usuarios");
+            System.out.println("9. Leer BackUp de Usuarios");
+            System.out.println("10. Asignar o Quitar Permisos de sistema");
+            System.out.println("0. Cerrar Sesión");
+            System.out.println("--------------------------------------------");
 
-                case 1: {
-                    int opcion = leerOpcion();
-                    try {
-                        System.out.println("\n--- ALTA EMPLEADO ---");
-                        // Lógica para crear empleado (simulada por ahora)
-                        int opcionSeguir = 1;
-                        do {
+            System.out.print("Elija una opción: ");
+            int opcionM = leerOpcion();
 
-                            System.out.println("¿Qué tipo de empleado desea crear?");
-                            System.out.println("1. Recepcionista");
-                            System.out.println("2. Administrador");
-                            System.out.println("3. Otro Empleado");
-                            System.out.println("4. Salir del Programa");
-                            System.out.print("Seleccione tipo: ");
-                            int tipo = leerOpcion(); //
+            try {
+                switch (opcionM) {
 
-                            System.out.println("Ingrese los datos del nuevo empleado:");
-                            System.out.print("Nombre: ");
-                            String nombre = leerString();
+                    case 1: {
+                        int opcion = leerOpcion();
+                        try {
+                            System.out.println("\n--- ALTA EMPLEADO ---");
+                            // Lógica para crear empleado (simulada por ahora)
+                            int opcionSeguir = 1;
+                            do {
 
-                            System.out.print("Apellido: ");
-                            String apellido = leerString();
+                                System.out.println("¿Qué tipo de empleado desea crear?");
+                                System.out.println("1. Recepcionista");
+                                System.out.println("2. Administrador");
+                                System.out.println("3. Otro Empleado");
+                                System.out.println("4. Salir del Programa");
+                                System.out.print("Seleccione tipo: ");
+                                int tipo = leerOpcion(); //
 
-                            System.out.print("DNI: ");
-                            int dni = leerOpcion();
+                                System.out.println("Ingrese los datos del nuevo empleado:");
+                                System.out.print("Nombre: ");
+                                String nombre = leerString();
 
-                            System.out.print("Email: ");
-                            String eMail = leerString(); // (Tu variable era 'EMail')
+                                System.out.print("Apellido: ");
+                                String apellido = leerString();
 
-                            System.out.print("Nombre de Usuario (para login): ");
-                            String nombreUsuarioEmp = leerString();
+                                System.out.print("DNI: ");
+                                int dni = leerOpcion();
 
-                            System.out.print("Contraseña (para login): ");
-                            String contraseniaEmp = leerString();
+                                System.out.print("Email: ");
+                                String eMail = leerString(); // (Tu variable era 'EMail')
 
-                            System.out.print("¿Dar acceso al sistema? (S/N): ");
-                            boolean acceso = leerString().equalsIgnoreCase("S");
+                                System.out.print("Nombre de Usuario (para login): ");
+                                String nombreUsuarioEmp = leerString();
 
-                            Empleados nuevoEmpleado = null;
+                                System.out.print("Contraseña (para login): ");
+                                String contraseniaEmp = leerString();
 
-                            switch (tipo) {
+                                System.out.print("¿Dar acceso al sistema? (S/N): ");
+                                boolean acceso = leerString().equalsIgnoreCase("S");
 
-                                case 1: { // Crear Recepcionista
-                                    System.out.print("Turno (MANANA, TARDE, NOCHE): ");
-                                    Turno turno = Turno.valueOf(leerString().toUpperCase());
+                                Empleados nuevoEmpleado = null;
 
-                                    nuevoEmpleado = new Recepcionista(
-                                            UUID.randomUUID(), nombre, apellido,
-                                            dni, TipoRol.RECEPCIONISTA, nombreUsuarioEmp, eMail, acceso,
-                                            turno, contraseniaEmp, gestorHabitaciones);
-                                    pausa();
-                                    break;
-                                }
+                                switch (tipo) {
 
-                                case 2: {
-                                    nuevoEmpleado = new Administrador(
-                                            UUID.randomUUID(), nombre, apellido, dni,
-                                            TipoRol.ADMINISTRADOR, nombreUsuarioEmp, eMail,
-                                            contraseniaEmp, acceso
-                                    );
-                                    pausa();
-                                    break;
-                                }
+                                    case 1: { // Crear Recepcionista
+                                        System.out.print("Turno (MANANA, TARDE, NOCHE): ");
+                                        Turno turno = Turno.valueOf(leerString().toUpperCase());
 
-                                case 3: {
-                                    System.out.print("Turno (MANANA, TARDE O NOCHE ?): ");
-                                    Turno turno = Turno.valueOf(leerString().toUpperCase());
-
-                                    nuevoEmpleado = new PersonalMantenimiento(
-                                            UUID.randomUUID(), nombre, apellido, dni, TipoRol.MANTENIMIENTO,
-                                            nombreUsuarioEmp, eMail, acceso, turno
-                                    );
-
-                                    pausa();
-                                    break;
-                                }
-
-                                case 4: {
-                                    System.out.println("Volvemos");
-                                    pausa();
-                                    mostrarMenuAdministrador();
-                                    break;
-                                }
-
-                                default: {
-                                    // 'nuevoEmpleado' permanece null
-                                    if (nuevoEmpleado != null) {
-                                        // (Casteo de 'usuarioActual' a (Empleados) es necesario para la firma)
-                                        gestorUsuarios.AltaEmpleado((Empleados) usuarioActual, nuevoEmpleado);
-                                        System.out.println("Empleado creado exitosamente.");
+                                        nuevoEmpleado = new Recepcionista(
+                                                UUID.randomUUID(), nombre, apellido,
+                                                dni, TipoRol.RECEPCIONISTA, nombreUsuarioEmp, eMail, acceso,
+                                                turno, contraseniaEmp, gestorHabitaciones);
+                                        pausa();
+                                        break;
                                     }
-                                    // Se ejecuta si 'tipo' no es 1, 2, o 3
-                                    System.out.println("Tipo no válido. Operación cancelada.");
 
-                                    System.out.println("Quiere Salir presione 5");
-                                    opcionSeguir = leerOpcion();
+                                    case 2: {
+                                        nuevoEmpleado = new Administrador(
+                                                UUID.randomUUID(), nombre, apellido, dni,
+                                                TipoRol.ADMINISTRADOR, nombreUsuarioEmp, eMail,
+                                                contraseniaEmp, acceso
+                                        );
+                                        pausa();
+                                        break;
+                                    }
 
-                                    pausa();
-                                    break;
+                                    case 3: {
+                                        System.out.print("Turno (MANANA, TARDE O NOCHE ?): ");
+                                        Turno turno = Turno.valueOf(leerString().toUpperCase());
+
+                                        nuevoEmpleado = new PersonalMantenimiento(
+                                                UUID.randomUUID(), nombre, apellido, dni, TipoRol.MANTENIMIENTO,
+                                                nombreUsuarioEmp, eMail, acceso, turno
+                                        );
+
+                                        pausa();
+                                        break;
+                                    }
+
+                                    case 4: {
+                                        System.out.println("Volvemos");
+                                        pausa();
+                                        mostrarMenuAdministrador();
+                                        break;
+                                    }
+
+                                    default: {
+                                        // 'nuevoEmpleado' permanece null
+                                        if (nuevoEmpleado != null) {
+                                            // (Casteo de 'usuarioActual' a (Empleados) es necesario para la firma)
+                                            gestorUsuarios.AltaEmpleado((Empleados) usuarioActual, nuevoEmpleado);
+                                            System.out.println("Empleado creado exitosamente.");
+                                        }
+                                        // Se ejecuta si 'tipo' no es 1, 2, o 3
+                                        System.out.println("Tipo no válido. Operación cancelada.");
+
+                                        System.out.println("Quiere Salir presione 5");
+                                        opcionSeguir = leerOpcion();
+
+                                        pausa();
+                                        break;
+
+                                    }
 
                                 }
+                            } while (opcion != 0 && opcion != 9);
+                            return true;
 
-                            }
-                        } while (opcion != 0 && opcion != 9);
-                        return true;
+                        } catch (datoInvalidoException e) {
+                            System.out.println("Error de datos: " + e.getMessage());
+                        } catch (IllegalArgumentException e) {
+                            // Captura si el usuario escribe un Turno inválido
+                            System.out.println("Error: El valor ingresado (ej. Turno) no es válido.");
+                        } catch (Exception e) {
+                            System.out.println("Error inesperado: " + e.getMessage());
+                        }
 
-                    } catch (datoInvalidoException e) {
-                        System.out.println("Error de datos: " + e.getMessage());
-                    } catch (IllegalArgumentException e) {
-                        // Captura si el usuario escribe un Turno inválido
-                        System.out.println("Error: El valor ingresado (ej. Turno) no es válido.");
-                    } catch (Exception e) {
-                        System.out.println("Error inesperado: " + e.getMessage());
+                        break;
                     }
 
-                    break;
-                }
 
-
-                case 2: {
-                    System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
-                    int dniBaja = Integer.parseInt(teclado.nextLine());
-                    gestorUsuarios.bajaEmpleado((Empleados) usuarioActual, dniBaja);
-                    pausa();
-                    break;
-                }
-
-                case 3: {
-                    System.out.println("\n--- LISTA DE EMPLEADOS ---");
-                    gestorUsuarios.ListarEmpleados().forEach(e -> e.imprimirDatos());
-                    pausa();
-                    break;
-                }
-
-                case 4: {
-                    System.out.println("\n--- TODOS LOS USUARIOS ---");
-                    gestorUsuarios.imprimirTodosUsuarios();
-                    pausa();
-                    break;
-                }
-
-                case 5: {
-                    System.out.print("\n--- BUSCAR USUARIO ---\nIngrese DNI: ");
-                    int dniBuscar = Integer.parseInt(teclado.nextLine());
-                    Usuario usuario = gestorUsuarios.buscarUsuario(dniBuscar);
-                    if (usuario != null) {
-                        usuario.imprimirDatos();
-                    } else {
-                        System.out.println("Usuario no encontrado");
+                    case 2: {
+                        System.out.print("\n--- BAJA EMPLEADO ---\nDNI del empleado a dar de baja: ");
+                        int dniBaja = Integer.parseInt(teclado.nextLine());
+                        gestorUsuarios.bajaEmpleado((Empleados) usuarioActual, dniBaja);
+                        pausa();
+                        break;
                     }
-                    pausa();
-                    break;
-                }
 
-                case 6: {
-                    System.out.println("Volvemos");
-                    mostrarMenuAdministrador();
-                    break;
-                }
+                    case 3: {
+                        System.out.println("\n--- LISTA DE EMPLEADOS ---");
+                        gestorUsuarios.ListarEmpleados().forEach(e -> e.imprimirDatos());
+                        pausa();
+                        break;
+                    }
 
-                case 9: {
-                    System.out.println("Cerrando sesión de Administrador...");
-                    usuarioActual = null;
-                    break;
-                }
+                    case 4: {
+                        System.out.println("\n--- TODOS LOS USUARIOS ---");
+                        gestorUsuarios.imprimirTodosUsuarios();
+                        pausa();
+                        break;
+                    }
 
-                case 0: {
-                    System.out.println("Saliendo del programa...");
-                    return false;
+                    case 5: {
+                        System.out.print("\n--- BUSCAR USUARIO ---\nIngrese DNI: ");
+                        int dniBuscar = Integer.parseInt(teclado.nextLine());
+                        Usuario usuario = gestorUsuarios.buscarUsuario(dniBuscar);
+                        if (usuario != null) {
+                            usuario.imprimirDatos();
+                        } else {
+                            System.out.println("Usuario no encontrado");
+                        }
+                        pausa();
+                        break;
+                    }
 
-                }
+                    case 6: {
+                        System.out.println("Volvemos");
+                        mostrarMenuAdministrador();
+                        break;
+                    }
 
-                default: {
-                    System.out.println("Opción no válida para Administrador.");
-                    break;
+                    case 9: {
+                        System.out.println("Cerrando sesión de Administrador...");
+                        usuarioActual = null;
+                        break;
+                    }
+
+                    case 0: {
+                        System.out.println("Saliendo del programa...");
+                        return false;
+
+                    }
+
+                    default: {
+                        System.out.println("Opción no válida para Administrador.");
+                        break;
+                    }
                 }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
             }
-        } catch (Exception e) {
-            System.out.println("Error: " + e.getMessage());
-        }
-        return false;
-    }
 
+        } while (true);
+    }
 
     private static void mostrarMenuRecepcionista() {
         System.out.println("--- MENÚ RECEPCIONISTA ---");
