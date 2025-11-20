@@ -231,6 +231,9 @@ public class App {
             System.out.print("Elija una opción: ");
             int opcionM = leerOpcion();
 
+            //convertimos a pasajero para usar sus metodos
+            //Pasajero pasajero = (Pasajero) usuarioActual;
+
             try {
                 switch (opcionM) {
 
@@ -523,7 +526,7 @@ public class App {
                         System.out.println("Saliendo del programa...");
                         pausa();
                         return false;
-                        break;
+
                     }
                     default: {
                         System.out.println("Opción no válida para Recepcionista.");
@@ -552,6 +555,9 @@ public class App {
             System.out.println("9. Cerrar Sesión");
             System.out.println("0. Salir del Programa");
             int opcionM = leerOpcion();
+
+            //convertimos a pasajero para usar sus metodos
+            Pasajero pasajero = (Pasajero) usuarioActual;
 
             try {
                 switch (opcionM) {
