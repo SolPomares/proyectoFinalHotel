@@ -190,7 +190,7 @@ public class App {
 
                 switch (usuarioActual.getTipoRol()) {
                     case ADMINISTRADOR:
-                        mostrarMenuAdministrador();
+                       programaActivo = mostrarMenuAdministrador();
                         break;
                     case RECEPCIONISTA:
                         mostrarMenuRecepcionista();
@@ -203,6 +203,7 @@ public class App {
                         usuarioActual = null;
                 }
             }
+            System.out.println("Aplicación finalizada correctamente.");
         }
     }
 
@@ -224,9 +225,10 @@ public class App {
     }
 
     //Menus
-    private static void mostrarMenuAdministrador() {
-    int opcion = 0;
-    boolean seguirEnPrograma = true;
+    private static boolean mostrarMenuAdministrador() {
+
+        boolean seguirEnPrograma = true;
+
         System.out.println("--- MENÚ ADMINISTRADOR ---");
         System.out.println("1. Alta de Nuevo Empleado");
         System.out.println("2. Baja de Empleado (por DNI)");
@@ -240,38 +242,10 @@ public class App {
         System.out.println("10. Asignar o Quitar Permisos de sistema");
         System.out.println("0. Cerrar Sesión");
         System.out.println("--------------------------------------------");
+
         System.out.print("Elija una opción: ");
         int opcionM = leerOpcion();
-        manejarOpcionAdministrador(opcionM);
-    }
 
-    private static void mostrarMenuRecepcionista() {
-        System.out.println("--- MENÚ RECEPCIONISTA ---");
-        System.out.println("1. Registrar Check-In de Pasajero");
-        System.out.println("2. Registrar Check-Out de Pasajero");
-        System.out.println("3. Dar de Alta Pasajero");
-        System.out.println("4. Dar de Baja Pasajero");
-        System.out.println("5. Mostrar Pasajeros Registrados");
-        System.out.println("6. Crear Nueva Reserva");
-        System.out.println("9. Cerrar Sesión");
-        System.out.println("8. Salir del Programa");
-        int opcionM = leerOpcion();
-        manejarOpcionRecepcionista(opcionM);
-    }
-
-    private static void mostrarMenuPasajero() {
-        System.out.println("\n--- ZONA DE CLIENTES ---");
-        System.out.println("1. Listar Habitaciones Disponibles");
-        System.out.println("2. Realizar Nueva Reserva");
-        System.out.println("3. Cambiar contraseña");
-        System.out.println("9. Cerrar Sesión");
-        System.out.println("8. Salir del Programa");
-        int opcionM = leerOpcion();
-        manejarOpcionPasajero(opcionM);
-    }
-
-    // MANEJO DE OPCIONES
-    private static boolean manejarOpcionAdministrador(int opcionM) {
         try {
             switch (opcionM) {
 
@@ -457,6 +431,35 @@ public class App {
         }
         return false;
     }
+
+
+    private static void mostrarMenuRecepcionista() {
+        System.out.println("--- MENÚ RECEPCIONISTA ---");
+        System.out.println("1. Registrar Check-In de Pasajero");
+        System.out.println("2. Registrar Check-Out de Pasajero");
+        System.out.println("3. Dar de Alta Pasajero");
+        System.out.println("4. Dar de Baja Pasajero");
+        System.out.println("5. Mostrar Pasajeros Registrados");
+        System.out.println("6. Crear Nueva Reserva");
+        System.out.println("9. Cerrar Sesión");
+        System.out.println("8. Salir del Programa");
+        int opcionM = leerOpcion();
+        manejarOpcionRecepcionista(opcionM);
+    }
+
+    private static void mostrarMenuPasajero() {
+        System.out.println("\n--- ZONA DE CLIENTES ---");
+        System.out.println("1. Listar Habitaciones Disponibles");
+        System.out.println("2. Realizar Nueva Reserva");
+        System.out.println("3. Cambiar contraseña");
+        System.out.println("9. Cerrar Sesión");
+        System.out.println("8. Salir del Programa");
+        int opcionM = leerOpcion();
+        manejarOpcionPasajero(opcionM);
+    }
+
+    // MANEJO DE OPCIONES
+
 
     private static void manejarOpcionRecepcionista(int opcionM) {
         Recepcionista recep = (Recepcionista) usuarioActual;
