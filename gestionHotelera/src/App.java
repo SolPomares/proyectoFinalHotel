@@ -422,7 +422,7 @@ public class App {
         } while (true);
     }
 
-    private static void mostrarMenuRecepcionista() {
+    private static boolean mostrarMenuRecepcionista() {
         boolean seguirEnPrograma = true;
         int opcionSalida = 0;
 
@@ -522,6 +522,7 @@ public class App {
                     case 8: {
                         System.out.println("Saliendo del programa...");
                         pausa();
+                        return false;
                         break;
                     }
                     default: {
@@ -529,105 +530,106 @@ public class App {
                         pausa();
                         break;
                     }
-                } catch(Exception e){
-                    System.out.println("Error: " + e.getMessage());
                 }
+            } catch (Exception e) {
+                System.out.println("Error: " + e.getMessage());
+                
             }
-        }while (true) ;
+        } while (true);
     }
 
-        private static void mostrarMenuPasajero () {
-            System.out.println("\n--- ZONA DE CLIENTES ---");
-            System.out.println("1. Listar Habitaciones Disponibles");
-            System.out.println("2. Realizar Nueva Reserva");
-            System.out.println("3. Cambiar contraseña");
-            System.out.println("9. Cerrar Sesión");
-            System.out.println("8. Salir del Programa");
-            int opcionM = leerOpcion();
-            manejarOpcionPasajero(opcionM);
-        }
+    private static void mostrarMenuPasajero() {
+        System.out.println("\n--- ZONA DE CLIENTES ---");
+        System.out.println("1. Listar Habitaciones Disponibles");
+        System.out.println("2. Realizar Nueva Reserva");
+        System.out.println("3. Cambiar contraseña");
+        System.out.println("9. Cerrar Sesión");
+        System.out.println("8. Salir del Programa");
+        int opcionM = leerOpcion();
+        manejarOpcionPasajero(opcionM);
+    }
 
-        // MANEJO DE OPCIONES
+    // MANEJO DE OPCIONES
 
 
-        private static void manejarOpcionPasajero ( int opcionM){
-            Pasajero pasajero = (Pasajero) usuarioActual;
-            try {
-                switch (opcionM) {
-                    case 1: // Listar Habitaciones Disponibles
-                        System.out.println("\n--- HABITACIONES DISPONIBLES ---");
-                        gestorHabitaciones.mostrarHabitacionesDisponibles();
+    private static void manejarOpcionPasajero(int opcionM) {
+        Pasajero pasajero = (Pasajero) usuarioActual;
+        try {
+            switch (opcionM) {
+                case 1: // Listar Habitaciones Disponibles
+                    System.out.println("\n--- HABITACIONES DISPONIBLES ---");
+                    gestorHabitaciones.mostrarHabitacionesDisponibles();
 
-                        List<Habitacion> disponibles = gestorHabitaciones.listarHabitacionesDisponibles();
-                        if (disponibles.isEmpty()) {
-                            System.out.println("No hay habitaciones disponibles en este momento.");
-                        } else {
-                            disponibles.forEach(h ->
-                                    System.out.println(
-                                            "Nro: " + h.getNumeroHabitacion() +
-                                                    " | Tipo: " + h.getTipoHabitacion() +
-                                                    " | Precio: $" + h.getValorDiario()
-                                    ));
-                        }
+                    List<Habitacion> disponibles = gestorHabitaciones.listarHabitacionesDisponibles();
+                    if (disponibles.isEmpty()) {
+                        System.out.println("No hay habitaciones disponibles en este momento.");
+                    } else {
+                        disponibles.forEach(h ->
+                                System.out.println(
+                                        "Nro: " + h.getNumeroHabitacion() +
+                                                " | Tipo: " + h.getTipoHabitacion() +
+                                                " | Precio: $" + h.getValorDiario()
+                                ));
+                    }
 
-                        break;
+                    break;
 
-                    case 2: // Realizar Nueva Reserva
-                        System.out.println("\n--- CREACIÓN DE RESERVA ---");
-                        System.out.println("Ingrese número de habitación a reservar: ");
-                        int numHab = leerOpcion();
-                        Habitacion habitacionElegida = gestorHabitaciones.obtenerHabitacionXNumero(numHab);
+                case 2: // Realizar Nueva Reserva
+                    System.out.println("\n--- CREACIÓN DE RESERVA ---");
+                    System.out.println("Ingrese número de habitación a reservar: ");
+                    int numHab = leerOpcion();
+                    Habitacion habitacionElegida = gestorHabitaciones.obtenerHabitacionXNumero(numHab);
 
-                        if (habitacionElegida == null) {
-                            System.out.println("Habitación no encontrada.");
-                            break;
-                        }
-
-                        System.out.println("Ingrese la cantidad de días de reserva: ");
-                        int dias = leerOpcion();
-                        Date fechaIn = new Date();
-                        Date fechaOut = new Date(fechaIn.getTime() + (long) dias * 24 * 60 * 60 * 1000);
-
-                        gestorHabitaciones.crearReserva(pasajero, habitacionElegida, fechaIn, fechaOut);
-
-                        break;
-
-                    case 3:
-                        System.out.println("\n--- CAMBIAR CONTRASEÑA ---");
-                        System.out.println("Ingrese su Contraseña Actual: ");
-                        String oldPass = leerString();
-
-                        if (pasajero.validarContrasenia(oldPass)) {
-                            System.out.println("Contraseña Modificada");
-                        } else {
-                            System.out.println("Contraseña actual incorrecta. Operación cancelada.");
-                        }
-                        break;
-                    case 4: {
-                        System.out.println("Volvemos");
-                        mostrarMenuPasajero();
+                    if (habitacionElegida == null) {
+                        System.out.println("Habitación no encontrada.");
                         break;
                     }
 
-                    case 9:
-                        System.out.println("EXIT - Gracias por Visitarnos");
-                        usuarioActual = null;
-                        break;
+                    System.out.println("Ingrese la cantidad de días de reserva: ");
+                    int dias = leerOpcion();
+                    Date fechaIn = new Date();
+                    Date fechaOut = new Date(fechaIn.getTime() + (long) dias * 24 * 60 * 60 * 1000);
 
-                    default:
-                        System.out.println("EXIT - Gracias por Visitarnos");
-                        System.out.println("Opción inválida.");
-                        break;
+                    gestorHabitaciones.crearReserva(pasajero, habitacionElegida, fechaIn, fechaOut);
+
+                    break;
+
+                case 3:
+                    System.out.println("\n--- CAMBIAR CONTRASEÑA ---");
+                    System.out.println("Ingrese su Contraseña Actual: ");
+                    String oldPass = leerString();
+
+                    if (pasajero.validarContrasenia(oldPass)) {
+                        System.out.println("Contraseña Modificada");
+                    } else {
+                        System.out.println("Contraseña actual incorrecta. Operación cancelada.");
+                    }
+                    break;
+                case 4: {
+                    System.out.println("Volvemos");
+                    mostrarMenuPasajero();
+                    break;
                 }
-            } catch (Exception e) {
-                System.out.println("Error en la operación de Pasajero: " + e.getMessage());
-            }
-        }
 
-        private static void pausa () {
-            System.out.println("\nPresione Enter para volver al menú...");
-            teclado.nextLine();
+                case 9:
+                    System.out.println("EXIT - Gracias por Visitarnos");
+                    usuarioActual = null;
+                    break;
+
+                default:
+                    System.out.println("EXIT - Gracias por Visitarnos");
+                    System.out.println("Opción inválida.");
+                    break;
+            }
+        } catch (Exception e) {
+            System.out.println("Error en la operación de Pasajero: " + e.getMessage());
         }
+    }
+
+    private static void pausa() {
+        System.out.println("\nPresione Enter para volver al menú...");
+        teclado.nextLine();
+    }
 
     private static String leerString() {
         String linea;
@@ -647,4 +649,4 @@ public class App {
 
         return opcionNum;
     }
-    }
+}
