@@ -50,6 +50,8 @@ public class App {
             gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
 
             cargarAdminGenerico();
+            cargarRecepcionistaGenerico();
+            cargarPasajeroGenerico();
 
             System.out.println("Sistema cargado exitosamente");
 
