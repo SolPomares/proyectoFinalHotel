@@ -169,9 +169,9 @@ public class App {
     }
 
     public static void menuPrincipalLoop() {
-        int opcionMenu = -1;
+        boolean programaActivo = true;
 
-        do {
+        while (programaActivo) {
             // Si nadie está logueado, forzamos el login
             if (usuarioActual == null) {
                 //Aca puse este try/catch porque si ponias mal el login se rompia el programa
@@ -179,14 +179,10 @@ public class App {
                    usuarioActual = login();
                }catch (AccesoDenegadoException e){
                    System.out.println("ERROR DE VALIDACION - Vuelva a intentar");
+                   System.out.println("Presione enter para intentar de nuevo");
+                   teclado.nextLine();
+                   continue;
                }
-                if (usuarioActual == null) {
-                    System.out.println("\n¿Intentar de nuevo o Salir? (0 para salir, cualquier tecla para reintentar): ");
-                    String input = teclado.nextLine();
-                    if (input.equals("0")) {
-                        break;
-                    }
-                }
 
                 // Mostrar menú según el rol
                 System.out.println("\n=============================================");
