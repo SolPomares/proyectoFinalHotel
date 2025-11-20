@@ -175,14 +175,14 @@ public class App {
             // Si nadie está logueado, forzamos el login
             if (usuarioActual == null) {
                 //Aca puse este try/catch porque si ponias mal el login se rompia el programa
-               try {
-                   usuarioActual = login();
-               }catch (AccesoDenegadoException e){
-                   System.out.println("ERROR DE VALIDACION - Vuelva a intentar");
-                   System.out.println("Presione enter para intentar de nuevo");
-                   teclado.nextLine();
-                   continue;
-               }
+                try {
+                    usuarioActual = login();
+                } catch (AccesoDenegadoException e) {
+                    System.out.println("ERROR DE VALIDACION - Vuelva a intentar");
+                    System.out.println("Presione enter para intentar de nuevo");
+                    teclado.nextLine();
+                    continue;
+                }
 
                 // Mostrar menú según el rol
                 System.out.println("\n=============================================");
@@ -202,12 +202,9 @@ public class App {
                     default:
                         System.out.println("Rol no reconocido o sin acceso.");
                         usuarioActual = null;
-                        //opcionMenu = -1; //vuelvo al ingreso
                 }
             }
-            System.out.println("Desea Salir presione 0");
-            opcionMenu = leerOpcion();
-        } while (opcionMenu != 0);
+        }
     }
 
     //LOGIN
@@ -218,6 +215,7 @@ public class App {
         System.out.println("Contraseña: ");
         String pass = leerString();
 
+        // aca se gestiona el acceso
         Usuario usuarioEncontrado = gestorUsuarios.gestionarAcceso(user, pass);
 
         if (usuarioEncontrado != null) {
@@ -228,16 +226,22 @@ public class App {
 
     //Menus
     private static void mostrarMenuAdministrador() {
-
+    int opcion = 0;
+    boolean seguirEnPrograma = true;
         System.out.println("--- MENÚ ADMINISTRADOR ---");
         System.out.println("1. Alta de Nuevo Empleado");
         System.out.println("2. Baja de Empleado (por DNI)");
         System.out.println("3. Listar Todos los Empleados");
         System.out.println("4. Listar Todos los Usuarios");
         System.out.println("5. Buscar Usuario por DNI");
-        System.out.println("6. Volver al Mnu");
-        System.out.println("9. Cerrar Sesión");
-
+        System.out.println("6. LEER Archivo Habitaciones ");
+        System.out.println("7. GRABAR Archivo Habitaciones ");
+        System.out.println("8. Hacer BackUp de Usuarios");
+        System.out.println("9. Leer BackUp de Usuarios");
+        System.out.println("10. Asignar o Quitar Permisos de sistema");
+        System.out.println("0. Cerrar Sesión");
+        System.out.println("--------------------------------------------");
+        System.out.print("Elija una opción: ");
         int opcionM = leerOpcion();
         manejarOpcionAdministrador(opcionM);
     }
