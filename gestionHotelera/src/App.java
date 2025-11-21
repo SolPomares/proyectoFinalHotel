@@ -57,6 +57,8 @@ public class App {
 
             // Menú principal
            GestorMenu menu = new GestorMenu(gestorUsuarios, gestorHabitaciones);
+           //lo inicializo
+            menu.iniciarMenus();
 
         } catch (JSONException e) {
             throw new LecturaJsonException("Error cargando datos: " + e.getMessage());
@@ -65,15 +67,11 @@ public class App {
             e.printStackTrace();
             System.err.println("----------------------------------------------------------");
             throw new RuntimeException("Error Inesperado al inicializar");
-        } finally {
-            if (teclado != null) {
-                teclado.close();
-            }
         }
     }
 
     //Cargo ese primer admin/recepcionista/pasajero
-    private static void cargarAdminGenerico() {
+    private static void cargarAdminGenerico(SistemaHotel<Usuario> gestorUsuarios) {
         Usuario adminExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(ADMIN_USER);
 
         if (adminExistente == null) {
@@ -98,7 +96,7 @@ public class App {
         }
     }
 
-    private static void cargarRecepcionistaGenerico() {
+    private static void cargarRecepcionistaGenerico(SistemaHotel<Usuario> gestorUsuarios) {
         Usuario RecepcionistaExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(RECEP_USER);
 
         if (RecepcionistaExistente == null) {
@@ -125,7 +123,7 @@ public class App {
         }
     }
 
-    private static void cargarPasajeroGenerico() {
+    private static void cargarPasajeroGenerico(SistemaHotel<Usuario> gestorUsuarios) {
         Usuario PasajeroExistente = gestorUsuarios.buscarUsuarioPorNombreUsuario(PASAJERO_USER);
 
         if (PasajeroExistente == null) {
