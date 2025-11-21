@@ -27,9 +27,11 @@ public class App {
         try {
             // Cargar el sistema completo desde JSON
             System.out.println("Inicializando sistema hotelero...");
+            //cargo desde JSON
             List<Usuario> usuariosCargados = Utilidades.cargarUsuarios();
             List<Habitacion> habitacionesCargadas = Utilidades.cargarHabitaciones();
 
+            //convierto a ARRAY para poder trabajarlo
             // Si es nulo, creamos una lista vacía para evitar el NullPointerException
             /// Aca me ayude con chat pq no salia
             ArrayList<Usuario> usuarios = (usuariosCargados != null)
@@ -40,9 +42,13 @@ public class App {
                     ? new ArrayList<>(habitacionesCargadas)
                     : new ArrayList<>();
 
-            SistemaHotel<Usuario>gestorUsuarios = new SistemaHotel<>(usuarios);
-            gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
 
+            //inicio Sitemas gestores
+            SistemaHotel<Usuario>gestorUsuarios = new SistemaHotel<>(usuarios);
+            SistemaHabitaciones gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
+
+            //Carga 1 usuario de cada uno por defecto
+            // SAbemos que no es buena practica
             cargarAdminGenerico();
             cargarRecepcionistaGenerico();
             cargarPasajeroGenerico();
