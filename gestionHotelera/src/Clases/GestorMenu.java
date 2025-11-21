@@ -90,7 +90,7 @@ public class GestorMenu {
     }
 
     //Menus
-    private static boolean mostrarMenuAdministrador() {
+    private boolean mostrarMenuAdministrador() {
 
         boolean seguirEnPrograma = true;
 
@@ -518,12 +518,12 @@ public class GestorMenu {
 
 
     // Metodos accesorios
-    private static void pausa() {
+    private void pausa() {
         System.out.println("\nPresione Enter para volver al menú...");
         teclado.nextLine();
     }
 
-    private static String leerString() {
+    private  String leerString() {
         String linea;
         do {
             linea = teclado.nextLine().trim();
@@ -531,7 +531,7 @@ public class GestorMenu {
         return linea;
     }
 
-    private static int leerOpcion() {
+    private int leerOpcion() {
         int opcionNum = teclado.nextInt();
         teclado.nextLine();
 
