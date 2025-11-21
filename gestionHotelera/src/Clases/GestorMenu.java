@@ -17,7 +17,7 @@ public class GestorMenu {
     private Usuario usuarioActual;
 
     //constructor
-    public GestorMenu(SistemaHotel<Usuario> gestorUsuarios, SistemaHabitaciones gestorHabitaciones, Scanner teclado, Usuario usuarioActual) {
+    public GestorMenu(SistemaHotel<Usuario> gestorUsuarios, SistemaHabitaciones gestorHabitaciones) {
         this.gestorUsuarios = gestorUsuarios;
         this.gestorHabitaciones = gestorHabitaciones;
         this.teclado = new Scanner(System.in);

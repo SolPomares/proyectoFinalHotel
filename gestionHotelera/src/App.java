@@ -56,7 +56,7 @@ public class App {
             System.out.println("Sistema cargado exitosamente");
 
             // Menú principal
-            menuPrincipalLoop();
+           GestorMenu menu = new GestorMenu(gestorUsuarios, gestorHabitaciones);
 
         } catch (JSONException e) {
             throw new LecturaJsonException("Error cargando datos: " + e.getMessage());
