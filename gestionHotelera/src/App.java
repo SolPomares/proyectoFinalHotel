@@ -11,11 +11,6 @@ import java.util.*;
 
 
 public class App {
-    private static SistemaHotel<Usuario> gestorUsuarios;
-    private static SistemaHabitaciones gestorHabitaciones;
-    private static final Scanner teclado = new Scanner(System.in);
-    private static Usuario usuarioActual = null;
-
     // Credenciales del administrador genérico
     private static final String ADMIN_USER = "admin";
     private static final String ADMIN_PASS = "admin123";
@@ -45,7 +40,7 @@ public class App {
                     ? new ArrayList<>(habitacionesCargadas)
                     : new ArrayList<>();
 
-            gestorUsuarios = new SistemaHotel<>(usuarios);
+            SistemaHotel<Usuario>gestorUsuarios = new SistemaHotel<>(usuarios);
             gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
 
             cargarAdminGenerico();
