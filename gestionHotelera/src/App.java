@@ -44,20 +44,20 @@ public class App {
 
 
             //inicio Sitemas gestores
-            SistemaHotel<Usuario>gestorUsuarios = new SistemaHotel<>(usuarios);
+            SistemaHotel<Usuario> gestorUsuarios = new SistemaHotel<>(usuarios);
             SistemaHabitaciones gestorHabitaciones = new SistemaHabitaciones(habitaciones, new ArrayList<>());
 
             //Carga 1 usuario de cada uno por defecto
             // SAbemos que no es buena practica
-            cargarAdminGenerico();
-            cargarRecepcionistaGenerico();
-            cargarPasajeroGenerico();
+            cargarAdminGenerico(gestorUsuarios);
+            cargarRecepcionistaGenerico(gestorUsuarios);
+            cargarPasajeroGenerico(gestorUsuarios);
 
             System.out.println("Sistema cargado exitosamente");
 
             // Menú principal
-           GestorMenu menu = new GestorMenu(gestorUsuarios, gestorHabitaciones);
-           //lo inicializo
+            GestorMenu menu = new GestorMenu(gestorUsuarios, gestorHabitaciones);
+            //lo inicializo
             menu.iniciarMenus();
 
         } catch (JSONException e) {
@@ -145,4 +145,5 @@ public class App {
             }
         }
     }
+}
 
